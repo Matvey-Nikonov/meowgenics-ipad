@@ -101,7 +101,10 @@ The workspace symlink must point to the relocated source directory.
   before it can call unsupported shader-object dispatch through a null pointer.
   The fix is adapted from the MIT-licensed BAR-on-Apple-Silicon patches.
   Synthetic host regression tests cover reconstruction and failed/successful
-  dispatch; validation of the original explosion on iPad remains pending.
+  dispatch. After installation on 2026-10-01, the user confirmed that crashing
+  had stopped on the iPad Pro M5. The initial startup attempt failed; a
+  subsequent launch initialized graphics without shader errors in its captured
+  log. The cause of that initial startup failure remains undetermined.
 - Hide `VK_EXT_host_image_copy` from Windows Mesa: MoltenVK depth/stencil
   images require private memory, while host-copy usage excludes it. Without
   the guard, framebuffer allocation fails and every game draw is rejected.
