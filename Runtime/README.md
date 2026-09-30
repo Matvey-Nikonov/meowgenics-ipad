@@ -104,8 +104,12 @@ freeze remains an inference.
 
 Recovery for a recorded FEX lock held by a confirmed dead Mach thread remains
 unchanged. The rebuilt native object references those recovery functions and
-does not reference the heuristic. Device validation over a longer session is
-pending.
+does not reference the heuristic. The signed Release update was installed and
+launched with permission on the physical M5 iPad. Its captured startup log
+confirms JIT and creation of the 2752×2064 swapchain, with no unhandled exception
+or graphics-pipeline failure in that capture. Device validation over a longer
+session is pending; a successful startup does not establish that the recurring
+freeze is resolved.
 
 Logging retains four prior process logs: `Documents/madeira-log.prev.txt`,
 `madeira-log.prev2.txt`, `madeira-log.prev3.txt`, and `madeira-log.prev4.txt`.
@@ -120,6 +124,11 @@ swiftc -parse-as-library -module-cache-path "$MEWGENICS_CACHE/clang-modules" \
 "$MEWGENICS_CACHE/tmp/LogArchiveTests" \
   "$MEWGENICS_CACHE/diagnostics/log-archive-$(date +%Y%m%d-%H%M%S)"
 ```
+
+The on-device JIT handoff also retained the pre-update process log in
+`madeira-log.prev2.txt`; the downloaded archive matched the pre-install capture
+byte for byte. Private installation, startup and archive verification evidence
+is kept under the cache's `diagnostics/madeira` directory, outside Git.
 
 ## Compatibility changes
 
