@@ -72,10 +72,11 @@ case from starting everything with no network.
 
 ## 3. Set personal build configuration
 
-Clone this repository or download its source, then create the ignored local
-configuration:
+Clone the public repository, then create the ignored local configuration:
 
 ```sh
+git clone https://github.com/Matvey-Nikonov/meowgenics-ipad.git
+cd meowgenics-ipad
 mkdir -p .local
 cp config.example.sh .local/config.sh
 ```

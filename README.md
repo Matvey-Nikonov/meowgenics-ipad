@@ -11,6 +11,9 @@ provide the game executable, resource archive, commercial artwork, saves or a
 ready-to-play IPA. It is an unofficial project and is not affiliated with the
 game's developers.
 
+**Free and open source:** the project's original code and documentation use
+[GNU GPL v3 or later](LICENSE). See [License](#license) and [Credits](#credits).
+
 ## What works
 
 - Direct launch into Mewgenics, without Madeira's library interface.
@@ -72,3 +75,35 @@ settings because the tested configuration showed distracting background flicker.
 
 This repository does not publish binary releases or game assets. Dependency
 licenses and upstream notices continue to apply to the runtime and its patches.
+
+## License
+
+The project's original code and documentation are licensed under
+**GPL-3.0-or-later**, consistent with Madeira. You may use, study, modify and
+redistribute them, including commercially, under the license's terms. When
+distributing covered modifications, retain the notices and provide the
+corresponding source under the applicable GPL terms. The software comes without
+warranty. Read the complete [license](LICENSE) for the conditions.
+
+Third-party components keep their own licenses and applicable exceptions; see
+[the source and dependency notices](THIRD_PARTY_NOTICES.md). This license does
+not grant rights to Mewgenics itself, its assets, or proprietary dependencies.
+Each player must supply their own legally obtained game files.
+
+## Credits
+
+This project builds on the work of these upstream projects and their contributors:
+
+| Project | Contribution |
+| --- | --- |
+| [Madeira](https://github.com/willfaust/Madeira), by Will Faust and contributors | iOS runtime, Windows-game launch infrastructure and integration of the translation layers. |
+| [FEX-Emu](https://github.com/FEX-Emu/FEX) and [Madeira's FEX fork](https://github.com/willfaust/FEX) | Translation of x86-64 game code to ARM64. |
+| [Wine](https://www.winehq.org/) and [Madeira's Wine fork](https://github.com/willfaust/wine) | Windows API compatibility. |
+| [Mesa / Zink](https://docs.mesa3d.org/drivers/zink.html) and [Mesa Windows distribution](https://github.com/pal1000/mesa-dist-win) | OpenGL rendering through Vulkan and the Windows Mesa builds. |
+| [MoltenVK](https://github.com/KhronosGroup/MoltenVK) | Vulkan implementation over Apple's Metal graphics API. |
+| [DXMT](https://github.com/3Shain/dxmt) and [Madeira's DXMT fork](https://github.com/willfaust/dxmt) | Madeira's Direct3D/Metal infrastructure; this game's tested rendering path uses Zink. |
+| [StikDebug](https://github.com/StikDebug/StikDebug) and [idevice](https://github.com/jkcoxson/idevice) | On-device debugger/JIT setup and device communication. |
+
+LLVM/llvm-mingw, FreeType, FFmpeg, GnuTLS and other dependencies also retain
+their upstream credits and licenses. The pinned sources and license notices
+are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
