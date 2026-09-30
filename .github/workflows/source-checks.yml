@@ -5,8 +5,6 @@ permissions:
 jobs:
   source-only:
     runs-on: ubuntu-latest
-    env:
-      TMPDIR: ${{ runner.temp }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -17,9 +15,13 @@ jobs:
       - name: Check all reachable history
         run: python3 Scripts/audit-publication.py HEAD
       - name: Host tests
+        env:
+          TMPDIR: ${{ runner.temp }}
         run: |
           python3 Tests/test-runtime-diagnostics.py
           python3 Tests/test-setup-tools.py
           python3 Tests/test-publication-audit.py
       - name: Shell syntax
-        run: bash -n Scripts/madeira-runtime.sh .githooks/pre-push
+        run: |
+          bash -n Scripts/madeira-runtime.sh
+          sh -n .githooks/pre-push
