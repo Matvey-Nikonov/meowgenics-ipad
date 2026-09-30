@@ -138,6 +138,7 @@ canvas mode is not part of the recommended setup.
 
 ```sh
 bash Scripts/madeira-runtime.sh prepare
+bash Scripts/madeira-runtime.sh mesa
 bash Scripts/madeira-runtime.sh native
 bash Scripts/madeira-runtime.sh build
 ```
@@ -148,6 +149,13 @@ archive hashes, applies the source patches, and creates the ignored
 and stages the Microsoft runtime locally. Dependency downloads require network
 access. Microsoft's redistributable URL can change contents; a checksum failure
 must be investigated, not bypassed.
+
+`mesa` cross-compiles the pinned Mesa 25.1.9 Zink graphics DLLs with the MoltenVK
+shader-interface and failed-pipeline fixes. This requires Python build packages
+downloaded into a private cache environment. The replacement renderer is kept
+in `packages/mesa-zink-patched`, separate from the original downloaded package.
+`game` and `renderer zink` verify its patch and DLL hashes before uploading.
+Re-run `mesa` after changing `Runtime/Patches/mesa-zink.patch`.
 
 `native` builds the required native libraries. `build` produces an optimized
 Release app with development signing and verifies the app signature and required

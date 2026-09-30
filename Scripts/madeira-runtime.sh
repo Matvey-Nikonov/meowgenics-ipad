@@ -35,6 +35,9 @@ case "${1:-help}" in
   prepare)
     python3 "$ROOT/Scripts/prepare-madeira.py" "$CACHE"
     ;;
+  mesa)
+    python3 "$ROOT/Scripts/build-mesa-zink.py" "$CACHE"
+    ;;
   native)
     cd "$SOURCE"
     bash build/ffmpeg/build.sh
@@ -131,6 +134,7 @@ PY
     ;;
   game)
     device
+    python3 "$ROOT/Scripts/build-mesa-zink.py" "$CACHE" --check
     # Validate before uploading anything; the original installation is untouched.
     test -f "$GAME_DIR/resources.gpak" || { echo 'Missing resources.gpak in MEWGENICS_GAME_DIR' >&2; exit 2; }
     python3 "$ROOT/Scripts/patch-game-pools.py" "$GAME_DIR/Mewgenics.exe" "$CACHE/patched-game/Mewgenics.exe"
@@ -142,8 +146,8 @@ PY
       --destination Documents/wine/drive_c/Mewgenics/Mewgenics.exe \
       --domain-type appDataContainer --domain-identifier "$BUNDLE"
     xcrun devicectl device copy to --device "$DEVICE_UDID" \
-      --source "$CACHE/packages/mesa-zink/x64/opengl32.dll" \
-      --source "$CACHE/packages/mesa-zink/x64/libgallium_wgl.dll" \
+      --source "$CACHE/packages/mesa-zink-patched/x64/opengl32.dll" \
+      --source "$CACHE/packages/mesa-zink-patched/x64/libgallium_wgl.dll" \
       --destination Documents/wine/drive_c/Mewgenics \
       --domain-type appDataContainer --domain-identifier "$BUNDLE"
     ;;
@@ -154,7 +158,10 @@ PY
   renderer)
     device
     case "${2:-}" in
-      zink) MESA_PACKAGE=mesa-zink ;;
+      zink)
+        python3 "$ROOT/Scripts/build-mesa-zink.py" "$CACHE" --check
+        MESA_PACKAGE=mesa-zink-patched
+        ;;
       llvmpipe) MESA_PACKAGE=mesa ;;
       *) echo "Usage: $0 renderer {zink|llvmpipe}" >&2; exit 2 ;;
     esac
@@ -200,7 +207,7 @@ PY
       --domain-type appDataContainer --domain-identifier "$BUNDLE"
     ;;
   *)
-    echo "Usage: $0 {prepare|native|build|install|game|configure|diagnostics off|diagnostics stats|diagnostics full|renderer zink|renderer llvmpipe|launch|log}"
+    echo "Usage: $0 {prepare|mesa|native|build|install|game|configure|diagnostics off|diagnostics stats|diagnostics full|renderer zink|renderer llvmpipe|launch|log}"
     echo "Copy config.example.sh to .local/config.sh; set your own paths, signing and device."
     echo "Release builds are default; MEWGENICS_CONFIGURATION=Debug selects the diagnostic build."
     ;;

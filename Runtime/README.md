@@ -18,6 +18,7 @@ bundle identifier, device ID and cache path in `.local/config.sh`.
 
 ```sh
 bash Scripts/madeira-runtime.sh prepare
+bash Scripts/madeira-runtime.sh mesa
 bash Scripts/madeira-runtime.sh native
 bash Scripts/madeira-runtime.sh build
 bash Scripts/madeira-runtime.sh install
@@ -37,6 +38,16 @@ libraries. `build` compiles and verifies the signed iPad app. `game` copies the
 supplied assets and Mesa DLLs and stages a compatibility-patched executable.
 The original `MEWGENICS_GAME_DIR/Mewgenics.exe` is never modified. Neither that
 executable nor its 5.1 GB resource archive is committed.
+
+`mesa` builds the patched Windows Zink renderer from pinned source. Its host
+regression test executes extracted production functions with synthetic NIR and
+Vulkan-call fixtures (it does not render on a GPU):
+
+```sh
+python3 Tests/test-mesa-zink.py \
+  --source "$MEWGENICS_CACHE/sources/mesa-mirror-mesa-25.1.9" \
+  --output "$MEWGENICS_CACHE/diagnostics/mesa-zink-host"
+```
 
 `build` and `install` default to an optimized Release app with development
 signing: Swift uses `-O` with whole-module optimization and the app's native
@@ -61,7 +72,8 @@ metrics without the detailed graphics probes; `full` also enables Vulkan
 timings, drawable inspection, window-tree dumps and periodic thread stacks. Normal play retains
 errors and lifecycle logs but disables both periodic diagnostic groups.
 
-`renderer zink` installs Mesa 25.1.9 and its matching GPU configuration;
+`mesa` builds the patched Mesa 25.1.9 DLLs locally. `renderer zink` installs
+those DLLs and their matching GPU configuration;
 `renderer llvmpipe` restores the Mesa 26.2.3 software fallback. Both preserve
 unrelated configuration and saves. Restart after switching. `Profiles/zink.cfg`
 and `Profiles/native-settings.txt` document the native-resolution settings.
@@ -81,6 +93,15 @@ The workspace symlink must point to the relocated source directory.
   MoltenVK 1.4.2. The device reports `Apple M5 GPU (MOLTENVK)`.
   Mesa 26 requires `nullDescriptor`, which this MoltenVK lacks. Mesa 26.2.3
   LLVMpipe remains available as a slower software fallback.
+- `mesa-zink.patch` reconstructs ordinary 32-bit vertex-output/fragment-input
+  slots as whole vec4 values on MoltenVK, merging disjoint fragment loads.
+  Other drivers, builtins, arrays and other shader stages retain their existing
+  handling. This targets the `user(locn2_3),user(locn3_3)` Metal interface error
+  logged during a Rat Bomb explosion. Zink also skips a failed pipeline draw
+  before it can call unsupported shader-object dispatch through a null pointer.
+  The fix is adapted from the MIT-licensed BAR-on-Apple-Silicon patches.
+  Synthetic host regression tests cover reconstruction and failed/successful
+  dispatch; validation of the original explosion on iPad remains pending.
 - Hide `VK_EXT_host_image_copy` from Windows Mesa: MoltenVK depth/stencil
   images require private memory, while host-copy usage excludes it. Without
   the guard, framebuffer allocation fails and every game draw is rejected.

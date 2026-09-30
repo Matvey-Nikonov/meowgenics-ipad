@@ -14,9 +14,38 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 config = runpy.run_path(str(ROOT / "Scripts/configure-device.py"))
 icons = runpy.run_path(str(ROOT / "Scripts/stage-app-icon.py"))
+mesa = runpy.run_path(str(ROOT / "Scripts/build-mesa-zink.py"))
 
 
 class SetupTools(unittest.TestCase):
+    def test_renderer_upload_requires_matching_complete_build(self):
+        with tempfile.TemporaryDirectory(dir=os.environ["TMPDIR"]) as temp:
+            cache = Path(temp)
+            with self.assertRaises(SystemExit):
+                mesa["check_package"](cache)
+            package = cache / "packages/mesa-zink-patched"
+            (package / "x64").mkdir(parents=True)
+            hashes = {}
+            for name in ("opengl32.dll", "libgallium_wgl.dll"):
+                dll = package / "x64" / name
+                dll.write_bytes(b"synthetic fixture, not a real DLL")
+                hashes[name] = mesa["digest"](dll)
+            metadata = {"source_sha256": mesa["SOURCE_SHA"],
+                        "patch_sha256": mesa["digest"](ROOT / "Runtime/Patches/mesa-zink.patch"),
+                        "dll_sha256": hashes}
+            manifest = package / "build.json"
+            manifest.write_text(json.dumps(metadata))
+            mesa["check_package"](cache)
+            metadata["patch_sha256"] = "stale patch"
+            manifest.write_text(json.dumps(metadata))
+            with self.assertRaises(SystemExit):
+                mesa["check_package"](cache)
+            metadata["patch_sha256"] = mesa["digest"](ROOT / "Runtime/Patches/mesa-zink.patch")
+            manifest.write_text(json.dumps(metadata))
+            dll.write_bytes(b"partial replacement")
+            with self.assertRaises(SystemExit):
+                mesa["check_package"](cache)
+
     def test_build_script_without_private_icon(self):
         # Exercise the real shell entry point; only Xcode/signing are mocked.
         # In particular this covers macOS Bash 3 with set -u and no icon option.

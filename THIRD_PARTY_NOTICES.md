@@ -15,6 +15,7 @@ material or proprietary game/Apple/Microsoft files.
 | `Runtime/Patches/fex.patch` | [FEX fork](https://github.com/willfaust/FEX/tree/26859e184ad90f0e811d7f8bbd943a4b1573a2c3), [MIT](LICENSES/FEX-MIT.txt). |
 | `Runtime/Patches/dxmt.patch` | [DXMT fork](https://github.com/willfaust/dxmt/tree/a5e0cd3d41bf248fd1c030a2e1c515ba3522f4ef), [MIT](LICENSES/DXMT-MIT.txt); embedded components retain their own notices. |
 | `Runtime/Patches/wine.patch` and Wine-derived baseline in `Tests/test-wine-path-resolution.py` | [Wine fork](https://github.com/willfaust/wine/tree/074e0e368b634fe6e01dc774a7221410d4d92458), LGPL-2.1-or-later; see [license text](LICENSES/Wine-LGPL-2.1.txt) and source attribution in the test. |
+| `Runtime/Patches/mesa-zink.patch` | [Mesa 25.1.9](https://gitlab.freedesktop.org/mesa/mesa/-/tree/mesa-25.1.9), MIT; shader-interface and failed-pipeline changes adapted from [bar-on-apple-silicon](https://github.com/Meliorative-peasant63/bar-on-apple-silicon/blob/main/patches/mesa-bar-patches.diff), with its [MIT notice](LICENSES/BAR-Mesa-MIT.txt). Mesa copyright and permission notice: [Mesa-Zink-MIT.txt](LICENSES/Mesa-Zink-MIT.txt). |
 
 The scripts obtain other dependencies directly from upstream, outside this Git
 repository: Mesa, MoltenVK, LLVM/llvm-mingw, FreeType and the Microsoft Visual C++

@@ -1,0 +1,188 @@
+--- a/src/gallium/drivers/zink/zink_compiler.c
++++ b/src/gallium/drivers/zink/zink_compiler.c
+@@ -5157,6 +5157,7 @@
+ struct rework_io_state {
+    /* these are search criteria */
+    bool indirect_only;
++   bool moltenvk_io;
+    unsigned location;
+    nir_variable_mode mode;
+    gl_shader_stage stage;
+@@ -5177,6 +5178,20 @@
+    /* must be last */
+    char *newname;
+ };
++
++/* MoltenVK links stage interfaces by location AND component. Keep ordinary
++ * 32-bit user varyings whole; do not widen builtins, arrays or other stages.
++ * Adapted from bar-on-apple-silicon (MIT); see the accompanying license.
++ */
++static bool
++moltenvk_whole_io_slot(const struct rework_io_state *ris)
++{
++   return ris->moltenvk_io && ris->location >= VARYING_SLOT_VAR0 &&
++          ris->location <= VARYING_SLOT_VAR31 && ris->bit_size == 32 &&
++          !ris->arrayed_io && !ris->array_size && !ris->fb_fetch_output &&
++          ((ris->mode == nir_var_shader_in && ris->stage == MESA_SHADER_FRAGMENT) ||
++           (ris->mode == nir_var_shader_out && ris->stage == MESA_SHADER_VERTEX));
++}
+ 
+ /* match an existing variable against the rework state */
+ static nir_variable *
+@@ -5254,7 +5269,14 @@
+     * - ignore no-overlapping-components case
+     * - always match fbfetch and dual src blend
+     */
+-   if (ris->component_mask &&
++   /* Merge disjoint FS loads (.xy and .w) before creating the vec4 slot. */
++   bool merge_disjoint = moltenvk_whole_io_slot(ris) &&
++                         ris->stage == MESA_SHADER_FRAGMENT &&
++                         intr->def.bit_size == 32 && !io_instr_is_arrayed(intr) &&
++                         sem.num_slots == 1 &&
++                         ris->fb_fetch_output == sem.fb_fetch_output &&
++                         ris->dual_source_blend_index == sem.dual_source_blend_index;
++   if (ris->component_mask && !merge_disjoint &&
+        (!(ris->component_mask & cmask) || ris->fb_fetch_output != sem.fb_fetch_output || ris->dual_source_blend_index != sem.dual_source_blend_index)) {
+       ris->ignored_component_mask |= cmask;
+       return;
+@@ -5341,16 +5363,17 @@
+ 
+ /* scan a given i/o slot for state info */
+ static struct rework_io_state
+-scan_io_var_slot(nir_shader *nir, nir_variable_mode mode, unsigned location, bool scan_indirects)
++scan_io_var_slot(nir_shader *nir, nir_variable_mode mode, unsigned location, bool scan_indirects, bool moltenvk_io)
+ {
+    struct rework_io_state ris = {
+       .location = location,
+       .mode = mode,
+       .stage = nir->info.stage,
+       .nir = nir,
++      .moltenvk_io = moltenvk_io,
+    };
+ 
+-   struct rework_io_state test;
++   struct rework_io_state test = {0};
+    do {
+       update_io_var_name(&test, ris.newname ? ris.newname : ris.name);
+       test = ris;
+@@ -5390,6 +5413,10 @@
+    }
+    /* calculate vec/array type */
+    int frac = ffs(ris->component_mask) - 1;
++   if (moltenvk_whole_io_slot(ris)) {
++      ris->component_mask = BITFIELD_MASK(4);
++      frac = 0;
++   }
+    int num_components = util_last_bit(ris->component_mask) - frac;
+    assert(ris->component_mask == BITFIELD_RANGE(frac, num_components));
+    const struct glsl_type *vec_type = glsl_vector_type(nir_get_glsl_base_type_for_nir_type(ris->type), num_components);
+@@ -5423,7 +5450,7 @@
+ 
+ /* loop the i/o mask and generate variables for specified locations */
+ static void
+-loop_io_var_mask(nir_shader *nir, nir_variable_mode mode, bool indirect, bool patch, uint64_t mask)
++loop_io_var_mask(nir_shader *nir, nir_variable_mode mode, bool indirect, bool patch, uint64_t mask, bool moltenvk_io)
+ {
+    ASSERTED bool is_vertex_input = nir->info.stage == MESA_SHADER_VERTEX && mode == nir_var_shader_in;
+    u_foreach_bit64(slot, mask) {
+@@ -5437,7 +5464,7 @@
+       unsigned remaining = 0;
+       do {
+          /* scan the slot for usage */
+-         struct rework_io_state ris = scan_io_var_slot(nir, mode, location, indirect);
++         struct rework_io_state ris = scan_io_var_slot(nir, mode, location, indirect, moltenvk_io);
+          /* one of these must be true or things have gone very wrong */
+          assert(indirect || ris.component_mask || find_rework_var(nir, &ris) || remaining);
+          /* release builds only */
+@@ -5455,7 +5482,7 @@
+ 
+ /* for a given mode, generate variables */
+ static void
+-rework_io_vars(nir_shader *nir, nir_variable_mode mode, struct zink_shader *zs)
++rework_io_vars(nir_shader *nir, nir_variable_mode mode, struct zink_shader *zs, bool moltenvk_io)
+ {
+    assert(mode == nir_var_shader_out || mode == nir_var_shader_in);
+    assert(util_bitcount(mode) == 1);
+@@ -5499,7 +5526,7 @@
+          }
+       }
+       /* the rest of the outputs can be generated normally */
+-      loop_io_var_mask(nir, mode, false, false, outputs_accessed);
++      loop_io_var_mask(nir, mode, false, false, outputs_accessed, moltenvk_io);
+       return;
+    }
+ 
+@@ -5519,13 +5546,13 @@
+             .bit_size = 32,
+             .component_mask = component_mask,
+             .type = nir_type_float32,
+-            .newname = scan_io_var_slot(nir, nir_var_shader_in, slot, false).newname,
++            .newname = scan_io_var_slot(nir, nir_var_shader_in, slot, false, moltenvk_io).newname,
+          };
+          create_io_var(nir, &ris);
+          inputs_read &= ~BITFIELD64_BIT(slot);
+       }
+       /* the rest of the inputs can be generated normally */
+-      loop_io_var_mask(nir, mode, false, false, inputs_read);
++      loop_io_var_mask(nir, mode, false, false, inputs_read, moltenvk_io);
+       return;
+    }
+ 
+@@ -5623,13 +5650,13 @@
+       uint64_t indirect_patch_mask = mode == nir_var_shader_in ? nir->info.patch_inputs_read_indirectly : nir->info.patch_outputs_accessed_indirectly;
+       uint64_t patch_mask = mode == nir_var_shader_in ? nir->info.patch_inputs_read : patch_outputs_accessed;
+ 
+-      loop_io_var_mask(nir, mode, true, true, indirect_patch_mask);
+-      loop_io_var_mask(nir, mode, false, true, patch_mask);
++      loop_io_var_mask(nir, mode, true, true, indirect_patch_mask, moltenvk_io);
++      loop_io_var_mask(nir, mode, false, true, patch_mask, moltenvk_io);
+    }
+ 
+    /* regular i/o */
+-   loop_io_var_mask(nir, mode, true, false, indirect_mask);
+-   loop_io_var_mask(nir, mode, false, false, mask);
++   loop_io_var_mask(nir, mode, true, false, indirect_mask, moltenvk_io);
++   loop_io_var_mask(nir, mode, false, false, mask, moltenvk_io);
+ }
+ 
+ static int
+@@ -6209,8 +6236,8 @@
+    NIR_PASS_V(nir, nir_opt_vectorize, NULL, NULL);
+    NIR_PASS_V(nir, trivial_revectorize);
+    if (nir->info.io_lowered) {
+-      rework_io_vars(nir, nir_var_shader_in, zs);
+-      rework_io_vars(nir, nir_var_shader_out, zs);
++      rework_io_vars(nir, nir_var_shader_in, zs, zink_driverid(screen) == VK_DRIVER_ID_MOLTENVK);
++      rework_io_vars(nir, nir_var_shader_out, zs, zink_driverid(screen) == VK_DRIVER_ID_MOLTENVK);
+       nir_sort_variables_by_location(nir, nir_var_shader_in);
+       nir_sort_variables_by_location(nir, nir_var_shader_out);
+    }
+diff --git a/src/gallium/drivers/zink/zink_draw.cpp b/src/gallium/drivers/zink/zink_draw.cpp
+index 30b5af4c..3e589c05 100644
+--- a/src/gallium/drivers/zink/zink_draw.cpp
++++ b/src/gallium/drivers/zink/zink_draw.cpp
+@@ -269,6 +269,14 @@ update_gfx_pipeline(struct zink_context *ctx, struct zink_batch_state *bs, enum
+          pipeline = zink_get_gfx_pipeline<DYNAMIC_STATE, true>(ctx, ctx->curr_program, &ctx->gfx_pipeline_state, mode);
+       else
+          pipeline = zink_get_gfx_pipeline<DYNAMIC_STATE, false>(ctx, ctx->curr_program, &ctx->gfx_pipeline_state, mode);
++      /* BAR-on-mac: host driver may fail pipeline compile; flag so the
++       * caller can skip the draw instead of falling into the shader-object
++       * path (unsupported on this stack).
++       */
++      if (!pipeline) {
++         ctx->gfx_pipeline_state.pipeline = VK_NULL_HANDLE;
++         return false;
++      }
+    }
+    if (pipeline) {
+       pipeline_changed = prev_pipeline != pipeline;
+@@ -520,6 +528,9 @@ zink_draw(struct pipe_context *pctx,
+       zink_emit_stream_output_targets(pctx);
+ 
+    bool pipeline_changed = update_gfx_pipeline<DYNAMIC_STATE, BATCH_CHANGED>(ctx, bs, mode);
++   /* BAR-on-mac: pipeline compile failed; skip this draw */
++   if (!ctx->curr_program->base.uses_shobj && !ctx->gfx_pipeline_state.pipeline)
++      return;
+ 
+    if (BATCH_CHANGED || ctx->vp_state_changed || (DYNAMIC_STATE == ZINK_NO_DYNAMIC_STATE && pipeline_changed)) {
+       VkViewport viewports[PIPE_MAX_VIEWPORTS];
