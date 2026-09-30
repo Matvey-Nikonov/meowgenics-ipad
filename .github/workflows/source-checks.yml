@@ -1,0 +1,25 @@
+name: Source checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  source-only:
+    runs-on: ubuntu-latest
+    env:
+      TMPDIR: ${{ runner.temp }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check all reachable history
+        run: python3 Scripts/audit-publication.py HEAD
+      - name: Host tests
+        run: |
+          python3 Tests/test-runtime-diagnostics.py
+          python3 Tests/test-setup-tools.py
+          python3 Tests/test-publication-audit.py
+      - name: Shell syntax
+        run: bash -n Scripts/madeira-runtime.sh .githooks/pre-push

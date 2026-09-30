@@ -1,0 +1,7 @@
+antialias 0
+render_scale 0.5
+noise_and_grain off
+vignette_flicker off
+vsync false
+unlock_framerate false
+framerate_cap 30

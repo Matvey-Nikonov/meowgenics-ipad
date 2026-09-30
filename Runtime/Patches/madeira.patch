@@ -1,0 +1,3052 @@
+diff --git a/app/Madeira.xcodeproj/project.pbxproj b/app/Madeira.xcodeproj/project.pbxproj
+index c90efd7..69f08a9 100644
+--- a/app/Madeira.xcodeproj/project.pbxproj
++++ b/app/Madeira.xcodeproj/project.pbxproj
+@@ -7,6 +7,7 @@
+ 	objects = {
+ 
+ /* Begin PBXBuildFile section */
++		A1000700 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000700 /* Assets.xcassets */; };
+ 		A1000520 /* MadeiraDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000520 /* MadeiraDock.swift */; };
+ 		A1000521 /* MadeiraDockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000521 /* MadeiraDockView.swift */; };
+ 		A1000650 /* DockStartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000650 /* DockStartScreen.swift */; };
+@@ -116,6 +117,7 @@
+ /* End PBXBuildFile section */
+ 
+ /* Begin PBXFileReference section */
++		A2000700 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+ 		A2000520 /* MadeiraDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MadeiraDock.swift"; sourceTree = "<group>"; };
+ 		A2000521 /* MadeiraDockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MadeiraDockView.swift"; sourceTree = "<group>"; };
+ 		A2000650 /* DockStartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DockStartScreen.swift"; sourceTree = "<group>"; };
+@@ -336,6 +338,7 @@
+ 				A2000518 /* SteamDevice.swift */,
+ 				A2000519 /* SteamLog.swift */,
+ 				A2000001 /* MadeiraApp.swift */,
++				A2000700 /* Assets.xcassets */,
+ 				A2000245 /* TouchGamepad.swift */,
+ 				A2000246 /* TouchControlPresets.swift */,
+ 				A2000244 /* Winios/WiniosGamepad.c */,
+@@ -491,6 +494,7 @@
+ 			buildActionMask = 2147483647;
+ 			files = (
+ 				A1000022 /* nls in Resources */,
++				A1000700 /* Assets.xcassets in Resources */,
+ 				A1000032 /* aarch64-windows in Resources */,
+ 				A10000F1 /* legal in Resources */,
+ 				A1000080 /* arm64ec-windows in Resources */,
+@@ -644,6 +648,7 @@
+ 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+ 				ENABLE_NS_ASSERTIONS = NO;
+ 				ENABLE_STRICT_OBJC_MSGSEND = YES;
++				GCC_OPTIMIZATION_LEVEL = 2;
+ 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+ 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+ 				GCC_WARN_UNDECLARED_SELECTOR = YES;
+@@ -655,6 +660,7 @@
+ 				MTL_FAST_MATH = YES;
+ 				SDKROOT = iphoneos;
+ 				SWIFT_COMPILATION_MODE = wholemodule;
++				SWIFT_OPTIMIZATION_LEVEL = "-O";
+ 				VALIDATE_PRODUCT = YES;
+ 			};
+ 			name = Release;
+@@ -664,10 +670,11 @@
+ 			buildSettings = {
+ 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ 				CODE_SIGN_ENTITLEMENTS = Madeira/Madeira.entitlements;
++				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ 				CODE_SIGN_IDENTITY = "Apple Development";
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 1;
+-				DEVELOPMENT_TEAM = V8NU3FX3TL;
++				DEVELOPMENT_TEAM = "";
+ 				GENERATE_INFOPLIST_FILE = NO;
+ 				HEADER_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -699,15 +706,16 @@
+ 					"$(SRCROOT)/Madeira",
+ 				);
+ 				MARKETING_VERSION = 0.1.0;
+-				PRODUCT_BUNDLE_IDENTIFIER = com.willfaust.madeora;
+-				PRODUCT_NAME = "$(TARGET_NAME)";
++				OTHER_LDFLAGS = ("$(inherited)", "-lcurses", "-force_load", "$(SRCROOT)/Madeira/libMoltenVK.a");
++				PRODUCT_BUNDLE_IDENTIFIER = org.example.mewgenics;
++				PRODUCT_NAME = Mewgenics;
+ 				PROVISIONING_PROFILE_SPECIFIER = "";
+ 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+ 				SUPPORTS_MACCATALYST = NO;
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+ 				SWIFT_OBJC_BRIDGING_HEADER = "Madeira/Madeira-Bridging-Header.h";
+ 				SWIFT_VERSION = 5.0;
+-				TARGETED_DEVICE_FAMILY = "1,2";
++				TARGETED_DEVICE_FAMILY = 2;
+ 			};
+ 			name = Debug;
+ 		};
+@@ -716,9 +724,11 @@
+ 			buildSettings = {
+ 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+ 				CODE_SIGN_ENTITLEMENTS = Madeira/Madeira.entitlements;
++				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
++				CODE_SIGN_IDENTITY = "Apple Development";
+ 				CODE_SIGN_STYLE = Automatic;
+ 				CURRENT_PROJECT_VERSION = 1;
+-				DEVELOPMENT_TEAM = V8NU3FX3TL;
++				DEVELOPMENT_TEAM = "";
+ 				GENERATE_INFOPLIST_FILE = NO;
+ 				HEADER_SEARCH_PATHS = (
+ 					"$(inherited)",
+@@ -750,14 +760,15 @@
+ 					"$(SRCROOT)/Madeira",
+ 				);
+ 				MARKETING_VERSION = 0.1.0;
+-				PRODUCT_BUNDLE_IDENTIFIER = com.willfaust.madeora;
+-				PRODUCT_NAME = "$(TARGET_NAME)";
++				OTHER_LDFLAGS = ("$(inherited)", "-lcurses", "-force_load", "$(SRCROOT)/Madeira/libMoltenVK.a");
++				PRODUCT_BUNDLE_IDENTIFIER = org.example.mewgenics;
++				PRODUCT_NAME = Mewgenics;
+ 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+ 				SUPPORTS_MACCATALYST = NO;
+ 				SWIFT_EMIT_LOC_STRINGS = YES;
+ 				SWIFT_OBJC_BRIDGING_HEADER = "Madeira/Madeira-Bridging-Header.h";
+ 				SWIFT_VERSION = 5.0;
+-				TARGETED_DEVICE_FAMILY = "1,2";
++				TARGETED_DEVICE_FAMILY = 2;
+ 			};
+ 			name = Release;
+ 		};
+diff --git a/app/Madeira/ContentView.swift b/app/Madeira/ContentView.swift
+index 69d4184..250bb7d 100644
+--- a/app/Madeira/ContentView.swift
++++ b/app/Madeira/ContentView.swift
+@@ -90,6 +90,9 @@ final class MetalBackedView: UIView {
+     // Run) directly instead of relying on the browse list.
+     static weak var keyboardTarget: MetalBackedView?
+     override var canBecomeFirstResponder: Bool { true }
++    override var editingInteractionConfiguration: UIEditingInteractionConfiguration {
++        HardwareInput.mewgenicsGestures ? .none : super.editingInteractionConfiguration
++    }
+     static func toggleKeyboard() {
+         guard let v = keyboardTarget else { return }
+         if v.isFirstResponder { v.resignFirstResponder() }
+@@ -220,7 +223,13 @@ final class MetalBackedView: UIView {
+ 
+     override func didMoveToWindow() {
+         super.didMoveToWindow()
+-        guard let w = window else { return }   // detach: leave the host be
++        guard let w = window else {
++            cancelGameGestures()
++            HardwareInput.shared.releaseGameGestures()
++            return  // detach: leave the host be
++        }
++        if let scene = w.windowScene { MewgenicsStatusHost.attach(to: scene) }
++        w.windowScene?.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+         MetalBackedView.keyboardTarget = self  // keyboard button targets the live view
+         // SwiftUI ancestors attach gesture recognizers that can delay or
+         // cancel raw touch delivery (double-tap timing is exactly what
+@@ -274,6 +283,82 @@ final class MetalBackedView: UIView {
+         mapPoint(touch.location(in: self))
+     }
+ 
++    /// Pencil hover uses the very same surface transform as contact, without
++    /// pressing a button or interfering with a drag already in progress.
++    func pencilHovered(at point: CGPoint) {
++        guard tmDownPoints.isEmpty, !tmResolved else { return }
++        if HardwareInput.mewgenicsGestures, !HardwareInput.shared.gameGesturesAllowed() { return }
++        let (x, y) = mapPoint(point)
++        gamePointerPosition = (x, y)
++        winios_pointer(x, y, F_MOVE | F_ABS, 0)
++    }
++
++    private var gamePointerPosition: (Int32, Int32)?
++    private var pencilRightHeld = false
++    private var pencilSqueezeBlocked = false
++
++    private func gameGesturePosition(_ point: CGPoint? = nil) -> (Int32, Int32) {
++        if let point { gamePointerPosition = mapPoint(point) }
++        if let position = gamePointerPosition { return position }
++        var cursor = winios_direct_cursor_state()
++        winios_direct_cursor_get(&cursor)
++        return (cursor.x, cursor.y)
++    }
++
++    func pencilDoubleTapped(at point: CGPoint?) {
++        guard HardwareInput.shared.gameGesturesAllowed() else { return }
++        if let point, tmActiveTouches.isEmpty { pencilHovered(at: point) }
++        HardwareInput.shared.toggleTacticalView()
++    }
++
++    @available(iOS 17.5, *)
++    func pencilSqueezed(_ squeeze: UIPencilInteraction.Squeeze) {
++        let hw = HardwareInput.shared
++        switch squeeze.phase {
++        case .began:
++            pencilSqueezeBlocked = !hw.gameGesturesAllowed()
++            guard !pencilSqueezeBlocked else { return }
++            cancelTouchSequence()
++            pencilRightHeld = true
++            hw.setGameRightButton(true, at: gameGesturePosition(squeeze.hoverPose?.location))
++        case .changed:
++            guard pencilRightHeld, !pencilSqueezeBlocked, hw.gameGesturesAllowed() else { return }
++            if let point = squeeze.hoverPose?.location {
++                let (x, y) = gameGesturePosition(point)
++                winios_pointer(x, y, F_MOVE | F_ABS, 0)
++            }
++        case .ended:
++            defer { pencilSqueezeBlocked = false }
++            if pencilRightHeld {
++                pencilRightHeld = false
++                hw.setGameRightButton(false)
++            } else if !pencilSqueezeBlocked, hw.gameGesturesAllowed() {
++                // UIKit also delivers discrete squeezes as .ended only.
++                cancelTouchSequence()
++                hw.setGameRightButton(true, at: gameGesturePosition(squeeze.hoverPose?.location))
++                hw.setGameRightButton(false)
++            }
++        case .cancelled:
++            pencilSqueezeBlocked = false
++            if pencilRightHeld { pencilRightHeld = false; hw.setGameRightButton(false) }
++        @unknown default: cancelGameGestures()
++        }
++    }
++
++    /// Called by the existing focus observer and on view removal. UIKit may
++    /// never deliver the old contacts' terminal events after either, so drop
++    /// their identities; late move/end callbacks are ignored as untracked.
++    func cancelGameGestures() {
++        guard HardwareInput.mewgenicsGestures else { return }
++        cancelTouchSequence()
++        tmResetGesture()
++        if pencilRightHeld {
++            pencilRightHeld = false
++            pencilSqueezeBlocked = true
++            HardwareInput.shared.setGameRightButton(false)
++        }
++    }
++
+     /// Same mapping for any point (a multi-finger midpoint, a touch's down
+     /// point). In a desktop session the compositor letterboxes the desktop in
+     /// its own frame, so it does the mapping.
+@@ -297,10 +382,17 @@ final class MetalBackedView: UIView {
+     //   hold (0.25 s) or move — left button down at the touch point, drag, lift
+     //   two / three-finger tap — right / middle click at the fingers' midpoint
+     //   two-finger drag       — scroll wheel
++    // Mewgenics additionally uses pinch for zoom, two-finger hold for examine,
++    // three-finger tap for Escape, three-finger hold for Tactical View, and
++    // four-finger hold for the existing software keyboard (no extra toolbar).
+     // The drawn cursor jumps to the finger at once; nothing is posted until
+     // the gesture resolves, so a multi-finger tap never leaves a stray click.
+     // ==================================================================
+     private var tmDownPoints: [ObjectIdentifier: CGPoint] = [:]
++    private var tmActiveTouches: [ObjectIdentifier: UITouch] = [:]
++    private var tmSequenceEnding = false
++    private var tmShortcutFired = false
++    private var tmRightHeld = false
+     private var tmGestureDownPoint = CGPoint.zero
+     private var tmPeak = 0
+     private var tmResolved = false
+@@ -309,6 +401,11 @@ final class MetalBackedView: UIView {
+     private var tmGeneration = 0
+     private var tmTwoFingerLastY: CGFloat = 0
+     private var tmScrollAccum: CGFloat = 0
++    private var tmTwoFingerStart = CGPoint.zero
++    private var tmTwoFingerStartDistance: CGFloat = 0
++    private var tmTwoFingerLastDistance: CGFloat = 0
++    private enum TwoFingerMotion { case undecided, scroll, pinch }
++    private var tmTwoFingerMotion = TwoFingerMotion.undecided
+     private static let tmHoldDelay: TimeInterval = 0.25
+     private static let tmSlop: CGFloat = 10
+     private let F_MDOWN: UInt32 = 0x20, F_MUP: UInt32 = 0x40
+@@ -317,6 +414,10 @@ final class MetalBackedView: UIView {
+ 
+     private func tmResetGesture() {
+         tmDownPoints.removeAll()
++        tmActiveTouches.removeAll()
++        tmSequenceEnding = false
++        tmShortcutFired = false
++        tmRightHeld = false
+         tmGestureDownPoint = .zero
+         tmPeak = 0
+         tmResolved = false
+@@ -325,6 +426,20 @@ final class MetalBackedView: UIView {
+         tmGeneration += 1
+         tmTwoFingerLastY = 0
+         tmScrollAccum = 0
++        tmTwoFingerMotion = .undecided
++    }
++
++    private func cancelTouchSequence() {
++        tmGeneration += 1
++        if let d = tmDragTouch {
++            let (x, y) = mapPoint(d.location(in: self))
++            winios_post_touch_up(x, y)
++            tmDragTouch = nil
++        }
++        if tmRightHeld { tmRightHeld = false; HardwareInput.shared.setGameRightButton(false) }
++        tmSequenceEnding = true
++        tmSlopBroken = true
++        if tmActiveTouches.isEmpty { tmResetGesture() }
+     }
+ 
+     /// Midpoint of every finger's down point this gesture.
+@@ -336,10 +451,11 @@ final class MetalBackedView: UIView {
+     }
+ 
+     private func tmCommitDrag(_ t: UITouch) {
+-        guard !tmResolved else { return }
++        guard !tmResolved, !tmSequenceEnding, !pencilRightHeld else { return }
+         tmResolved = true
+         tmDragTouch = t
+         let (x, y) = mapPoint(tmGestureDownPoint)
++        gamePointerPosition = (x, y)
+         winios_post_touch_down(x, y)
+     }
+ 
+@@ -347,11 +463,19 @@ final class MetalBackedView: UIView {
+     /// left-button only, so these go through winios_pointer with ABSOLUTE.
+     private func tmAbsoluteClick(down: UInt32, up: UInt32, at p: CGPoint) {
+         let (x, y) = mapPoint(p)
++        gamePointerPosition = (x, y)
+         winios_pointer(x, y, down | F_ABS, 0)
+         winios_pointer(x, y, up | F_ABS, 0)
+     }
+ 
+     private func touchModeBegan(_ touches: Set<UITouch>) {
++        for t in touches { tmActiveTouches[ObjectIdentifier(t)] = t }
++        if HardwareInput.mewgenicsGestures, !HardwareInput.shared.gameGesturesAllowed() {
++            cancelTouchSequence()
++            return
++        }
++        if tmSequenceEnding { tmSlopBroken = true; return }
++        guard !tmShortcutFired, !pencilRightHeld else { return }
+         guard !tmResolved else { return }   // a finger joining mid-drag changes nothing
+         for t in touches where tmDownPoints[ObjectIdentifier(t)] == nil {
+             tmDownPoints[ObjectIdentifier(t)] = t.location(in: self)
+@@ -360,24 +484,104 @@ final class MetalBackedView: UIView {
+         if tmDownPoints.count == 1, let t = touches.first {
+             tmGestureDownPoint = t.location(in: self)
+             let (x, y) = mapPoint(tmGestureDownPoint)
++            gamePointerPosition = (x, y)
+             winios_cursor_move(x, y)
++            // A Pencil has a separate hover phase, so contact unambiguously
++            // means left-button down; do not wait for finger-gesture slop.
++            if t.type == .pencil {
++                tmCommitDrag(t)
++                return
++            }
+             tmGeneration += 1
+             let gen = tmGeneration
+             DispatchQueue.main.asyncAfter(deadline: .now() + Self.tmHoldDelay) { [weak self, weak t] in
+                 guard let self, let t, self.tmGeneration == gen, !self.tmResolved,
+-                      self.tmDownPoints.count == 1 else { return }
++                      !self.tmSequenceEnding, self.tmActiveTouches.count == 1 else { return }
++                if HardwareInput.mewgenicsGestures, !HardwareInput.shared.gameGesturesAllowed() { return }
+                 self.tmCommitDrag(t)
+             }
+         } else {
+-            // A second or third finger: only a multi-finger tap is possible now.
++            // Additional fingers invalidate the previous hold deadline.
+             tmGeneration += 1
++            if tmActiveTouches.count == 2 {
++                let active = Array(tmActiveTouches.values)
++                tmTwoFingerStart = avgPoint(active)
++                tmTwoFingerLastY = tmTwoFingerStart.y
++                tmTwoFingerStartDistance = tmFingerDistance(active)
++                tmTwoFingerLastDistance = tmTwoFingerStartDistance
++            }
++            guard HardwareInput.mewgenicsGestures else { return }
++            let gen = tmGeneration, count = tmActiveTouches.count
++            guard (2...4).contains(count) else { return }
++            DispatchQueue.main.asyncAfter(deadline: .now() + (count == 4 ? 0.65 : 0.45)) { [weak self] in
++                guard let self, self.tmGeneration == gen, !self.tmSlopBroken,
++                      !self.tmSequenceEnding, !self.tmResolved, !self.tmShortcutFired,
++                      self.tmActiveTouches.count == count,
++                      HardwareInput.shared.gameGesturesAllowed() else { return }
++                self.tmShortcutFired = true
++                switch count {
++                case 2:
++                    self.tmRightHeld = true
++                    HardwareInput.shared.setGameRightButton(true, at: self.gameGesturePosition(self.tmMidpoint()))
++                case 3: HardwareInput.shared.toggleTacticalView()
++                case 4: Self.toggleKeyboard()
++                default: break
++                }
++            }
+         }
+     }
+ 
++    private func tmFingerDistance(_ touches: [UITouch]) -> CGFloat {
++        guard touches.count == 2 else { return 0 }
++        let a = touches[0].location(in: self), b = touches[1].location(in: self)
++        return hypot(a.x - b.x, a.y - b.y)
++    }
++
+     private func touchModeMoved(_ touches: Set<UITouch>, _ event: UIEvent?) {
+-        let active = activeTouches(event)
++        if HardwareInput.mewgenicsGestures, !HardwareInput.shared.gameGesturesAllowed() { return }
++        guard !tmSequenceEnding, !pencilRightHeld else { return }
++        let active = Array(tmActiveTouches.values)
++        if tmShortcutFired {
++            if tmRightHeld, active.count == 2 {
++                let (x, y) = gameGesturePosition(avgPoint(active))
++                winios_pointer(x, y, F_MOVE | F_ABS, 0)
++            }
++            return
++        }
+         if !tmResolved, tmDownPoints.count == 2, active.count == 2 {
+             let avg = avgPoint(active)
++            if HardwareInput.mewgenicsGestures {
++                let distance = tmFingerDistance(active)
++                if active.contains(where: { t in
++                    guard let down = tmDownPoints[ObjectIdentifier(t)] else { return false }
++                    let p = t.location(in: self)
++                    return hypot(p.x - down.x, p.y - down.y) > Self.tmSlop
++                }) { tmSlopBroken = true }
++                let travel = hypot(avg.x - tmTwoFingerStart.x, avg.y - tmTwoFingerStart.y)
++                let spread = abs(distance - tmTwoFingerStartDistance)
++                if max(travel, spread) > Self.tmSlop { tmSlopBroken = true }
++                if tmTwoFingerMotion == .undecided {
++                    if spread > Self.tmSlop, spread > travel { tmTwoFingerMotion = .pinch }
++                    else if abs(avg.y - tmTwoFingerStart.y) > Self.tmSlop { tmTwoFingerMotion = .scroll }
++                }
++                // Lock each gesture to one source: a pinch must never also scroll.
++                switch tmTwoFingerMotion {
++                case .pinch:
++                    tmScrollAccum += distance - tmTwoFingerLastDistance
++                    tmTwoFingerLastDistance = distance
++                case .scroll:
++                    tmScrollAccum += avg.y - tmTwoFingerLastY
++                    tmTwoFingerLastY = avg.y
++                case .undecided: return
++                }
++                let (mx, my) = gameGesturePosition(avg)
++                winios_pointer(mx, my, F_MOVE | F_ABS, 0)
++                while tmScrollAccum <= -14 { tmScrollAccum += 14
++                    winios_pointer(0, 0, F_WHEEL, UInt32(bitPattern: Int32(-120))) }
++                while tmScrollAccum >= 14 { tmScrollAccum -= 14
++                    winios_pointer(0, 0, F_WHEEL, UInt32(bitPattern: Int32(120))) }
++                return
++            }
+             if tmTwoFingerLastY == 0 { tmTwoFingerLastY = avg.y }
+             let dy = avg.y - tmTwoFingerLastY
+             if abs(dy) > 2 { tmSlopBroken = true }
+@@ -396,6 +600,7 @@ final class MetalBackedView: UIView {
+             if tmResolved {
+                 guard t === tmDragTouch else { continue }
+                 let (x, y) = mapPoint(p)
++                gamePointerPosition = (x, y)
+                 winios_post_touch_move(x, y)
+                 continue
+             }
+@@ -407,42 +612,55 @@ final class MetalBackedView: UIView {
+                 tmSlopBroken = true
+                 tmCommitDrag(t)                  // button down at the ORIGINAL point
+                 let (x, y) = mapPoint(p)
++                gamePointerPosition = (x, y)
+                 winios_post_touch_move(x, y)
+             }
+         }
+     }
+ 
+     private func touchModeEnded(_ touches: Set<UITouch>, _ event: UIEvent?) {
++        guard touches.contains(where: { tmActiveTouches[ObjectIdentifier($0)] != nil }) else { return }
++        for t in touches { tmActiveTouches.removeValue(forKey: ObjectIdentifier(t)) }
++        tmGeneration += 1
++        if tmRightHeld { tmRightHeld = false; HardwareInput.shared.setGameRightButton(false) }
+         if tmResolved, let d = tmDragTouch, touches.contains(d) {
+             let (x, y) = mapPoint(d.location(in: self))
+             winios_post_touch_up(x, y)
+-            tmResetGesture()
++            tmDragTouch = nil
++            tmSequenceEnding = true
++        }
++        if tmResolved, tmDragTouch != nil { return } // unrelated finger lifted during a drag
++        guard tmActiveTouches.isEmpty else {
++            tmSequenceEnding = true  // no new drag or shortcut after the first lift
+             return
+         }
+-        guard !tmResolved else { return }
+-        guard activeTouches(event).isEmpty else { return }   // wait for every finger
+         let peak = tmPeak, mid = tmMidpoint(), brokeSlop = tmSlopBroken
++        let consumed = tmResolved || tmShortcutFired || pencilRightHeld
+         tmResetGesture()
+-        guard !brokeSlop else { return }
++        guard !brokeSlop, !consumed else { return }
++        if HardwareInput.mewgenicsGestures, !HardwareInput.shared.gameGesturesAllowed() { return }
+         switch peak {
+         case 1:
+             let (x, y) = mapPoint(mid)
++            gamePointerPosition = (x, y)
+             winios_post_touch_down(x, y)
+             winios_post_touch_up(x, y)
+-        case 2: tmAbsoluteClick(down: F_RDOWN, up: F_RUP, at: mid)
+-        case 3: tmAbsoluteClick(down: F_MDOWN, up: F_MUP, at: mid)
++        case 2:
++            if HardwareInput.mewgenicsGestures {
++                HardwareInput.shared.setGameRightButton(true, at: gameGesturePosition(mid))
++                HardwareInput.shared.setGameRightButton(false)
++            } else { tmAbsoluteClick(down: F_RDOWN, up: F_RUP, at: mid) }
++        case 3:
++            if HardwareInput.mewgenicsGestures { HardwareInput.shared.pulseGameEscape() }
++            else { tmAbsoluteClick(down: F_MDOWN, up: F_MUP, at: mid) }
+         default: break
+         }
+     }
+ 
+     private func touchModeCancelled(_ touches: Set<UITouch>) {
+-        if tmResolved, let d = tmDragTouch, touches.contains(d) {
+-            let (x, y) = mapPoint(d.location(in: self))
+-            winios_post_touch_up(x, y)   // never leave the button held
+-            tmResetGesture()
+-            return
+-        }
+-        if !tmResolved { tmResetGesture() }
++        guard touches.contains(where: { tmActiveTouches[ObjectIdentifier($0)] != nil }) else { return }
++        for t in touches { tmActiveTouches.removeValue(forKey: ObjectIdentifier(t)) }
++        cancelTouchSequence()
+     }
+ 
+     // ==================================================================
+@@ -1170,6 +1388,46 @@ struct MadeiraMetalView: UIViewRepresentable {
+     func updateUIView(_ uiView: MetalBackedView, context: Context) {}
+ }
+ 
++/// Wine and its JIT allocations belong to the process, not a SwiftUI view's
++/// identity. Rebuilding the surface after an interruption must reuse the
++/// existing session instead of starting a second runtime/JIT handoff.
++@MainActor
++final class MewgenicsSessionState: ObservableObject {
++    static let shared = MewgenicsSessionState()
++    private(set) var bootstrapped = false
++    private(set) var preparing = false
++    @Published private(set) var launchStarted = false
++    @Published var status = "Starting Mewgenics…"
++    @Published private(set) var error: String?
++
++    func beginBootstrap() -> Bool {
++        guard !bootstrapped else { return false }
++        bootstrapped = true
++        return true
++    }
++
++    func beginPreparation() -> Bool {
++        guard !preparing, !launchStarted else { return false }
++        preparing = true
++        error = nil
++        return true
++    }
++
++    func failPreparation(_ message: String) {
++        guard !launchStarted else { return }
++        preparing = false
++        error = message
++    }
++
++    func beginLaunch() -> Bool {
++        guard !launchStarted else { return false }
++        preparing = false
++        error = nil
++        launchStarted = true
++        return true
++    }
++}
++
+ struct ContentView: View {
+     /// iOS 26 and later blur content under the navigation bar themselves.
+     private static var systemScrollEdge: Bool {
+@@ -1192,6 +1450,7 @@ struct ContentView: View {
+     @ObservedObject private var library = LibraryModel.shared
+     /// "Use New Interface" (actionButtons) applies at the next start.
+     @State private var showFrontendRestart = false
++    @ObservedObject private var gameSession = MewgenicsSessionState.shared
+ 
+     enum JITStatus {
+         case unknown
+@@ -1202,6 +1461,106 @@ struct ContentView: View {
+     }
+ 
+     var body: some View {
++        ZStack {
++            Color.black
++            MadeiraMetalView()
++            if !gameSession.launchStarted {
++                VStack(spacing: 16) {
++                    Text("Mewgenics").font(.largeTitle.bold())
++                    if let gameError = gameSession.error {
++                        Text(gameError).multilineTextAlignment(.center)
++                        Button("Try Again") { startMewgenics() }
++                            .buttonStyle(.borderedProminent)
++                    } else {
++                        ProgressView().tint(.white)
++                        Text(gameSession.status)
++                    }
++                }
++                .foregroundStyle(.white)
++                .padding(32)
++            }
++        }
++        .ignoresSafeArea()
++        .statusBarHidden(true)
++        .onAppear {
++            guard gameSession.beginBootstrap() else { return }
++            // This standalone surface never displays a live log list. Keep
++            // file diagnostics, but stop parsing/publishing hidden UI rows.
++            logStore.setDisplayActive(false)
++            UIApplication.shared.isIdleTimerDisabled = true
++            InputSettings.shared.relative = false
++            InputSettings.shared.touchMode = true
++            jit_install_trap_handler()
++            entitlements = EntitlementStatus.check()
++            logEntitlementStatus()
++            DeviceLoadDiagnostics.start()
++            startMewgenics()
++        }
++    }
++
++    /// This build has one game. Reuse Madeira's display, input and Wine launch
++    /// sequence without exposing its library, desktop launcher or developer UI.
++    private func startMewgenics() {
++        guard gameSession.beginPreparation() else { return }
++        let game = LibraryModel.documents.appendingPathComponent("wine/drive_c/Mewgenics")
++        for name in ["Mewgenics.exe", "resources.gpak", "opengl32.dll"] {
++            guard FileManager.default.fileExists(atPath: game.appendingPathComponent(name).path) else {
++                gameSession.failPreparation("Game installation is incomplete. Missing \(name).")
++                return
++            }
++        }
++        // Keep diagnostics configurable between launches, while providing
++        // defaults for the verified desktop-OpenGL software renderer.
++        for (key, value) in ["pool": "384", "env.WINEDLLOVERRIDES": "opengl32=n",
++                             "env.GALLIUM_DRIVER": "llvmpipe", "env.LP_NUM_THREADS": "4",
++                             "env.LP_NATIVE_VECTOR_WIDTH": "128"] {
++            if MadeiraConfig.get(key) == nil { MadeiraConfig.set(key, value) }
++        }
++        setenv("MADEIRA_EXE", "C:\\Mewgenics\\Mewgenics.exe", 1)
++        setenv("MADEIRA_WORKDIR", "C:\\Mewgenics", 1)
++        setenv("MADEIRA_STEAM_APPID", "686060", 1)
++        setenv("MADEIRA_STEAM_APPPATH", "C:\\Mewgenics", 1)
++        setenv("MADEIRA_USE_ARM64EC", "1", 1)
++        // This enables Wine's GDI surface compositor; no explorer.exe is run.
++        setenv("MADEIRA_DESKTOP", "1", 1)
++        setenv("MADEIRA_INPUT_FRAME_LATCH", "1", 1)
++        // Use the physical display pixels with the GPU renderer. Configure
++        // the existing guest display model as well as Wine's environment so
++        // presentation and Pencil/touch mapping share the same dimensions.
++        let pixels = UIScreen.main.nativeBounds.size
++        let native = MadeiraConfig.get("env.GALLIUM_DRIVER") == "zink" && MadeiraConfig.get("display.native") != "0"
++        let width = native ? Int(max(pixels.width, pixels.height)) : 1280
++        let height = native ? Int(min(pixels.width, pixels.height)) : 720
++        GuestDisplay.configureSessionDefault(view: pixels, knob: "\(width)x\(height)")
++        setenv("MADEIRA_SCREEN_HZ", String(UIScreen.main.maximumFramesPerSecond), 1)
++        ProMotionIntent.apply(mode: 0)
++        logStore.log("[mewgenics] guest display \(width)x\(height), native=\(native)")
++        setenv("MADEIRA_ARGS", "", 1)
++        MetalHostView.shared.isHidden = false
++        if jit_debugger_attached() && jit_check_debugged() {
++            launchMewgenicsRuntime()
++        } else {
++            guard StikJITHelper.isAvailable else {
++                gameSession.failPreparation("StikDebug is required to start the game.")
++                return
++            }
++            gameSession.status = "Enabling JIT with StikDebug…"
++            StikJITHelper.enableJIT { success in
++                if success { launchMewgenicsRuntime() }
++                else { gameSession.failPreparation("JIT could not be enabled. Check that LocalDevVPN is connected, then try again.") }
++            }
++        }
++    }
++
++    private func launchMewgenicsRuntime() {
++        guard gameSession.beginLaunch() else { return }
++        jitStatus = .available
++        MewgenicsLifecycle.record("runtime-launch")
++        logStore.log("[mewgenics] launching C:\\Mewgenics\\Mewgenics.exe")
++        runWineFullSequence()
++    }
++
++    private var developerBody: some View {
+         /* ml658: was NavigationView, which is deprecated and — the reason this
+          * matters — defaults to a SPLIT VIEW on iPad. TARGETED_DEVICE_FAMILY is
+          * "1,2", so iPad is a shipping target, and the whole UI was being forced
+@@ -2315,15 +2674,16 @@ struct ContentView: View {
+ 
+         logStore.log("Running full Wine sequence...")
+ 
+-        // Start a main thread heartbeat to diagnose hang
++        // Opt-in hang diagnostics. Normal gameplay needs no heartbeat timer.
+         var heartbeatCount = 0
+-        let heartbeat = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
++        let heartbeat: Timer? = MadeiraConfig.flag("MADEIRA_DEVICE_STATS", fallback: false)
++            ? Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+             heartbeatCount += 1
+             os_log("[HEARTBEAT] main thread alive #%d", heartbeatCount)
+-        }
++        } : nil
+ 
+-        // Pause UI flushing — prevents ALL SwiftUI re-renders during Wine execution,
+-        // so zero main thread hang time accumulates while debugger is attached
++        // Slow flushing for front ends that do show logs. Standalone display
++        // parsing and its timers remain fully suspended by setDisplayActive.
+         logStore.uiPaused = true
+ 
+         // Suppress os_log from wineserver — hundreds of messages/sec cause os_log buffer
+@@ -2902,7 +3262,7 @@ struct ContentView: View {
+             StikJITHelper.detachDebugger()
+ 
+             DispatchQueue.main.async {
+-                heartbeat.invalidate()
++                heartbeat?.invalidate()
+                 if wine_process_is_running() == 0 { LibraryModel.shared.launchFailed() }
+             }
+         }
+diff --git a/app/Madeira/FPSOverlay.swift b/app/Madeira/FPSOverlay.swift
+index 0469443..b0a7ebb 100644
+--- a/app/Madeira/FPSOverlay.swift
++++ b/app/Madeira/FPSOverlay.swift
+@@ -26,6 +26,9 @@ final class ProMotionIntent {
+     static let shared = ProMotionIntent()
+     private var link: CADisplayLink?
+     private var activeMax: Float = 0
++    private var diagnosticTicks = 0
++    private var diagnosticStart: CFTimeInterval = 0
++    private let diagnostics = MadeiraConfig.flag("MADEIRA_DEVICE_STATS", fallback: false)
+ 
+     /// Honest report of what the panel can do, for the native `[frame]` line.
+     static var panelMaxFPS: Int { UIScreen.main.maximumFramesPerSecond }
+@@ -48,11 +51,14 @@ final class ProMotionIntent {
+             if link != nil && activeMax == want { return }
+             link?.invalidate()
+             let l = CADisplayLink(target: self, selector: #selector(tick))
+-            // `minimum` must not exceed the panel's own maximum or CoreAnimation
+-            // clamps the whole range away (a 60Hz device asked for min 60 /
+-            // max 120 gets nothing useful).
+-            let lo = Float(min(60, maxHz))
+-            l.preferredFrameRateRange = CAFrameRateRange(minimum: lo, maximum: want, preferred: want)
++            // This link expresses the selected display maximum. Allowing 60
++            // in a 60...120 range also permits the compositor to stay at 60.
++            // Request the same rate for all three values for this controlled
++            // pacing test, as documented by Apple. System power/thermal
++            // policy can still lower the actual callback rate.
++            l.preferredFrameRateRange = CAFrameRateRange(minimum: want, maximum: want, preferred: want)
++            diagnosticTicks = 0
++            diagnosticStart = 0
+             l.add(to: .main, forMode: .common)
+             link = l
+             activeMax = want
+@@ -79,7 +85,17 @@ final class ProMotionIntent {
+         madeira_set_display_max_fps(Int32(panelMaxFPS), Int32(hz))
+     }
+ 
+-    @objc private func tick(_ sender: CADisplayLink) {}
++    @objc private func tick(_ sender: CADisplayLink) {
++        guard diagnostics else { return }
++        if diagnosticStart == 0 { diagnosticStart = sender.timestamp }
++        diagnosticTicks += 1
++        if diagnosticTicks >= 600 {
++            let elapsed = sender.timestamp - diagnosticStart
++            fputs("[mewgenics-panel] callbacksHz=\(Double(diagnosticTicks - 1) / max(elapsed, 0.001)) targetHz=\(1 / max(sender.targetTimestamp - sender.timestamp, 0.001)) requested=\(activeMax) max=\(UIScreen.main.maximumFramesPerSecond) lowPower=\(ProcessInfo.processInfo.isLowPowerModeEnabled) thermal=\(ProcessInfo.processInfo.thermalState.rawValue)\n", stderr)
++            diagnosticTicks = 0
++            diagnosticStart = 0
++        }
++    }
+ }
+ 
+ /// Small overlay shown over the Metal render view. Reads DXMT's present
+@@ -94,6 +110,8 @@ final class ProMotionIntent {
+ ///   - Display value refreshes every 250ms regardless.
+ ///   - Tap to hide.
+ struct FPSOverlay: View {
++    var simple = false
++    var frameCounter: () -> UInt64 = { madeira_get_present_count() }
+     /// Compact = landscape side-bar variant: FPS + pacing pill stacked
+     /// vertically, no present counter (fits a ~120pt pillarbox bar).
+     var compact: Bool = false
+@@ -145,7 +163,21 @@ struct FPSOverlay: View {
+ 
+     var body: some View {
+         Group {
+-            if visible && compact {
++            if simple {
++                HStack(spacing: 8) {
++                    TacticalStatusLabel()
++                    Text(String(format: "%.0f FPS", fps))
++                        .foregroundColor(fpsColor)
++                        .accessibilityLabel("Frames per second")
++                        .accessibilityValue(String(format: "%.0f", fps))
++                }
++                    .font(.system(.caption, design: .monospaced).bold())
++                    .monospacedDigit()
++                    .padding(.horizontal, 8)
++                    .padding(.vertical, 4)
++                    .background(Color.black.opacity(0.55))
++                    .cornerRadius(6)
++            } else if visible && compact {
+                 VStack(spacing: 4) {
+                     Text(String(format: "%.1f", fps))
+                         .foregroundColor(fpsColor)
+@@ -196,7 +228,7 @@ struct FPSOverlay: View {
+                     .frame(width: 12, height: 12)
+             }
+         }
+-        .onTapGesture { visible.toggle() }
++        .onTapGesture { if !simple { visible.toggle() } }
+         .onAppear { startTimers() }
+         .onDisappear { stopTimers() }
+     }
+@@ -328,16 +360,16 @@ struct FPSOverlay: View {
+     private func startTimers() {
+         stopTimers()
+         let now = CFAbsoluteTimeGetCurrent()
+-        let c = madeira_get_present_count()
++        let c = frameCounter()
+         samples = [(now, c)]
+         presentCount = c
+         vsyncMode = madeira_get_vsync_locked()
+-        ProMotionIntent.apply(mode: vsyncMode)
++        if !simple { ProMotionIntent.apply(mode: vsyncMode) }
+ 
+         // 100ms sampling — keeps the buffer fresh
+         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+             let t = CFAbsoluteTimeGetCurrent()
+-            let cur = madeira_get_present_count()
++            let cur = frameCounter()
+             samples.append((t, cur))
+             if samples.count > bufferCapacity { samples.removeFirst() }
+             presentCount = cur
+@@ -394,3 +426,49 @@ struct FPSOverlay: View {
+ enum FPSOverlayFenceMode {
+     static var current: Int = Int(MadeiraConfig.get("fence-chain") ?? "1") ?? 1
+ }
++
++/// The existing gesture-state indicator, independent of FPS sampling.
++private struct TacticalStatusLabel: View {
++    @ObservedObject private var hardwareInput = HardwareInput.shared
++    var body: some View {
++        if hardwareInput.tacticalViewActive {
++            Text("TACTICAL")
++                .foregroundColor(.cyan)
++                .accessibilityLabel("Tactical view active")
++        }
++    }
++}
++
++private final class ImmersiveGameStatusController<Content: View>: UIHostingController<Content> {
++    override var prefersStatusBarHidden: Bool { true }
++    override var prefersHomeIndicatorAutoHidden: Bool { true }
++    override var supportedInterfaceOrientations: UIInterfaceOrientationMask { .landscape }
++}
++
++/// Preserve the existing click-through gesture indicator without creating
++/// an FPS view or its polling timers. ProMotionIntent remains independent.
++enum MewgenicsStatusHost {
++    private static var window: PassthroughWindow?
++    static func attach(to scene: UIWindowScene) {
++        if window == nil {
++            let overlay = PassthroughWindow(windowScene: scene)
++            overlay.windowLevel = .normal + 101
++            overlay.backgroundColor = .clear
++            let host = ImmersiveGameStatusController(rootView:
++                TacticalStatusLabel()
++                .font(.system(.caption, design: .monospaced).bold())
++                .padding(.top, 16).padding(.trailing, 24)
++                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
++                .ignoresSafeArea()
++                .statusBarHidden(true)
++                .allowsHitTesting(false))
++            host.view.backgroundColor = .clear
++            host.view.isUserInteractionEnabled = false
++            overlay.rootViewController = host
++            overlay.isHidden = false
++            host.setNeedsStatusBarAppearanceUpdate()
++            window = overlay
++        }
++        window?.frame = scene.coordinateSpace.bounds
++    }
++}
+diff --git a/app/Madeira/HardwareInput.swift b/app/Madeira/HardwareInput.swift
+index 77b1b36..2a0e5b3 100644
+--- a/app/Madeira/HardwareInput.swift
++++ b/app/Madeira/HardwareInput.swift
+@@ -494,6 +494,9 @@ final class HardwareInput: ObservableObject {
+     /// no touch filter, no drawn cursor; the app behaves as it did before this
+     /// file existed.
+     static let enabled = flag("MADEIRA_HWINPUT", defaultOn: true)
++    /// Mewgenics' shortcuts must not replace the generic desktop gestures.
++    static let mewgenicsGestures = enabled && flag("MEWGENICS_GESTURES",
++        defaultOn: true) // This patched launcher is standalone, including personal bundle IDs.
+     /// MADEIRA_INPUT_FOCUS=0: keyboard and mouse reach the program whatever
+     /// has focus (the program still gets nothing while the app is inactive:
+     /// held input is released then).
+@@ -588,6 +591,10 @@ final class HardwareInput: ObservableObject {
+ 
+     private var keys = FocusGate<Int32>()
+     private var keysPosted = HeldEdges<Int32>()
++    @Published private(set) var tacticalViewActive = false
++    private var gestureKeys: Set<Int32> = []
++    private var gesturePulseGeneration = 0
++    private var gestureRightDown = false
+     /// Buttons whose press went to the program and are still down.
+     private var gameButtons: Set<MouseButton> = []
+     private var buttonsPosted = HeldEdges<MouseButton>()
+@@ -780,6 +787,8 @@ final class HardwareInput: ObservableObject {
+     private func releaseAll(_ why: String) {
+         let had = keysPosted.down.count + buttonsPosted.down.count
+         keys.focusLost()
++        MetalBackedView.keyboardTarget?.cancelGameGestures()
++        releaseGameGestures()
+         pendingButtons.removeAll()
+         gameButtons.removeAll()
+         syncKeys()
+@@ -812,6 +821,12 @@ final class HardwareInput: ObservableObject {
+         let over = hoverSeen ? pointerOver : clickFocus.onGame
+         let mouse = base && (!Self.focusEnabled || pointerLocked || over || !gameButtons.isEmpty)
+         baseFocused = base
++        if !base {
++            MetalBackedView.keyboardTarget?.cancelGameGestures()
++            releaseGameGestures()
++        } else if !keyboard {
++            releaseGestureKeys()
++        }
+         if keyboard != keyboardFocused {
+             keyboardFocused = keyboard
+             if !keyboard { keys.focusLost() }
+@@ -861,7 +876,7 @@ final class HardwareInput: ObservableObject {
+     /// Four times a second while a keyboard, mouse or controller is attached:
+     /// a sheet or text field can take focus without any event reaching here.
+     private func updateFocusTimer() {
+-        let want = Self.enabled && (keyboardConnected || mouseConnected || PadStickMouse.shared.controllerConnected)
++        let want = Self.enabled && (Self.mewgenicsGestures || keyboardConnected || mouseConnected || PadStickMouse.shared.controllerConnected)
+         if want, focusTimer == nil {
+             let t = Timer(timeInterval: 0.25, repeats: true) { [weak self] _ in self?.refreshFocus("poll") }
+             RunLoop.main.add(t, forMode: .common)
+@@ -942,11 +957,69 @@ final class HardwareInput: ObservableObject {
+     }
+ 
+     private func syncKeys() {
+-        let edges = keysPosted.update(keys.wanted(focused: keyboardFocused))
++        let wanted = keys.wanted(focused: keyboardFocused).union(keyboardFocused ? gestureKeys : [])
++        let edges = keysPosted.update(wanted)
+         for vk in edges.up { winios_post_key(vk, 0) }
+         for vk in edges.down { winios_post_key(vk, 1) }
+     }
+ 
++    /// Use the same held-state merger as physical devices, so releasing a
++    /// gesture cannot release a Control key or mouse button still held on HID.
++    func gameGesturesAllowed() -> Bool {
++        guard Self.mewgenicsGestures else { return false }
++        let focused = computeBaseFocus()
++        // Pencil hover can arrive at display rate. Re-evaluate the cheap
++        // focus predicate, but only refresh cursor/route UI on a transition.
++        if focused != baseFocused { refreshFocus("game gesture") }
++        return focused
++    }
++
++    func toggleTacticalView() {
++        guard gameGesturesAllowed(), keyboardFocused else { return }
++        tacticalViewActive.toggle()
++        if tacticalViewActive { gestureKeys.insert(0xA2) }
++        else { gestureKeys.remove(0xA2) }
++        syncKeys()
++        UISelectionFeedbackGenerator().selectionChanged()
++    }
++
++    func pulseGameEscape() {
++        guard gameGesturesAllowed(), keyboardFocused else { return }
++        // Leave a pollable down interval for games using asynchronous keys.
++        // A newer pulse or focus loss invalidates the delayed release.
++        gesturePulseGeneration += 1
++        let generation = gesturePulseGeneration
++        gestureKeys.insert(0x1B)
++        syncKeys()
++        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) { [weak self] in
++            guard let self, self.gesturePulseGeneration == generation else { return }
++            self.gestureKeys.remove(0x1B)
++            self.syncKeys()
++        }
++    }
++
++    func setGameRightButton(_ pressed: Bool, at position: (Int32, Int32)? = nil) {
++        if pressed {
++            guard gameGesturesAllowed() else { return }
++            if let (x, y) = position { winios_pointer(x, y, Self.moveFlag | Self.absoluteFlag, 0) }
++        }
++        gestureRightDown = pressed
++        syncButtons()
++    }
++
++    private func releaseGestureKeys() {
++        gesturePulseGeneration += 1
++        gestureKeys.removeAll()
++        if tacticalViewActive { tacticalViewActive = false }
++        syncKeys()
++    }
++
++    func releaseGameGestures() {
++        releaseGestureKeys()
++        gestureRightDown = false
++        syncButtons()
++    }
++
+     // MARK: - mouse
+ 
+     // HANDLER SIGNATURES, since a wrong one compiles and then never fires:
+@@ -1221,7 +1294,7 @@ final class HardwareInput: ObservableObject {
+     }
+ 
+     private func syncButtons() {
+-        let edges = buttonsPosted.update(gameButtons)
++        let edges = buttonsPosted.update(gameButtons.union(gestureRightDown ? [.right] : []))
+         for b in edges.up { let e = b.event(down: false); winios_pointer(0, 0, e.flags, e.data) }
+         for b in edges.down { let e = b.event(down: true); winios_pointer(0, 0, e.flags, e.data) }
+     }
+@@ -1737,7 +1810,7 @@ final class TouchFocusObserver: UIGestureRecognizer {
+ /// deltas carry motion when GameController cannot see the mouse. Buttons are
+ /// indirect-pointer touches, handled by `HardwareInput.interceptTouches`. None
+ /// of this can touch a finger.
+-final class PointerFallback: NSObject {
++final class PointerFallback: NSObject, UIPencilInteractionDelegate {
+     private static let key = UnsafeMutableRawPointer.allocate(byteCount: 1, alignment: 1)
+ 
+     private var hoverLast = CGPoint.zero
+@@ -1755,10 +1828,22 @@ final class PointerFallback: NSObject {
+ 
+         let indirect = [NSNumber(value: UITouch.TouchType.indirectPointer.rawValue)]
+         let hover = UIHoverGestureRecognizer(target: f, action: #selector(onHover(_:)))
++        hover.allowedTouchTypes = indirect
+         hover.cancelsTouchesInView = false
+         hover.delegate = PointerGestureDelegate.shared
+         view.addGestureRecognizer(hover)
+ 
++        let pencilHover = UIHoverGestureRecognizer(target: f, action: #selector(onPencilHover(_:)))
++        pencilHover.allowedTouchTypes = [NSNumber(value: UITouch.TouchType.pencil.rawValue)]
++        pencilHover.cancelsTouchesInView = false
++        pencilHover.delegate = PointerGestureDelegate.shared
++        view.addGestureRecognizer(pencilHover)
++        if HardwareInput.mewgenicsGestures {
++            let pencil = UIPencilInteraction()
++            pencil.delegate = f
++            view.addInteraction(pencil)
++        }
++
+         let drag = UIPanGestureRecognizer(target: f, action: #selector(onDrag(_:)))
+         drag.allowedTouchTypes = indirect
+         drag.allowedScrollTypesMask = []            // motion only; the wheel is separate
+@@ -1779,6 +1864,26 @@ final class PointerFallback: NSObject {
+         view.addGestureRecognizer(scroll)
+     }
+ 
++    @objc private func onPencilHover(_ g: UIHoverGestureRecognizer) {
++        guard g.state == .began || g.state == .changed,
++              let view = g.view as? MetalBackedView else { return }
++        view.pencilHovered(at: g.location(in: view))
++    }
++
++    func pencilInteractionDidTap(_ interaction: UIPencilInteraction) {
++        (interaction.view as? MetalBackedView)?.pencilDoubleTapped(at: nil)
++    }
++
++    @available(iOS 17.5, *)
++    func pencilInteraction(_ interaction: UIPencilInteraction, didReceiveTap tap: UIPencilInteraction.Tap) {
++        (interaction.view as? MetalBackedView)?.pencilDoubleTapped(at: tap.hoverPose?.location)
++    }
++
++    @available(iOS 17.5, *)
++    func pencilInteraction(_ interaction: UIPencilInteraction, didReceiveSqueeze squeeze: UIPencilInteraction.Squeeze) {
++        (interaction.view as? MetalBackedView)?.pencilSqueezed(squeeze)
++    }
++
+     @objc private func onHover(_ g: UIHoverGestureRecognizer) {
+         guard let view = g.view else { return }
+         // A hovering Apple Pencil is not a pointer.
+diff --git a/app/Madeira/Info.plist b/app/Madeira/Info.plist
+index 38238dd..a18151d 100644
+--- a/app/Madeira/Info.plist
++++ b/app/Madeira/Info.plist
+@@ -11,7 +11,7 @@
+ 	<key>CFBundleDevelopmentRegion</key>
+ 	<string>en</string>
+ 	<key>CFBundleDisplayName</key>
+-	<string>Madeira</string>
++	<string>Mewgenics</string>
+ 	<key>CFBundleExecutable</key>
+ 	<string>$(EXECUTABLE_NAME)</string>
+ 	<key>CFBundleIdentifier</key>
+@@ -25,7 +25,7 @@
+ 	<key>CFBundleShortVersionString</key>
+ 	<string>0.1.0</string>
+ 	<key>CFBundleVersion</key>
+-	<string>1</string>
++	<string>2</string>
+ 	<key>GCSupportsGameMode</key>
+ 	<true/>
+ 	<key>LSApplicationCategoryType</key>
+@@ -50,9 +50,17 @@
+ 	</array>
+ 	<key>UISupportedInterfaceOrientations</key>
+ 	<array>
+-		<string>UIInterfaceOrientationPortrait</string>
+ 		<string>UIInterfaceOrientationLandscapeLeft</string>
+ 		<string>UIInterfaceOrientationLandscapeRight</string>
+ 	</array>
++	<key>UISupportedInterfaceOrientations~ipad</key>
++	<array>
++		<string>UIInterfaceOrientationLandscapeLeft</string>
++		<string>UIInterfaceOrientationLandscapeRight</string>
++	</array>
++	<key>UIRequiresFullScreen</key>
++	<true/>
++	<key>UIStatusBarHidden</key>
++	<true/>
+ </dict>
+ </plist>
+diff --git a/app/Madeira/JITAllocator.c b/app/Madeira/JITAllocator.c
+index 626daae..48e4d77 100644
+--- a/app/Madeira/JITAllocator.c
++++ b/app/Madeira/JITAllocator.c
+@@ -3,6 +3,7 @@
+ #include <mach/mach.h>
+ #include <mach/vm_map.h>
+ #include <sys/mman.h>
++#include <sys/sysctl.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <stdio.h>
+@@ -381,7 +382,7 @@ void jit_install_trap_handler(void) {
+     // Only install if no debugger is attached.
+     // When StikDebug is attached, it handles BRK/SIGTRAP directly.
+     // Our handler would steal signals from the debugger and break the protocol.
+-    if (jit_check_debugged()) {
++    if (jit_debugger_attached()) {
+         jit_log("Debugger attached — skipping SIGTRAP handler (debugger handles BRK)");
+         return;
+     }
+@@ -434,6 +435,16 @@ bool jit_check_debugged(void) {
+     return debugged;
+ }
+ 
++// CS_DEBUGGED can outlive a debugger session. BRK-based allocation needs a
++// debugger that is attached now, rather than merely permission to execute JIT.
++bool jit_debugger_attached(void) {
++    int mib[] = { CTL_KERN, KERN_PROC, KERN_PROC_PID, getpid() };
++    struct kinfo_proc info = {0};
++    size_t size = sizeof(info);
++    return sysctl(mib, 4, &info, &size, NULL, 0) == 0 &&
++           size == sizeof(info) && (info.kp_proc.p_flag & P_TRACED) != 0;
++}
++
+ bool jit_test_mapping(void) {
+     jit_log("=== JIT Mapping Test (non-executing) ===");
+ 
+diff --git a/app/Madeira/JITAllocator.h b/app/Madeira/JITAllocator.h
+index 90168ec..0423772 100644
+--- a/app/Madeira/JITAllocator.h
++++ b/app/Madeira/JITAllocator.h
+@@ -48,6 +48,7 @@ void jit_region_invalidate(JITRegion *region, size_t offset, size_t size);
+ // Check if CS_DEBUGGED flag is set (JIT execution is allowed).
+ // Returns true if the debugger has attached and set the flag.
+ bool jit_check_debugged(void);
++bool jit_debugger_attached(void);
+ 
+ // Install SIGTRAP handler so BRK instructions don't crash the app
+ // when no debugger is attached. Must be called before any jit26_* functions.
+diff --git a/app/Madeira/Library.swift b/app/Madeira/Library.swift
+index bb15dcf..9d6aef8 100644
+--- a/app/Madeira/Library.swift
++++ b/app/Madeira/Library.swift
+@@ -25,6 +25,7 @@ import Combine
+ /// MADEIRA_DEVICE_STATS=0 turns the line off.
+ enum DeviceLoadDiagnostics {
+     private static var lastReport = 0.0
++    private static var lastGPUCount: UInt64 = 0
+     private static var timer: Timer?
+     /// Opt-in (env.MADEIRA_DEVICE_STATS = 1): a line every 10 s during every
+     /// session is a diagnostic, so it is off by default.
+@@ -38,7 +39,13 @@ enum DeviceLoadDiagnostics {
+         guard wine_process_is_running() != 0 else { return }
+         let now = CACurrentMediaTime()
+         guard now - lastReport >= 10 else { return }
++        let elapsed = now - lastReport
++        let displayed = winios_gpu_displayed_count()
++        // Ignore the first sample and gaps across background suspension.
++        let fps = lastReport > 0 && elapsed < 15 && displayed >= lastGPUCount
++            ? String(format: "%.1f", Double(displayed - lastGPUCount) / elapsed) : "unavailable"
+         lastReport = now
++        lastGPUCount = displayed
+         let process = ProcessInfo.processInfo
+         let thermal: String
+         switch process.thermalState {
+@@ -48,7 +55,7 @@ enum DeviceLoadDiagnostics {
+         case .critical: thermal = "critical"
+         @unknown default: thermal = "unknown"
+         }
+-        fputs("[device-load] thermal=\(thermal) low-power=\(process.isLowPowerModeEnabled ? 1 : 0) capture=\(UIScreen.main.isCaptured ? 1 : 0)\n", stderr)
++        fputs("[device-load] thermal=\(thermal) low-power=\(process.isLowPowerModeEnabled ? 1 : 0) capture=\(UIScreen.main.isCaptured ? 1 : 0) gpuDisplayedFPS=\(fps)\n", stderr)
+     }
+ }
+ 
+diff --git a/app/Madeira/LogStore.swift b/app/Madeira/LogStore.swift
+index a8b4ce4..1fad0fa 100644
+--- a/app/Madeira/LogStore.swift
++++ b/app/Madeira/LogStore.swift
+@@ -29,8 +29,17 @@ final class LogStore: ObservableObject {
+     func setDisplayActive(_ active: Bool) {
+         let disabled = !MadeiraConfig.flag("MADEIRA_UI_LOG_IDLE")
+         let suppress = !active && !disabled
+-        stateLock.lock(); displaySuppressed = suppress; stateLock.unlock()
++        stateLock.lock()
++        displaySuppressed = suppress
++        if suppress {
++            pendingNew.removeAll(keepingCapacity: false)
++            pendingUpdates.removeAll(keepingCapacity: false)
++            // Remove reservations for rows that were never published.
++            sigToIndex = sigToIndex.filter { $0.value >= 0 }
++        }
++        stateLock.unlock()
+         tail?.setDisplayPaused(suppress)
++        rescheduleFlush()
+         fputs("[ui-log-idle] display parsing suspended=\(suppress ? 1 : 0); file capture unchanged\n", stderr)
+     }
+ 
+@@ -147,6 +156,9 @@ final class LogStore: ObservableObject {
+ 
+         let now = Date()
+         stateLock.lock()
++        // setDisplayActive can pause parsing while a producer canonicalizes
++        // a line outside the lock. Do not enqueue that late result.
++        guard !displaySuppressed else { stateLock.unlock(); return }
+         if let idx = sigToIndex[sig] {
+             pendingUpdates.append((idx, 1, raw, now))
+         } else {
+@@ -194,6 +206,11 @@ final class LogStore: ObservableObject {
+         DispatchQueue.main.async { [weak self] in
+             guard let self = self else { return }
+             self.flushTimer?.invalidate()
++            self.flushTimer = nil
++            self.stateLock.lock()
++            let suppressed = self.displaySuppressed
++            self.stateLock.unlock()
++            guard !suppressed else { return }
+             let interval = self.uiPaused ? self.slowFlushInterval : self.fastFlushInterval
+             self.flushTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+                 self?.flushPending()
+@@ -206,6 +223,7 @@ final class LogStore: ObservableObject {
+     private func flushPending() {
+ 
+         stateLock.lock()
++        guard !displaySuppressed else { stateLock.unlock(); return }
+         let newBatch = pendingNew
+         let updateBatch = pendingUpdates
+         pendingNew.removeAll(keepingCapacity: true)
+diff --git a/app/Madeira/LogTail.swift b/app/Madeira/LogTail.swift
+index d67f264..9f9ea8d 100644
+--- a/app/Madeira/LogTail.swift
++++ b/app/Madeira/LogTail.swift
+@@ -18,12 +18,16 @@ final class LogTail {
+         queue.async { [weak self] in
+             guard let self, self.displayPaused != paused else { return }
+             self.displayPaused = paused
+-            if paused { self.source?.suspend() }
++            if paused {
++                self.source?.suspend()
++                self.pollTimer?.suspend()
++            }
+             else {
+                 // Hidden lines remain in the file, but need not be parsed later.
+                 if self.fd >= 0 { lseek(self.fd, 0, SEEK_END) }
+                 self.lineBuffer.removeAll(keepingCapacity: true)
+                 self.source?.resume()
++                self.pollTimer?.resume()
+             }
+         }
+     }
+@@ -41,7 +45,11 @@ final class LogTail {
+ 
+     func stop() {
+         queue.async { [weak self] in
+-            if self?.displayPaused == true { self?.source?.resume(); self?.displayPaused = false }
++            if self?.displayPaused == true {
++                self?.source?.resume()
++                self?.pollTimer?.resume()
++                self?.displayPaused = false
++            }
+             self?.source?.cancel()
+             self?.source = nil
+             self?.pollTimer?.cancel()
+@@ -98,6 +106,7 @@ final class LogTail {
+             self?.readAvailable()
+         }
+         t.resume()
++        if displayPaused { t.suspend() }
+         pollTimer = t
+     }
+ 
+diff --git a/app/Madeira/MadeiraApp.swift b/app/Madeira/MadeiraApp.swift
+index 0b62427..9477ec0 100644
+--- a/app/Madeira/MadeiraApp.swift
++++ b/app/Madeira/MadeiraApp.swift
+@@ -1,7 +1,73 @@
+ import SwiftUI
++import Darwin
++
++/// Keep only a diagnostic breadcrumb across process death. Launch/JIT state
++/// is deliberately process-local: a cold launch must allocate a fresh runtime.
++@MainActor
++enum MewgenicsLifecycle {
++    private static let session = UUID().uuidString
++    private static let previousKey = "mewgenics.lifecycle.lastEvent"
++    private static var observers: [NSObjectProtocol] = []
++
++    static func start() {
++        guard observers.isEmpty else { return }
++        if let previous = UserDefaults.standard.string(forKey: previousKey) {
++            LogStore.shared.log("[mewgenics-lifecycle] previous-process \(previous); last recorded state, not a termination diagnosis")
++        }
++        let events: [(Notification.Name, String)] = [
++            (UIApplication.willResignActiveNotification, "inactive"),
++            (UIApplication.didEnterBackgroundNotification, "background"),
++            (UIApplication.willEnterForegroundNotification, "foreground"),
++            (UIApplication.didBecomeActiveNotification, "active"),
++            (UIApplication.didReceiveMemoryWarningNotification, "memory-warning"),
++            (UIApplication.willTerminateNotification, "will-terminate")
++        ]
++        observers = events.map { name, event in
++            NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { _ in
++                // OperationQueue.main guarantees synchronous main-thread
++                // delivery; preserve the event's state before suspension.
++                MainActor.assumeIsolated { record(event) }
++            }
++        }
++        record("cold-launch")
++    }
++
++    static func record(_ event: String) {
++        var info = task_vm_info_data_t()
++        var count = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<natural_t>.size)
++        let result = withUnsafeMutablePointer(to: &info) {
++            $0.withMemoryRebound(to: integer_t.self, capacity: Int(count)) {
++                task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count)
++            }
++        }
++        let footprint = result == KERN_SUCCESS ? Int(info.phys_footprint / 1048576) : -1
++        let game = MewgenicsSessionState.shared
++        let line = "session=\(session) pid=\(getpid()) event=\(event) " +
++            "time=\(Date().timeIntervalSince1970) appState=\(UIApplication.shared.applicationState.rawValue) " +
++            "preparing=\(game.preparing) launchStarted=\(game.launchStarted) " +
++            "wine=\(wine_process_is_running()) debugged=\(jit_check_debugged()) " +
++            "debuggerAttached=\(jit_debugger_attached()) footprintMiB=\(footprint)"
++        LogStore.shared.log("[mewgenics-lifecycle] \(line)")
++        UserDefaults.standard.set(line, forKey: previousKey)
++    }
++}
++
++final class MewgenicsAppDelegate: NSObject, UIApplicationDelegate {
++    func application(_ application: UIApplication,
++                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
++        MewgenicsLifecycle.start()
++        return true
++    }
++
++    func application(_ application: UIApplication,
++                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
++        .landscape
++    }
++}
+ 
+ @main
+ struct MadeiraApp: App {
++    @UIApplicationDelegateAdaptor(MewgenicsAppDelegate.self) private var appDelegate
+     var body: some Scene {
+         WindowGroup {
+             ContentView()
+diff --git a/app/Madeira/StikJITHelper.swift b/app/Madeira/StikJITHelper.swift
+index 10d9c79..75e1aad 100644
+--- a/app/Madeira/StikJITHelper.swift
++++ b/app/Madeira/StikJITHelper.swift
+@@ -58,11 +58,16 @@ enum StikJITHelper {
+ 
+     /// Poll every 0.5s until CS_DEBUGGED is set, then call completion.
+     private static func pollForJIT(completion: @escaping (Bool) -> Void) {
++        let deadline = Date().addingTimeInterval(120)
+         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+-            if jit_check_debugged() {
++            if jit_debugger_attached() && jit_check_debugged() {
+                 timer.invalidate()
+-                LogStore.shared.log("JIT enabled! (CS_DEBUGGED set)", level: .success)
++                LogStore.shared.log("JIT debugger attached and ready", level: .success)
+                 completion(true)
++            } else if Date() >= deadline {
++                timer.invalidate()
++                LogStore.shared.log("Timed out waiting for StikDebug", level: .error)
++                completion(false)
+             }
+         }
+     }
+diff --git a/app/Madeira/WineProcessBridge.m b/app/Madeira/WineProcessBridge.m
+index 31d4da5..6939c05 100644
+--- a/app/Madeira/WineProcessBridge.m
++++ b/app/Madeira/WineProcessBridge.m
+@@ -863,7 +863,9 @@ static void *wine_process_thread(void *arg) {
+         {
+             NSError *aerr = nil;
+             AVAudioSession *session = [AVAudioSession sharedInstance];
+-            [session setCategory:AVAudioSessionCategoryPlayback error:&aerr];
++            [session setCategory:AVAudioSessionCategoryPlayback
++                     withOptions:AVAudioSessionCategoryOptionMixWithOthers
++                           error:&aerr];
+             if (aerr) LOG("AVAudioSession setCategory failed: %{public}s",
+                           aerr.localizedDescription.UTF8String);
+             aerr = nil;
+diff --git a/app/Madeira/Winios/Winios.h b/app/Madeira/Winios/Winios.h
+index 66d94e8..8c79bec 100644
+--- a/app/Madeira/Winios/Winios.h
++++ b/app/Madeira/Winios/Winios.h
+@@ -69,6 +69,7 @@ void winios_cursor_move(int x, int y);
+  * (points, main thread) to desktop pixels through the compositor's own
+  * mapping (0 when there is no desktop). */
+ unsigned long long winios_surface_present_count(void);
++unsigned long long winios_gpu_displayed_count(void);
+ int winios_compositor_set_hidden(int hidden);
+ int winios_desktop_point_from_window(double wx, double wy, int *px, int *py);
+ 
+diff --git a/app/Madeira/Winios/Winios.m b/app/Madeira/Winios/Winios.m
+index 30c4cb2..5e42351 100644
+--- a/app/Madeira/Winios/Winios.m
++++ b/app/Madeira/Winios/Winios.m
+@@ -36,6 +36,18 @@
+  * including it here keeps both sides' definitions the same. */
+ #include "Winios.h"
+ 
++/* Detailed graphics timing/layout inspection is opt-in. Cache once after
++ * Wine exports madeira.cfg, so the frame/event paths do not parse settings. */
++static BOOL winios_graphics_diagnostics_enabled(void) {
++    static BOOL enabled;
++    static dispatch_once_t once;
++    dispatch_once(&once, ^{
++        const char *value = getenv("MADEIRA_VULKAN_DIAGNOSTICS");
++        enabled = value && !strcmp(value, "1");
++    });
++    return enabled;
++}
++
+ /* csops syscall — CS_DEBUGGED is the flag StikDebug JIT rides on. Declared by
+  * hand for the same reason JITAllocator.c does: <sys/codesign.h> is not in the
+  * iOS SDK's public headers. */
+@@ -410,6 +422,8 @@ extern int winios_drv_foreground_if_owner(HWND hwnd);
+  * window to the front, which its own thread does from its event pump
+  * (g_restore_foreground, winios_pProcessEvents). */
+ static _Atomic(uintptr_t) g_restore_foreground;
++static _Atomic(uintptr_t) g_single_game_hwnd;
++extern int winios_drv_is_window_thread(HWND hwnd);
+ static int winios_restore_born_minimized_enabled(void) {
+     static int enabled = -1;
+     if (enabled < 0) { const char *e = getenv("MADEIRA_RESTORE_BORN_MINIMIZED"); enabled = !(e && e[0] == '0'); }   /* 0: while a Dock start's census runs, a window first shown minimized stays minimized */
+@@ -664,6 +678,7 @@ extern void ios_dump_all_thread_stacks(void);
+ #define WINIOS_EV_MOUSE 0
+ #define WINIOS_EV_KEY   1
+ #define KEYEVENTF_KEYUP 0x0002
++extern unsigned long long winios_surface_present_count(void);
+ typedef struct {
+     unsigned int type;       /* WINIOS_EV_MOUSE / WINIOS_EV_KEY */
+     int x, y;                /* mouse: coords; key: x = virtual-key code */
+@@ -676,6 +691,9 @@ static struct {
+     unsigned int head;       /* producer cursor (Swift side) */
+     unsigned int tail;       /* consumer cursor (Wine drain) */
+     pthread_mutex_t lock;
++    unsigned long long down_frame[3];
++    double down_time[3];
++    unsigned int held_buttons;
+ } g_input_q = { .lock = PTHREAD_MUTEX_INITIALIZER };
+ 
+ static void winios_q_push_ev(unsigned int type, int x, int y, unsigned int flags, unsigned int data) {
+@@ -695,11 +713,15 @@ static void winios_q_push_ev(unsigned int type, int x, int y, unsigned int flags
+  * 1024×768 logical surface inside winios_pProcessEvents to match
+  * what DXMT swapchains use. */
+ void winios_post_touch_down(int x, int y) {
++    winios_cursor_move(x, y);
+     fprintf(stderr, "[winios] post_touch_down x=%d y=%d\n", x, y); fflush(stderr);
+     winios_q_push_ev(WINIOS_EV_MOUSE, x, y, MOUSEEVENTF_MOVE | MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_ABSOLUTE, 0);
+ }
+ 
+ void winios_post_touch_move(int x, int y) {
++    /* Keep the native cursor overlay in step with the queued Wine position,
++     * just as winios_pointer does for hardware mouse and hover motion. */
++    winios_cursor_move(x, y);
+     static unsigned cnt;
+     if ((cnt++ % 30) == 0) {
+         fprintf(stderr, "[winios] post_touch_move x=%d y=%d (n=%u)\n", x, y, cnt); fflush(stderr);
+@@ -708,6 +730,7 @@ void winios_post_touch_move(int x, int y) {
+ }
+ 
+ void winios_post_touch_up(int x, int y) {
++    winios_cursor_move(x, y);
+     fprintf(stderr, "[winios] post_touch_up x=%d y=%d\n", x, y); fflush(stderr);
+     winios_q_push_ev(WINIOS_EV_MOUSE, x, y, MOUSEEVENTF_LEFTUP | MOUSEEVENTF_ABSOLUTE, 0);
+ }
+@@ -720,6 +743,10 @@ void winios_post_key(int vk, int down) {
+ }
+ 
+ BOOL winios_pProcessEvents(DWORD mask) {
++    /* A single-game session has no desktop shell. Drain its input on the
++     * displayed window's owning thread, not an arbitrary Mesa worker. */
++    HWND target = (HWND)atomic_load_explicit(&g_single_game_hwnd, memory_order_relaxed);
++    if (target && !winios_drv_is_window_thread(target)) return FALSE;
+     /* The restored born-minimized window's own thread brings it to the front
+      * (see g_restore_foreground); other threads leave the request in place. */
+     uintptr_t fg = atomic_load_explicit(&g_restore_foreground, memory_order_relaxed);
+@@ -740,7 +767,7 @@ BOOL winios_pProcessEvents(DWORD mask) {
+      * this wine thread (valid TEB — the dump walks win32u internals). */
+     static int desk = -1;
+     if (desk < 0) desk = ({ const char *d = getenv("MADEIRA_DESKTOP"); d && *d == '1'; });
+-    if (desk) {
++    if (desk && winios_graphics_diagnostics_enabled()) {
+         static double next_tree_dump;
+         double now = CACurrentMediaTime();
+         if (now >= next_tree_dump) {
+@@ -757,6 +784,36 @@ BOOL winios_pProcessEvents(DWORD mask) {
+             break;
+         }
+         e = g_input_q.buf[g_input_q.tail];
++        /* Games that poll button state once per frame can miss an immediate
++         * touch down/up pair. For this standalone game, hold the release until
++         * a frame has presented after delivery of the press. The timeout keeps
++         * a paused/static renderer from leaving a button stuck indefinitely.
++         * All state is protected by the queue lock because several Wine
++         * threads can call this event pump. */
++        if (getenv("MADEIRA_INPUT_FRAME_LATCH") && e.type == WINIOS_EV_MOUSE) {
++            const unsigned int downs[] = {0x2, 0x8, 0x20};
++            const unsigned int ups[] = {0x4, 0x10, 0x40};
++            unsigned long long frame = winios_surface_present_count();
++            double now = CACurrentMediaTime();
++            BOOL defer_release = FALSE;
++            for (int i = 0; i < 3; ++i) {
++                if ((e.flags & ups[i]) && (g_input_q.held_buttons & (1u << i)) &&
++                    frame <= g_input_q.down_frame[i] && now - g_input_q.down_time[i] < 0.5)
++                    defer_release = TRUE;
++            }
++            if (defer_release) {
++                pthread_mutex_unlock(&g_input_q.lock);
++                break;
++            }
++            for (int i = 0; i < 3; ++i) {
++                if (e.flags & downs[i]) {
++                    g_input_q.down_frame[i] = frame;
++                    g_input_q.down_time[i] = now;
++                    g_input_q.held_buttons |= 1u << i;
++                }
++                if (e.flags & ups[i]) g_input_q.held_buttons &= ~(1u << i);
++            }
++        }
+         g_input_q.tail = (g_input_q.tail + 1) % WINIOS_RING_SIZE;
+         pthread_mutex_unlock(&g_input_q.lock);
+ 
+@@ -764,7 +821,7 @@ BOOL winios_pProcessEvents(DWORD mask) {
+         if (e.type == WINIOS_EV_KEY)
+             winios_drv_post_key((unsigned short)e.x, e.flags);
+         else
+-            winios_drv_post_mouse(e.x, e.y, e.flags, e.data, NULL);
++            winios_drv_post_mouse(e.x, e.y, e.flags, e.data, target);
+         drained = TRUE;
+     }
+     return drained;
+@@ -784,10 +841,52 @@ BOOL winios_pProcessEvents(DWORD mask) {
+  * scale). Only active when MADEIRA_DESKTOP=1 (the driver side gates
+  * surface creation, so games never reach these). */
+ 
++/* Presentation metadata only: never read back or capture the user's pixels. */
++static _Atomic unsigned long long g_gpu_drawables, g_gpu_displayed, g_gpu_dropped;
++static _Atomic unsigned long long g_gpu_acquire_ns, g_gpu_acquire_calls, g_gpu_sample_present_ns;
++unsigned long long winios_gpu_displayed_count(void) {
++    return atomic_load_explicit(&g_gpu_displayed, memory_order_relaxed);
++}
++@interface MadeiraVulkanLayer : CAMetalLayer
++@end
++@implementation MadeiraVulkanLayer
++- (id<CAMetalDrawable>)nextDrawable {
++    BOOL diagnostics = winios_graphics_diagnostics_enabled();
++    CFTimeInterval start = diagnostics ? CACurrentMediaTime() : 0;
++    id<CAMetalDrawable> drawable = [super nextDrawable];
++    if (diagnostics) {
++        atomic_fetch_add_explicit(&g_gpu_acquire_ns,
++                                 (unsigned long long)((CACurrentMediaTime() - start) * 1e9), memory_order_relaxed);
++        atomic_fetch_add_explicit(&g_gpu_acquire_calls, 1, memory_order_relaxed);
++    }
++    if (drawable) {
++        atomic_fetch_add_explicit(&g_gpu_drawables, 1, memory_order_relaxed);
++        [drawable addPresentedHandler:^(id<MTLDrawable> shown) {
++            if (shown.presentedTime > 0) {
++                unsigned long long count = atomic_fetch_add_explicit(&g_gpu_displayed, 1, memory_order_relaxed) + 1;
++                if (diagnostics && count % 120 == 0) {
++                    unsigned long long now = (unsigned long long)(shown.presentedTime * 1e9);
++                    unsigned long long previous = atomic_exchange_explicit(&g_gpu_sample_present_ns, now, memory_order_relaxed);
++                    unsigned long long calls = atomic_exchange_explicit(&g_gpu_acquire_calls, 0, memory_order_relaxed);
++                    unsigned long long wait = atomic_exchange_explicit(&g_gpu_acquire_ns, 0, memory_order_relaxed);
++                    if (previous && now > previous)
++                        fprintf(stderr, "[mewgenics-pacing] displayedHz=%.1f nextDrawableAvgMs=%.3f calls=%llu\n",
++                                120e9 / (now - previous), calls ? wait / (1e6 * calls) : 0.0, calls);
++                }
++            } else
++                atomic_fetch_add_explicit(&g_gpu_dropped, 1, memory_order_relaxed);
++        }];
++    }
++    return drawable;
++}
++@end
++
+ static NSMutableDictionary<NSNumber *, CALayer *> *g_layers;
+ static NSMutableDictionary<NSNumber *, NSValue *> *g_px_rects;  /* hwnd → last px rect */
+ static NSMutableDictionary<NSNumber *, NSValue *> *g_surf_sizes; /* hwnd → surface px size */
+ static NSMutableDictionary<NSNumber *, CAMetalLayer *> *g_metal_layers; /* hwnd → DXMT layer */
++static NSMutableSet<NSNumber *> *g_vulkan_layers;
++static UIView *g_compositor_view;
+ static NSMutableDictionary<NSNumber *, NSValue *> *g_client_rects;      /* hwnd → client px rect */
+ /* Desktop fit state (winios_desktop_fit below), main thread only. */
+ static NSNumber *g_fit_key;
+@@ -817,12 +916,46 @@ unsigned long long winios_surface_present_count(void) {
+     return atomic_load_explicit(&g_surface_present_count, memory_order_relaxed);
+ }
+ 
++void winios_gpu_present(void *hwnd) {
++    atomic_fetch_add_explicit(&g_surface_present_count, 1, memory_order_relaxed);
++    if (getenv("MADEIRA_INPUT_FRAME_LATCH")) {
++        uintptr_t old = atomic_exchange_explicit(&g_single_game_hwnd, (uintptr_t)hwnd, memory_order_relaxed);
++        if (old != (uintptr_t)hwnd)
++            atomic_store_explicit(&g_restore_foreground, (uintptr_t)hwnd, memory_order_relaxed);
++    }
++    // Keep presentation/input counters and foreground restoration above even
++    // when metadata inspection and its main-queue layout block are disabled.
++    if (!winios_graphics_diagnostics_enabled()) return;
++    static unsigned count;
++    static double previous;
++    if (++count == 120) {
++        double now = CACurrentMediaTime();
++        if (previous) fprintf(stderr, "[mewgenics-gpu] submitted=120 seconds=%.3f fps=%.1f\n", now - previous, 120.0 / (now - previous));
++        previous = now; count = 0;
++        fprintf(stderr, "[mewgenics-display] acquired=%llu displayed=%llu dropped=%llu\n",
++                atomic_load_explicit(&g_gpu_drawables, memory_order_relaxed),
++                atomic_load_explicit(&g_gpu_displayed, memory_order_relaxed),
++                atomic_load_explicit(&g_gpu_dropped, memory_order_relaxed));
++        dispatch_async(dispatch_get_main_queue(), ^{
++            NSNumber *key = @((uintptr_t)hwnd);
++            CAMetalLayer *metal = g_metal_layers[key];
++            CALayer *parent = metal.superlayer;
++            fprintf(stderr, "[mewgenics-layer] hwnd=%p metal=%p frame=%s drawable=%.0fx%.0f hidden=%d opacity=%.2f parent=%p frame=%s hidden=%d opacity=%.2f viewHidden=%d window=%p index=%lu/%lu\n",
++                    hwnd, metal, NSStringFromCGRect(metal.frame).UTF8String,
++                    metal.drawableSize.width, metal.drawableSize.height, metal.hidden, metal.opacity,
++                    parent, NSStringFromCGRect(parent.frame).UTF8String, parent.hidden, parent.opacity,
++                    g_compositor_view.hidden, g_compositor_view.window,
++                    (unsigned long)[g_compositor_view.superview.subviews indexOfObject:g_compositor_view],
++                    (unsigned long)g_compositor_view.superview.subviews.count);
++        });
++    }
++}
++
+ /* IOSDisplayShim.m: the guest's virtual monitor as win32u last published it
+  * (the session default until a program changes the display mode). */
+ extern void winios_screen_size(int *w, int *h);
+ extern NSString * const MadeiraDisplayModeChangedNotification;
+ 
+-static UIView *g_compositor_view;
+ static CALayer *g_desk_bg;               /* teal desktop-area backdrop */
+ static CGFloat g_px_to_pt = 1.0 / 3.0;   /* desktop px → screen pt (x, and y unless stretched) */
+ static CGFloat g_px_to_pt_y;             /* y scale when the display mode stretches; 0 = same as x */
+@@ -1014,7 +1147,7 @@ static void winios_ensure_compositor(void) {
+      * an app-side timer — keeps firing even when all wine threads are
+      * stuck (unlike the tree dump, which rides wine's event drain). */
+     static dispatch_source_t stack_timer;
+-    if (!stack_timer) {
++    if (!stack_timer && winios_graphics_diagnostics_enabled()) {
+         stack_timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
+                           dispatch_get_global_queue(QOS_CLASS_UTILITY, 0));
+         dispatch_source_set_timer(stack_timer, dispatch_time(DISPATCH_TIME_NOW, 20 * NSEC_PER_SEC),
+@@ -1056,6 +1189,7 @@ static void winios_remove_layer(HWND hwnd) {
+         if (ml) {
+             [ml removeFromSuperlayer];
+             [g_metal_layers removeObjectForKey:key];
++            [g_vulkan_layers removeObject:key];
+             [g_client_rects removeObjectForKey:key];
+             if (g_fit_key && [g_fit_key isEqual:key]) g_fit_key = nil;
+             fprintf(stderr, "[winios] metal layer removed for hwnd=%p\n", hwnd);
+@@ -1139,6 +1273,13 @@ static void winios_place_metal_layer(NSNumber *key) {
+                           (c.origin.y - w.origin.y) * WINIOS_PX_TO_PT_Y,
+                           c.size.width * s, c.size.height * WINIOS_PX_TO_PT_Y);
+     winios_desktop_fit(key, ml, c);
++    if ([g_vulkan_layers containsObject:key] && ml.bounds.size.width > 0) {
++        /* MoltenVK compares swapchain pixels to layer bounds * contentsScale.
++         * The compositor bounds are points; preserve the guest pixel extent
++         * even when the desktop is fitted to a differently sized iPad view. */
++        ml.contentsScale = c.size.width / ml.bounds.size.width;
++        ml.drawableSize = c.size;
++    }
+ }
+ 
+ /* Called by IOSDisplayShim on a wine thread when DXMT creates a swapchain
+@@ -1154,7 +1295,7 @@ CAMetalLayer *winios_metal_layer_for_hwnd(void *hwnd) {
+         CAMetalLayer *ml = g_metal_layers[key];
+         if (!ml) {
+             CALayer *win = winios_layer_for(hwnd, true);
+-            ml = [CAMetalLayer layer];
++            ml = [MadeiraVulkanLayer layer];
+             ml.anchorPoint = CGPointMake(0, 0);
+             ml.device = MTLCreateSystemDefaultDevice();
+             ml.pixelFormat = MTLPixelFormatBGRA8Unorm;
+@@ -1177,6 +1318,36 @@ CAMetalLayer *winios_metal_layer_for_hwnd(void *hwnd) {
+     return result;
+ }
+ 
++extern void madeira_vulkan_set_active(int active);
++void *winios_vulkan_layer_for_hwnd(void *hwnd) {
++    CAMetalLayer *layer = winios_metal_layer_for_hwnd(hwnd);
++    void (^configure)(void) = ^{
++        static dispatch_once_t once;
++        dispatch_once(&once, ^{
++            NSNotificationCenter *nc = NSNotificationCenter.defaultCenter;
++            [nc addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
++                double start = CACurrentMediaTime();
++                fprintf(stderr, "[mewgenics-lifecycle] GPU suspend begin\n");
++                madeira_vulkan_set_active(0);
++                fprintf(stderr, "[mewgenics-lifecycle] GPU suspend end elapsedMs=%.3f\n", (CACurrentMediaTime() - start) * 1000);
++            }];
++            [nc addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
++                double start = CACurrentMediaTime();
++                madeira_vulkan_set_active(1);
++                fprintf(stderr, "[mewgenics-lifecycle] GPU resume end elapsedMs=%.3f\n", (CACurrentMediaTime() - start) * 1000);
++            }];
++            madeira_vulkan_set_active(UIApplication.sharedApplication.applicationState == UIApplicationStateActive);
++        });
++        if (!g_vulkan_layers) g_vulkan_layers = [NSMutableSet new];
++        NSNumber *key = @((uintptr_t)hwnd);
++        [g_vulkan_layers addObject:key];
++        winios_place_metal_layer(key);
++    };
++    if (NSThread.isMainThread) configure();
++    else dispatch_sync(dispatch_get_main_queue(), configure);
++    return (__bridge void *)layer;
++}
++
+ /* Called from win32u's pWindowPosChanged wrapper (wine thread).
+  * x/y/w/h = visible rect, cx/cy/cw/ch = client rect, desktop pixels. */
+ void winios_window_frame(HWND hwnd, int x, int y, int w, int h, int visible,
+@@ -1369,6 +1540,11 @@ void winios_dump_srcbits(const void *bits, int w, int h, int stride) {
+ int winios_surface_present(HWND hwnd, int dx, int dy, int dw, int dh,
+                            int sw, int sh, int stride, const void *bits) {
+     if (sw <= 0 || sh <= 0 || !bits) return 1;   /* nothing to paint */
++    if (getenv("MADEIRA_INPUT_FRAME_LATCH")) {
++        uintptr_t previous = atomic_exchange_explicit(&g_single_game_hwnd, (uintptr_t)hwnd, memory_order_relaxed);
++        if (previous != (uintptr_t)hwnd)
++            atomic_store_explicit(&g_restore_foreground, (uintptr_t)hwnd, memory_order_relaxed);
++    }
+     winios_census_note_present(hwnd);   /* no-op unless the census is on */
+     size_t snap_len = (size_t)stride * (size_t)sh;
+     void *snap = malloc(snap_len);
+diff --git a/build/dxmt-ios/build.sh b/build/dxmt-ios/build.sh
+index 4464061..df41e34 100755
+--- a/build/dxmt-ios/build.sh
++++ b/build/dxmt-ios/build.sh
+@@ -164,6 +164,18 @@ echo "=== winemetal unix (Objective-C) ==="
+ compile_objc "$DXMT_SRC/winemetal/unix/winemetal_unix.c" winemetal_unix
+ compile_objc "$DXMT_SRC/winemetal/unix/cache.c"          cache
+ 
++echo "=== airconv embedded shaders ==="
++mkdir -p "$BUILD_DIR/shader-headers"
++for name in air_msad air_samplepos air_tessellation; do
++    src="$DXMT_SRC/airconv/shaders/$name.metal"
++    header="$BUILD_DIR/shader-headers/$name.h"
++    if [ ! -f "$header" ] || [ "$src" -nt "$header" ]; then
++        xcrun -sdk iphoneos metal -std=metal3.1 --target=air64-apple-ios18.0 \
++            -c "$src" -o "$BUILD_DIR/shader-headers/$name.air"
++        xxd -n "$name" -i "$BUILD_DIR/shader-headers/$name.air" "$header"
++    fi
++done
++
+ echo "=== airconv (C++ 20, needs LLVM headers) ==="
+ for cpp in airconv_context.cpp air_type.cpp air_signature.cpp air_operations.cpp \
+            dxbc_converter.cpp dxbc_converter_gs.cpp dxbc_converter_ts.cpp \
+@@ -208,8 +220,8 @@ if [ ! -f "$BUILD_DIR/shader-headers/dxmt_command.h" ] \
+    || [ "$DXMT_SRC/dxmt/dxmt_command.metal" -nt "$BUILD_DIR/shader-headers/dxmt_command.h" ]; then
+     mkdir -p "$BUILD_DIR/shader-headers"
+     (cd "$BUILD_DIR/shader-headers" \
+-     && xcrun -sdk macosx metal -o dxmt_command.air -c "$DXMT_SRC/dxmt/dxmt_command.metal" \
+-     && xcrun -sdk macosx metallib -o dxmt_command.metallib dxmt_command.air \
++     && xcrun -sdk iphoneos metal -o dxmt_command.air -c "$DXMT_SRC/dxmt/dxmt_command.metal" \
++     && xcrun -sdk iphoneos metallib -o dxmt_command.metallib dxmt_command.air \
+      && xxd -n dxmt_command -i dxmt_command.metallib dxmt_command.h)
+     echo "  dxmt_command.h                           OK"
+ else
+@@ -294,8 +306,8 @@ if [ -f "$COMBINED" ]; then
+     xcrun -sdk iphoneos ar r "$COMBINED" "$OBJ_DIR"/*.o
+     xcrun -sdk iphoneos ranlib "$COMBINED"
+     echo "Refreshed: $COMBINED ($(wc -c < "$COMBINED" | tr -d ' ') bytes)"
+-    APP_COPY="$REPO_ROOT/app/Madeira/libdxmt_combined.a"
+-    if [ -f "$APP_COPY" ]; then cp "$COMBINED" "$APP_COPY"; echo "Staged: $APP_COPY"; fi
+ else
+-    echo "NOTE: $COMBINED absent; the app links that file, so build it before deploying."
++    echo "=== Combining DXMT and LLVM for a clean build ==="
++    xcrun -sdk iphoneos libtool -static -o "$COMBINED" "$OUT_LIB" "$LLVM_BUILD"/lib/*.a
+ fi
++cp "$COMBINED" "$REPO_ROOT/app/Madeira/libdxmt_combined.a"
+diff --git a/build/fex-ios/build.sh b/build/fex-ios/build.sh
+index ce3cc60..cb4e5fa 100755
+--- a/build/fex-ios/build.sh
++++ b/build/fex-ios/build.sh
+@@ -5,11 +5,10 @@
+ set -eu
+ R="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+ B="$R/FEX/build-ios"
+-if [ ! -f "$B/CMakeCache.txt" ]; then
+-    cmake -S "$R/FEX" -B "$B" -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_OSX_ARCHITECTURES=arm64 \
++    cmake -S "$R/FEX" -B "$B" -DCMAKE_SYSTEM_NAME=iOS -DCMAKE_SYSTEM_PROCESSOR=arm64 -DCMAKE_OSX_ARCHITECTURES=arm64 \
+         -DCMAKE_OSX_SYSROOT=iphoneos -DCMAKE_OSX_DEPLOYMENT_TARGET=17.0 -DCMAKE_BUILD_TYPE=Release \
+         -DBUILD_TESTING=OFF -DBUILD_THUNKS=OFF -DBUILD_FEXCONFIG=OFF -DBUILD_FEX_LINUX_TESTS=OFF \
+-        -DENABLE_FEX_ALLOCATOR=OFF -DENABLE_ASSERTIONS=OFF -DENABLE_CLANG_THUNKS=ON -DENABLE_CCACHE=ON
+-fi
+-cmake --build "$B" --target FEXCore FEXCore_Base
++        -DENABLE_FEX_ALLOCATOR=OFF -DENABLE_ASSERTIONS=OFF -DENABLE_CLANG_THUNKS=ON -DENABLE_CCACHE=ON \
++        -DTUNE_CPU=none -DTUNE_ARCH=generic
++cmake --build "$B" --target FEXCore FEXCore_Base JemallocLibs
+ ls "$B/FEXCore/Source/"*.a
+diff --git a/build/ffmpeg/build.sh b/build/ffmpeg/build.sh
+index c9e773c..6266829 100755
+--- a/build/ffmpeg/build.sh
++++ b/build/ffmpeg/build.sh
+@@ -65,7 +65,7 @@ for a in "$@"; do
+ done
+ 
+ SDK=$(xcrun --sdk iphoneos --show-sdk-path)
+-JOBS=$(sysctl -n hw.ncpu)
++JOBS=${JOBS:-12}
+ 
+ # ------------------------------------------------------------------ verify
+ mkdir -p "$OBJ_DIR"
+diff --git a/build/freetype-ios/build.sh b/build/freetype-ios/build.sh
+index f789322..eae05f3 100644
+--- a/build/freetype-ios/build.sh
++++ b/build/freetype-ios/build.sh
+@@ -25,5 +25,5 @@ cmake -S "$SRC" -B "$BUILD_DIR/build" -G "Unix Makefiles" \
+   -DFT_DISABLE_HARFBUZZ=ON -DFT_DISABLE_BROTLI=ON \
+   -DCMAKE_C_FLAGS="-fno-stack-protector"
+ 
+-cmake --build "$BUILD_DIR/build" -j8
++cmake --build "$BUILD_DIR/build" -j"${JOBS:-12}"
+ echo "Done: $BUILD_DIR/build/libfreetype.a"
+diff --git a/build/gnutls-ios/build.sh b/build/gnutls-ios/build.sh
+index bdf6c33..992d57c 100755
+--- a/build/gnutls-ios/build.sh
++++ b/build/gnutls-ios/build.sh
+@@ -42,7 +42,7 @@ export PKG_CONFIG_PATH="$PREFIX/lib/pkgconfig"
+ export PKG_CONFIG_LIBDIR="$PREFIX/lib/pkgconfig"
+ 
+ HOST=aarch64-apple-darwin
+-JOBS=$(sysctl -n hw.ncpu)
++JOBS=${JOBS:-12}
+ 
+ mkdir -p "$OBJ_DIR" "$PREFIX"
+ 
+diff --git a/build/host-tests/check-log-idle.py b/build/host-tests/check-log-idle.py
+new file mode 100644
+index 0000000..c19361c
+--- /dev/null
++++ b/build/host-tests/check-log-idle.py
+@@ -0,0 +1,143 @@
++#!/usr/bin/env python3
++"""Run production log pause/resume code against real host files and dispatch.
++
++Only C log callbacks/config and the Documents destination are replaced.
++Tests run with Swift optimization enabled; no device is launched.
++"""
++from pathlib import Path
++import os
++import subprocess
++import tempfile
++
++root = Path(__file__).resolve().parents[2]
++app = root / "app/Madeira"
++store = (app / "LogStore.swift").read_text()
++documents = 'FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!'
++assert store.count(documents) == 1
++store = store.replace(documents, 'URL(fileURLWithPath: CommandLine.arguments[1])')
++stubs = r'''
++import Foundation
++import SwiftUI
++var wineCallback: ((UnsafePointer<CChar>?) -> Void)?
++var jitCallback: ((UnsafePointer<CChar>?) -> Void)?
++func wine_set_ui_log_callback(_ callback: @escaping (UnsafePointer<CChar>?) -> Void) { wineCallback = callback }
++func jit_set_log_callback(_ callback: @escaping (UnsafePointer<CChar>?) -> Void) { jitCallback = callback }
++enum MadeiraConfig {
++    static var idleEnabled = true
++    static func flag(_ name: String) -> Bool {
++        if name == "MADEIRA_UI_LOG_IDLE" { return idleEnabled }
++        return false // Keep actual appendToFile, rather than redirecting host stderr.
++    }
++}
++'''
++tests = r'''
++extension LogTail {
++    func settleForTest() { queue.sync {} }
++}
++extension LogStore {
++    func settleTailForTest() { tail?.settleForTest() }
++    var hasFlushTimerForTest: Bool { flushTimer != nil }
++    var pendingForTest: Int {
++        stateLock.lock(); defer { stateLock.unlock() }
++        return pendingNew.count + pendingUpdates.count
++    }
++}
++func pump(_ seconds: Double = 0.1) { RunLoop.main.run(until: Date().addingTimeInterval(seconds)) }
++func append(_ text: String, to url: URL) throws {
++    let handle = try FileHandle(forWritingTo: url)
++    try handle.seekToEnd()
++    try handle.write(contentsOf: Data(text.utf8))
++    try handle.close()
++}
++final class Lines: @unchecked Sendable {
++    private let lock = NSLock()
++    private var value: [String] = []
++    func append(_ line: String) { lock.lock(); value.append(line); lock.unlock() }
++    var snapshot: [String] { lock.lock(); defer { lock.unlock() }; return value }
++}
++@main struct Checks {
++    static func main() throws {
++        let directory = URL(fileURLWithPath: CommandLine.arguments[1])
++        let store = LogStore.shared
++        store.settleTailForTest(); pump()
++        precondition(store.hasFlushTimerForTest)
++        store.log("queued_before_pause")
++        precondition(store.pendingForTest > 0)
++        store.setDisplayActive(false)
++        store.settleTailForTest(); pump()
++        precondition(!store.hasFlushTimerForTest && store.pendingForTest == 0)
++        let originalRows = store.entries.count
++        store.log("swift_hidden_marker")
++        "jit_hidden_marker".withCString { jitCallback?($0) }
++        "wine_hidden_marker".withCString { wineCallback?($0) }
++        try append("native_hidden_marker\n", to: directory.appendingPathComponent("madeira-log.txt"))
++        // uiPaused must not accidentally resurrect the suspended flush timer.
++        store.uiPaused = true
++        pump(0.4)
++        precondition(!store.hasFlushTimerForTest && store.pendingForTest == 0)
++        precondition(store.entries.count == originalRows)
++        let file = try String(contentsOf: directory.appendingPathComponent("madeira-log.txt"))
++        for marker in ["swift_hidden_marker", "jit_hidden_marker", "native_hidden_marker"] {
++            precondition(file.contains(marker), "lost persisted diagnostic: \(marker)")
++        }
++        store.uiPaused = false
++        store.setDisplayActive(true)
++        store.settleTailForTest(); pump()
++        store.log("visible_after_resume")
++        pump(0.4)
++        precondition(store.hasFlushTimerForTest)
++        precondition(store.entries.contains { $0.lastRaw.contains("visible_after_resume") })
++        precondition(!store.entries.contains { $0.lastRaw.contains("hidden_marker") })
++
++        // Exercise pause racing real background callback producers.
++        let producers = DispatchGroup()
++        for _ in 0..<4 {
++            DispatchQueue.global().async(group: producers) {
++                for _ in 0..<200 { "racing_callback".withCString { wineCallback?($0) } }
++            }
++        }
++        store.setDisplayActive(false)
++        producers.wait(); pump()
++        precondition(store.pendingForTest == 0 && !store.hasFlushTimerForTest)
++        MadeiraConfig.idleEnabled = false
++        store.setDisplayActive(false); pump()
++        precondition(store.hasFlushTimerForTest, "explicit UI-idle opt-out stopped working")
++        MadeiraConfig.idleEnabled = true
++        store.setDisplayActive(false); pump()
++
++        // Cover pausing before sources exist, repeated idempotent requests,
++        // dropping partial hidden lines, and cancelling suspended sources.
++        let tailFile = directory.appendingPathComponent("tail-test.log")
++        try Data().write(to: tailFile)
++        let lines = Lines()
++        let tail = LogTail(path: tailFile.path) { lines.append($0) }
++        tail.setDisplayPaused(true); tail.start(); tail.settleForTest()
++        try append("hidden-before-start\npartial-hidden", to: tailFile)
++        pump(0.3); tail.settleForTest()
++        precondition(lines.snapshot.isEmpty)
++        tail.setDisplayPaused(false); tail.settleForTest()
++        try append("visible-tail\n", to: tailFile)
++        pump(0.35); tail.settleForTest()
++        precondition(lines.snapshot == ["visible-tail"])
++        for _ in 0..<40 {
++            tail.setDisplayPaused(true); tail.setDisplayPaused(true)
++            tail.setDisplayPaused(false); tail.setDisplayPaused(false)
++        }
++        tail.settleForTest()
++        try append("still-live\n", to: tailFile)
++        pump(0.35); tail.settleForTest()
++        precondition(lines.snapshot == ["visible-tail", "still-live"])
++        tail.setDisplayPaused(true); tail.stop(); tail.settleForTest(); pump()
++        print("PASS: hidden UI/timers, persisted logs, callback race, pause/resume, partial lines and suspended-source stop")
++    }
++}
++'''
++
++with tempfile.TemporaryDirectory(prefix="madeira-log-idle-", dir=os.environ["TMPDIR"]) as temporary:
++    path = Path(temporary)
++    source = path / "check.swift"
++    source.write_text(stubs + store + (app / "LogTail.swift").read_text() +
++                      (app / "LogPattern.swift").read_text() + tests)
++    subprocess.run(["xcrun", "swiftc", "-O", "-parse-as-library", "-swift-version", "5",
++                    str(source), "-o", str(path / "check")], check=True)
++    subprocess.run([str(path / "check"), str(path)], check=True, timeout=30)
+diff --git a/build/host-tests/check-mewgenics-gestures.py b/build/host-tests/check-mewgenics-gestures.py
+new file mode 100644
+index 0000000..93248f1
+--- /dev/null
++++ b/build/host-tests/check-mewgenics-gestures.py
+@@ -0,0 +1,179 @@
++#!/usr/bin/env python3
++"""Run the production touch/Pencil state machine with deterministic host input.
++
++UIKit contact delivery and Wine output are small fakes; the gesture methods
++are extracted unchanged from ContentView.swift. This does not replace a real
++Pencil/device check. Set TMPDIR and CLANG_MODULE_CACHE_PATH before running.
++"""
++from pathlib import Path
++import os
++import subprocess
++import tempfile
++
++root = Path(__file__).resolve().parents[2]
++source = (root / 'app/Madeira/ContentView.swift').read_text()
++pencil = source.split('    private var gamePointerPosition:', 1)[1].split('    /// Same mapping for any point', 1)[0]
++pencil = '    private var gamePointerPosition:' + pencil
++touch = source.split('    private var tmDownPoints:', 1)[1].split('    // ==================================================================\n    // S2 desktop mode', 1)[0]
++touch = '    private var tmDownPoints:' + touch
++
++stubs = r'''
++import Foundation
++import CoreGraphics
++var events: [String] = []
++var keyboardToggles = 0
++func winios_post_touch_down(_ x: Int32, _ y: Int32) { events.append("L+") }
++func winios_post_touch_move(_ x: Int32, _ y: Int32) { events.append("move") }
++func winios_post_touch_up(_ x: Int32, _ y: Int32) { events.append("L-") }
++func winios_cursor_move(_ x: Int32, _ y: Int32) {}
++func winios_pointer(_ x: Int32, _ y: Int32, _ flags: UInt32, _ data: UInt32) {
++    if flags & 0x800 != 0 { events.append("wheel:\(Int32(bitPattern: data))") }
++}
++struct winios_direct_cursor_state { var x: Int32 = 55; var y: Int32 = 66 }
++func winios_direct_cursor_get(_ cursor: inout winios_direct_cursor_state) {}
++struct Deadline {
++    static func now() -> Deadline { Deadline() }
++    static func + (_ lhs: Deadline, _ rhs: Double) -> Deadline { lhs }
++}
++final class DispatchQueue {
++    static let main = DispatchQueue()
++    var pending: [() -> Void] = []
++    func asyncAfter(deadline: Deadline, execute: @escaping () -> Void) { pending.append(execute) }
++    func advance() { let work = pending; pending = []; work.forEach { $0() } }
++}
++final class UITouch: NSObject {
++    enum TouchType { case direct, pencil }
++    let type: TouchType
++    var point: CGPoint
++    init(_ x: Double, _ y: Double, _ type: TouchType = .direct) { point = CGPoint(x: x, y: y); self.type = type }
++    func location(in view: MetalBackedView) -> CGPoint { point }
++}
++final class UIEvent {}
++enum UIPencilInteraction {
++    enum Phase { case began, changed, ended, cancelled }
++    struct Pose { let location: CGPoint }
++    struct Squeeze { let phase: Phase; var hoverPose: Pose? = nil }
++}
++final class InputSettings {
++    static let shared = InputSettings()
++    var touchMode = true
++}
++final class HardwareInput {
++    static let shared = HardwareInput()
++    static var mewgenicsGestures = true
++    var allowed = true
++    var rightHeld = false
++    var tactical = false
++    func gameGesturesAllowed() -> Bool { allowed }
++    func setGameRightButton(_ pressed: Bool, at position: (Int32, Int32)? = nil) {
++        if pressed && !allowed { return }
++        if pressed != rightHeld { events.append(pressed ? "R+" : "R-") }
++        rightHeld = pressed
++    }
++    func toggleTacticalView() { tactical.toggle(); events.append("Ctrl") }
++    func pulseGameEscape() { events.append("Esc") }
++}
++final class MetalBackedView {
++    private let F_MOVE: UInt32 = 0x1, F_ABS: UInt32 = 0x8000
++    private let F_RDOWN: UInt32 = 0x8, F_RUP: UInt32 = 0x10, F_WHEEL: UInt32 = 0x800
++    static func toggleKeyboard() { keyboardToggles += 1 }
++    func pencilHovered(at point: CGPoint) {}
++    private func mapPoint(_ p: CGPoint) -> (Int32, Int32) { (Int32(p.x), Int32(p.y)) }
++    private func avgPoint(_ touches: [UITouch]) -> CGPoint {
++        let n = CGFloat(touches.count)
++        return CGPoint(x: touches.map { $0.point.x }.reduce(0, +) / n,
++                       y: touches.map { $0.point.y }.reduce(0, +) / n)
++    }
++'''
++wrappers = r'''
++    func began(_ touches: UITouch...) { touchModeBegan(Set(touches)) }
++    func moved(_ touches: UITouch...) { touchModeMoved(Set(touches), nil) }
++    func ended(_ touches: UITouch...) { touchModeEnded(Set(touches), nil) }
++    func cancelled(_ touches: UITouch...) { touchModeCancelled(Set(touches)) }
++}
++func reset() -> MetalBackedView {
++    events = []; keyboardToggles = 0
++    DispatchQueue.main.pending = []
++    HardwareInput.shared.allowed = true
++    HardwareInput.shared.rightHeld = false
++    HardwareInput.shared.tactical = false
++    return MetalBackedView()
++}
++func expect(_ wanted: [String], _ why: String) {
++    assert(events == wanted, "\(why): \(events), expected \(wanted)")
++}
++// Direct touch and Pencil left contact retain their established semantics.
++var view = reset()
++var a = UITouch(20, 30), b = UITouch(40, 30), c = UITouch(60, 30), d = UITouch(80, 30)
++view.began(a); expect([], "finger waits for gesture")
++view.ended(a); expect(["L+", "L-"], "single tap")
++view = reset(); a = UITouch(20, 30, .pencil)
++view.began(a); expect(["L+"], "Pencil immediate down")
++a.point.x += 10; view.moved(a); view.ended(a)
++expect(["L+", "move", "L-"], "Pencil drag")
++
++view = reset(); a = UITouch(20, 30)
++view.began(a, b); view.ended(a); view.ended(b)
++expect(["R+", "R-"], "two-finger tap")
++view = reset(); view.began(a, b); DispatchQueue.main.advance()
++expect(["R+"], "two-finger hold")
++view.ended(a); view.ended(b); expect(["R+", "R-"], "examine release")
++
++view = reset(); view.began(a, b); view.began(c); DispatchQueue.main.advance()
++expect(["Ctrl"], "third finger invalidates right hold")
++view.ended(a, b, c); expect(["Ctrl"], "tactical hold never Escape")
++view = reset(); view.began(a, b, c); view.ended(a); view.ended(b, c)
++expect(["Esc"], "three-finger tap")
++view = reset(); view.began(a, b, c, d); DispatchQueue.main.advance()
++view.ended(a, b, c, d)
++assert(keyboardToggles == 1); expect([], "keyboard hold has no game click")
++
++view = reset(); a = UITouch(20, 30); b = UITouch(100, 30)
++view.began(a, b); a.point.x -= 15; b.point.x += 15; view.moved(a, b)
++view.ended(a, b); expect(["wheel:120", "wheel:120"], "pinch expands once")
++view = reset(); a = UITouch(20, 30); b = UITouch(100, 30)
++view.began(a, b); a.point.y += 28; b.point.y += 28; view.moved(a, b)
++a.point.x -= 28; b.point.x += 28; view.moved(a, b)
++view.ended(a, b); expect(["wheel:120", "wheel:120"], "scroll cannot double as pinch")
++view = reset(); a = UITouch(20, 30); b = UITouch(100, 30)
++view.began(a, b); a.point.y += 0.1; b.point.y += 0.1; view.moved(a, b)
++expect([], "stationary fingers emit no wheel")
++
++// Partial lifts/new contacts and cancellation must not resurrect a tap.
++view = reset(); view.began(a, b); view.ended(a); view.began(c); view.ended(b, c)
++expect([], "contact joins after ending")
++view = reset(); view.began(a, b); view.cancelled(a); view.ended(b)
++expect([], "partial cancellation")
++view = reset(); view.began(a); DispatchQueue.main.advance(); view.began(b)
++view.ended(b); a.point.x += 20; view.moved(a); view.ended(a)
++expect(["L+", "move", "L-"], "unrelated finger lift preserves drag")
++
++// Squeeze owns right click, never simultaneous left contact.
++view = reset(); a = UITouch(20, 30, .pencil); view.began(a)
++view.pencilSqueezed(.init(phase: .began)); view.ended(a)
++view.pencilSqueezed(.init(phase: .ended))
++expect(["L+", "L-", "R+", "R-"], "squeeze replaces left drag")
++view = reset(); view.pencilSqueezed(.init(phase: .began)); view.began(a)
++view.pencilSqueezed(.init(phase: .ended)); view.ended(a)
++expect(["R+", "R-"], "contact during squeeze is suppressed")
++view = reset(); view.pencilSqueezed(.init(phase: .ended))
++expect(["R+", "R-"], "discrete squeeze")
++view = reset(); view.pencilSqueezed(.init(phase: .began))
++view.cancelGameGestures(); view.pencilSqueezed(.init(phase: .ended))
++expect(["R+", "R-"], "focus-loss squeeze is not replayed")
++view = reset(); HardwareInput.shared.allowed = false
++view.pencilSqueezed(.init(phase: .began)); HardwareInput.shared.allowed = true
++view.pencilSqueezed(.init(phase: .ended)); expect([], "unfocused squeeze is ignored")
++view = reset(); view.began(a); view.cancelGameGestures()
++events = []; view.began(b); view.ended(a); view.cancelled(a); view.ended(b)
++expect(["L+", "L-"], "resume accepts a new gesture without old terminal callbacks")
++print("Mewgenics gesture state-machine checks passed")
++'''
++
++with tempfile.TemporaryDirectory(prefix='mewgenics-gestures-') as temp:
++    folder = Path(temp)
++    main = folder / 'main.swift'
++    main.write_text(stubs + pencil + touch + wrappers)
++    binary = folder / 'gestures'
++    subprocess.run([os.environ.get('SWIFTC', 'swiftc'), str(main), '-o', str(binary)], check=True)
++    subprocess.run([str(binary)], check=True)
+diff --git a/build/host-tests/check-mewgenics-session.py b/build/host-tests/check-mewgenics-session.py
+new file mode 100644
+index 0000000..cd9dddf
+--- /dev/null
++++ b/build/host-tests/check-mewgenics-session.py
+@@ -0,0 +1,87 @@
++#!/usr/bin/env python3
++"""Exercise the production process-wide launch state with recreated view owners.
++
++No device, Wine runtime, JIT allocation or UIKit lifecycle is simulated here.
++The signed iPad build checks UIKit integration; background survival still
++requires an on-device test. Set TMPDIR and CLANG_MODULE_CACHE_PATH externally.
++"""
++from pathlib import Path
++import os
++import subprocess
++import tempfile
++
++root = Path(__file__).resolve().parents[2]
++source = (root / "app/Madeira/ContentView.swift").read_text()
++state = source.split("@MainActor\nfinal class MewgenicsSessionState", 1)[1].split("\nstruct ContentView:", 1)[0]
++state = "@MainActor\nfinal class MewgenicsSessionState" + state
++
++harness = r'''
++import Foundation
++import Combine
++PRODUCTION_STATE
++
++@MainActor
++struct ViewOwner {
++    let session: MewgenicsSessionState
++    func appear() -> Bool { session.beginBootstrap() }
++    func requestJIT() -> Bool { session.beginPreparation() }
++    func JITReady() -> Bool { session.beginLaunch() }
++}
++
++@main struct Checks {
++    @MainActor static func main() {
++        let session = MewgenicsSessionState()
++        let initial = ViewOwner(session: session)
++        precondition(initial.appear())
++        // View recreation before requesting JIT does not repeat bootstrap.
++        precondition(!ViewOwner(session: session).appear())
++        precondition(initial.requestJIT())
++        precondition(session.preparing && !session.launchStarted)
++        // An interrupted StikDebug handoff retains the same pending request.
++        for _ in 0..<100 {
++            let replacement = ViewOwner(session: session)
++            precondition(!replacement.appear())
++            precondition(!replacement.requestJIT())
++        }
++        // The original callback remains valid after its view owner disappears.
++        precondition(initial.JITReady())
++        precondition(session.launchStarted && !session.preparing)
++        for _ in 0..<100 {
++            let replacement = ViewOwner(session: session)
++            precondition(!replacement.appear())
++            precondition(!replacement.requestJIT())
++            precondition(!replacement.JITReady())
++        }
++        session.failPreparation("late failure")
++        precondition(session.launchStarted && session.error == nil)
++
++        // A real preparation failure can be retried once, with its error
++        // visible to replacement views and cleared only by the new request.
++        let retry = MewgenicsSessionState()
++        precondition(retry.beginBootstrap() && retry.beginPreparation())
++        retry.failPreparation("JIT unavailable")
++        let replacement = ViewOwner(session: retry)
++        precondition(!replacement.appear())
++        precondition(replacement.session.error == "JIT unavailable")
++        precondition(!retry.preparing && !retry.launchStarted)
++        precondition(replacement.requestJIT() && retry.error == nil)
++        precondition(!replacement.requestJIT())
++        precondition(replacement.JITReady() && !replacement.JITReady())
++
++        // Persisted lifecycle breadcrumbs must not prevent a cold process
++        // from bootstrapping. There is no UserDefaults launch-state storage.
++        let cold = MewgenicsSessionState()
++        precondition(!cold.bootstrapped && !cold.preparing && !cold.launchStarted)
++        precondition(cold.beginBootstrap() && cold.beginPreparation() && cold.beginLaunch())
++        precondition(MewgenicsSessionState.shared === MewgenicsSessionState.shared)
++        print("PASS: view recreation, pending JIT, one launch, retry, late callback and cold launch")
++    }
++}
++'''.replace("PRODUCTION_STATE", state)
++
++with tempfile.TemporaryDirectory(prefix="mewgenics-session-", dir=os.environ["TMPDIR"]) as temporary:
++    path = Path(temporary)
++    (path / "check.swift").write_text(harness)
++    subprocess.run(["xcrun", "swiftc", "-parse-as-library", "-swift-version", "5",
++                    str(path / "check.swift"), "-o", str(path / "check")], check=True)
++    subprocess.run([str(path / "check")], check=True)
+diff --git a/build/ntdll-unix/audio_null_ios.c b/build/ntdll-unix/audio_null_ios.c
+index 944c0d6..2d32297 100644
+--- a/build/ntdll-unix/audio_null_ios.c
++++ b/build/ntdll-unix/audio_null_ios.c
+@@ -32,6 +32,7 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <pthread.h>
++#include <pthread/qos.h>
+ #include <mach/mach_time.h>
+ #include <unistd.h>
+ #include <time.h>
+@@ -355,6 +356,9 @@ struct ios_stream {
+     BYTE *ring;
+     _Atomic uint64_t write_pos;  /* frames produced by the game (monotonic) */
+     _Atomic uint64_t play_pos;   /* frames consumed by the RT callback */
++    _Atomic uint64_t underrun_frames;
++    _Atomic uint64_t output_frames;
++    _Atomic UINT32 output_quantum;
+ };
+ 
+ /* ml739: one stream object per client, mirroring Wine's CoreAudio driver.
+@@ -702,6 +706,10 @@ static void ios_mix_stream(struct ios_stream *s, float *out, UInt32 nframes,
+         if (dev_ch > 1) out[(size_t)f * dev_ch + 1] += r;
+     }
+ 
++    if (f < nframes)
++        atomic_fetch_add_explicit(&s->underrun_frames, nframes - f, memory_order_relaxed);
++    atomic_fetch_add_explicit(&s->output_frames, nframes, memory_order_relaxed);
++    atomic_store_explicit(&s->output_quantum, nframes, memory_order_relaxed);
+     atomic_store_explicit(&s->play_pos, play + need, memory_order_release);
+ }
+ 
+@@ -1222,9 +1230,25 @@ static NTSTATUS ios_timer_loop(void *args) {
+     struct ios_stream *s = stream_from_handle(p->stream);
+     if (!s) return STATUS_SUCCESS;
+     LOG_FN_CALL(9, "timer_loop");
++    /* Relative 10 ms sleeps plus IPC overhead ran at only ~91 wakes/s on
++     * device, while SDL supplied one 10 ms packet per wake. That starved the
++     * 48 kHz output even when the rendered frames were unrelated to audio.
++     * Poll on absolute deadlines, with a modest queued-audio cushion. */
++    pthread_set_qos_class_self_np(QOS_CLASS_USER_INTERACTIVE, 0);
++    mach_timebase_info_data_t timebase;
++    mach_timebase_info(&timebase);
++    uint64_t step = 5000000ull * timebase.denom / timebase.numer;
++    uint64_t deadline = mach_absolute_time();
++    UINT32 target = s->sample_rate * 40 / 1000;
++    if (target > s->buffer_frames / 2) target = s->buffer_frames / 2;
+     while (s->valid) {
+-        usleep(10000); /* device period, 10 ms */
+-        if (s->event && s->started)
++        deadline += step;
++        mach_wait_until(deadline);
++        uint64_t now = mach_absolute_time();
++        if (now > deadline + step) deadline = now;
++        uint64_t padding = atomic_load_explicit(&s->write_pos, memory_order_acquire) -
++                           atomic_load_explicit(&s->play_pos, memory_order_acquire);
++        if (s->event && s->started && (!ios_stream_is_live(s) || padding <= target))
+             NtSetEvent(s->event, NULL);
+     }
+     return STATUS_SUCCESS;
+@@ -1321,6 +1345,12 @@ static NTSTATUS ios_release_render_buffer(void *args) {
+                             w[0], w[1], w[2], w[3], w[4], w[5], w[6], w[7], w[8], w[9], w[10], w[11]);
+                 }
+                 if (time(NULL) - st[slot].last >= 10 && st[slot].frames) {
++                    uint64_t underruns = atomic_exchange_explicit(&s->underrun_frames, 0, memory_order_relaxed);
++                    uint64_t output = atomic_exchange_explicit(&s->output_frames, 0, memory_order_relaxed);
++                    fprintf(stderr, "[mewgenics-audio] underrun_frames=%llu output_frames=%llu quantum=%u packet=%u padding=%llu\n",
++                            (unsigned long long)underruns, (unsigned long long)output,
++                            atomic_load_explicit(&s->output_quantum, memory_order_relaxed), n,
++                            (unsigned long long)(wr - atomic_load_explicit(&s->play_pos, memory_order_acquire)));
+                     fprintf(stderr, "[ios_audio] ml1065 slot=%d source: %llu samples, mean|x|=%.4f peak=%.3f clipped=%llu (rate %u ch %u float=%d bits=%d)\n",
+                             slot, (unsigned long long)st[slot].frames, st[slot].sum_abs / (double)st[slot].frames, st[slot].peak,
+                             (unsigned long long)st[slot].clip, s->sample_rate, s->channels, s->is_float, s->sample_bits);
+@@ -1398,8 +1428,12 @@ static NTSTATUS ios_get_mix_format(void *args) {
+ 
+ static NTSTATUS ios_get_device_period(void *args) {
+     struct get_device_period_params *p = args;
+-    if (p->def_period) *p->def_period = 100000; /* 10 ms in 100ns units */
+-    if (p->min_period) *p->min_period = 50000;  /* 5 ms */
++    /* SDL sizes each submission from this period and only queues about two
++     * packets. The mixed iPad audio session uses 1024-frame callbacks;
++     * 40 ms gives translated clients a complete quantum plus scheduling
++     * headroom without misreporting padding or changing playback speed. */
++    if (p->def_period) *p->def_period = 400000; /* 40 ms in 100ns units */
++    if (p->min_period) *p->min_period = 100000; /* 10 ms */
+     p->result = S_OK;
+     return STATUS_SUCCESS;
+ }
+@@ -1416,7 +1450,7 @@ static NTSTATUS ios_get_buffer_size(void *args) {
+ 
+ static NTSTATUS ios_get_latency(void *args) {
+     struct get_latency_params *p = args;
+-    if (p->latency) *p->latency = 100000; /* 10 ms */
++    if (p->latency) *p->latency = 400000; /* 40 ms */
+     p->result = S_OK;
+     return STATUS_SUCCESS;
+ }
+diff --git a/build/ntdll-unix/build.sh b/build/ntdll-unix/build.sh
+index e02a173..d245e02 100755
+--- a/build/ntdll-unix/build.sh
++++ b/build/ntdll-unix/build.sh
+@@ -91,6 +91,8 @@ compile_one "$BUILD_DIR/../madsync/madsync.c" "madsync"   # ml1058: userspace nt
+ 
+ # iOS-Madeira 2026-07-05 (Steam S0): network + crypto unix sides.
+ echo "=== Building crypto/network unixlibs ==="
++compile_unixlib "$WINE_SRC/dlls/winevulkan/vulkan.c" "winevulkan" "winevulkan" -I"$WINE_SRC/dlls/winevulkan"
++compile_unixlib "$WINE_SRC/dlls/winevulkan/vulkan_thunks.c" "winevulkan_thunks" "winevulkan" -I"$WINE_SRC/dlls/winevulkan"
+ "$CRYPTO_DIR/gen_gnutls_symtab.sh" > /dev/null
+ compile_one "$CRYPTO_DIR/gnutls_symtab_ios.c" "gnutls_symtab_ios"
+ compile_unixlib "$WINE_SRC/dlls/ws2_32/unixlib.c" "ws2_32_unixlib" "ws2_32" \
+@@ -109,7 +111,7 @@ compile_unixlib "$WINE_SRC/dlls/secur32/schannel_gnutls.c" "secur32_unixlib" "se
+ # build tree, so that include dir is named explicitly here.
+ compile_unixlib "$BUILD_DIR/dwrite_freetype_ios.c" "dwrite_unixlib" "dwrite" \
+     -I"$WINE_SRC/dlls/dwrite" -I"$REPO_ROOT/research/freetype/include" \
+-    -I"$REPO_ROOT/wine/build-arm64ec/include"
++    -I"$WINE_BUILD/include"
+ compile_unixlib "$CRYPTO_DIR/crypt32_unixlib_ios.c" "crypt32_unixlib" "crypt32" \
+     -I"$WINE_SRC/dlls/crypt32" -I"$GNUTLS_PREFIX/include" \
+     -include "$CRYPTO_DIR/ios_gnutls_shim.h"
+@@ -207,6 +209,7 @@ fi
+ echo ""
+ echo "=== Building libntdll_unix.a ==="
+ ar rcs "$OBJ_DIR/libntdll_unix.a" \
++    "$OBJ_DIR/winevulkan.o" "$OBJ_DIR/winevulkan_thunks.o" \
+     "$OBJ_DIR/audio_null_ios.o" "$OBJ_DIR/madsync.o" "$OBJ_DIR/nsi_unixlib_ios.o" \
+     "$OBJ_DIR/nsi_network_ios.o" "$OBJ_DIR/nsi_ndis.o" "$OBJ_DIR/nsi_ip.o" \
+     "$OBJ_DIR/gnutls_symtab_ios.o" "$OBJ_DIR/ws2_32_unixlib.o" \
+diff --git a/build/ntdll-unix/virtual_ios.c b/build/ntdll-unix/virtual_ios.c
+index 57f5bf7..491a61a 100644
+--- a/build/ntdll-unix/virtual_ios.c
++++ b/build/ntdll-unix/virtual_ios.c
+@@ -3670,6 +3670,23 @@ int ios_jit_anon_alias_overlaps(void *user_va, size_t size, uintptr_t *base_out,
+     return 0;
+ }
+ 
++/* A released guest allocation can immediately be reused as a non-executable
++ * heap. Its alias metadata must not survive and force that new heap RX. */
++static void ios_jit_anon_alias_retire_range(void *base, size_t size)
++{
++    uintptr_t lo = (uintptr_t)base, hi = lo + size;
++    for (int i = 0; i < ios_jit_anon_alias_count; i++) {
++        uintptr_t b = ios_jit_anon_aliases[i].user_va;
++        uintptr_t e = ios_jit_anon_aliases[i].user_va_end;
++        if (!b || b < lo || e > hi) continue;
++        ios_jit_anon_aliases[i].user_va_end = 0;
++        __sync_synchronize();
++        ios_mono_alias_retire(b);
++        ios_jit_anon_aliases[i].user_va = 0;
++        if (ios_jit_anon_alias_live > 0) ios_jit_anon_alias_live--;
++    }
++}
++
+ int ios_jit_anon_alias_find_cover(void *user_va, size_t size, void **rw_out, void **rx_out)
+ {
+     uintptr_t lo = (uintptr_t)user_va, hi = lo + size;
+@@ -8508,6 +8525,8 @@ extern const void *dwrite_unix_call_funcs[];
+  * and Media Foundation's MP4 source; the wg_muxer entries return
+  * STATUS_NOT_IMPLEMENTED. */
+ extern const void *winegstreamer_unix_call_funcs[];
++extern const void *winevulkan_unix_call_funcs[];
++extern const void *winevulkan_unix_call_wow64_funcs[];
+ 
+ /* win32u's unix init, statically linked via libwin32u_unix.a. Renamed
+  * from __wine_unix_lib_init in build/win32u-unix/build.sh so future
+@@ -8756,7 +8775,11 @@ static NTSTATUS load_builtin_unixlib( void *module, BOOL wow, const void **funcs
+          * so they have no layout to get wrong. */
+         const char *libname = NULL;
+         const void *funcs64 = NULL, *funcs_wow64 = NULL;
+-        if (match && strstr(match, "winemetal")) {
++        if (match && strstr(match, "winevulkan")) {
++            libname = "winevulkan";
++            funcs64 = (const void *)winevulkan_unix_call_funcs;
++            funcs_wow64 = (const void *)winevulkan_unix_call_wow64_funcs;
++        } else if (match && strstr(match, "winemetal")) {
+             libname = "winemetal";
+             funcs64 = (const void *)dxmt_winemetal_unix_call_funcs;
+             funcs_wow64 = (const void *)dxmt_winemetal_unix_call_wow64_funcs;
+@@ -10358,6 +10381,7 @@ static void delete_view( struct file_view *view ) /* [in] View */
+     if ((view->protect & SEC_IMAGE) && ios_jit_image_retire_enabled())
+         ios_jit_retire_image( view->base, view->size );
+     ios_swap_release_range( view->base, view->size, 0 );   /* ml1077 */
++    ios_jit_anon_alias_retire_range( view->base, view->size );
+     if (!(view->protect & VPROT_SYSTEM)) unmap_area( view->base, view->size );
+     if (ios_retire_trace_armed) ios_retire_mark( "D1u\n" );   /* unmap_area done */
+     set_page_vprot( view->base, view->size, 0 );
+@@ -13160,7 +13184,18 @@ static NTSTATUS set_protection( struct file_view *view, void *base, SIZE_T size,
+         {
+             int keep_exec = (vprot & VPROT_EXEC) || 1;   /* alias pages are executable by construction */
+             int pr = PROT_READ | (keep_exec ? PROT_EXEC : 0);
+-            int rc = mprotect( base, size, pr );
++            /* Protect alias pages only. A large heap protection request can
++             * overlap a tiny code alias; making the entire heap RX corrupts
++             * otherwise unrelated native allocator writes. */
++            int rc = 0;
++            uintptr_t lo = (uintptr_t)base, hi = lo + size;
++            for (int i = 0; i < ios_jit_anon_alias_count; i++) {
++                uintptr_t b = ios_jit_anon_aliases[i].user_va;
++                uintptr_t e = ios_jit_anon_aliases[i].user_va_end;
++                if (!b || b >= hi || e <= lo) continue;
++                uintptr_t start = b > lo ? b : lo, end = e < hi ? e : hi;
++                if (mprotect((void *)start, end - start, pr)) rc = -1;
++            }
+             static int ab_n;
+             if (ab_n < 24)
+                 dprintf(2, "[alias-prot] ml638 #%d %p+0x%lx requested prot=0x%x (vprot=0x%x) — logical kept, "
+diff --git a/build/win32u-unix/build.sh b/build/win32u-unix/build.sh
+index 949675e..5fc60cc 100755
+--- a/build/win32u-unix/build.sh
++++ b/build/win32u-unix/build.sh
+@@ -81,6 +81,10 @@ for src in $WINE_SRC/dlls/win32u/*.c $WINE_SRC/dlls/win32u/dibdrv/*.c; do
+ 
+     # Per-file iOS overrides (analogous to ntdll-unix's pattern).
+     case "$name" in
++        vulkan)
++            compile_one "$BUILD_DIR/vulkan_ios.c" "vulkan"
++            continue
++            ;;
+         class)
+             compile_one "$BUILD_DIR/class_ios.c" "class"
+             continue
+diff --git a/build/win32u-unix/driver_ios.c b/build/win32u-unix/driver_ios.c
+index 429f473..e0e595f 100644
+--- a/build/win32u-unix/driver_ios.c
++++ b/build/win32u-unix/driver_ios.c
+@@ -129,7 +129,15 @@ void winios_drv_post_mouse(int x, int y, unsigned int flags, unsigned int mouse_
+      * Call win32u's send_hardware_message directly (same library) instead
+      * of the NtUserCallHwndParam inline — we get the raw NTSTATUS and skip
+      * a dispatch layer that can fail for its own reasons. */
+-    NTSTATUS st = send_hardware_message( NULL, 0, &input, 0 );
++    NTSTATUS st = send_hardware_message( hwnd, 0, &input, 0 );
++    if ((flags & 0x7e) && getenv("MADEIRA_INPUT_FRAME_LATCH")) {
++        POINT cursor = {0};
++        NtUserGetCursorPos(&cursor);
++        dprintf(2, "[mewgenics-input] flags=%x status=%x foreground=%p hit=%p cursor=%ld,%ld L=%x R=%x thread=%x\n",
++                flags, (unsigned)st, NtUserGetForegroundWindow(), NtUserWindowFromPoint(x, y),
++                (long)cursor.x, (long)cursor.y, (unsigned short)NtUserGetAsyncKeyState(VK_LBUTTON),
++                (unsigned short)NtUserGetAsyncKeyState(VK_RBUTTON), GetCurrentThreadId());
++    }
+     {
+         static unsigned cnt;
+         if (cnt++ < 40)
+@@ -385,6 +393,11 @@ int winios_drv_foreground_if_owner( HWND hwnd )
+     return NtUserSetForegroundWindow( hwnd ) ? 1 : -1;
+ }
+ 
++int winios_drv_is_window_thread( HWND hwnd )
++{
++    return hwnd && get_window_thread(hwnd, NULL) == GetCurrentThreadId();
++}
++
+ /* ============================================================ *
+  * winios window surfaces (S2): GDI window content → app compositor.
+  * Modeled on win32u's offscreen surface (dce.c): the generic
+@@ -1622,7 +1635,8 @@ static LRESULT nulldrv_WintabProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lp
+ 
+ static UINT nulldrv_VulkanInit( UINT version, void *vulkan_handle, const struct vulkan_driver_funcs **driver_funcs )
+ {
+-    return STATUS_NOT_IMPLEMENTED;
++    extern UINT winios_VulkanInit(UINT, void *, const struct vulkan_driver_funcs **);
++    return winios_VulkanInit(version, vulkan_handle, driver_funcs);
+ }
+ 
+ static UINT nulldrv_OpenGLInit( UINT version, const struct opengl_funcs *opengl_funcs, const struct opengl_driver_funcs **driver_funcs )
+diff --git a/build/win32u-unix/message_ios.c b/build/win32u-unix/message_ios.c
+index 2732036..34a8420 100644
+--- a/build/win32u-unix/message_ios.c
++++ b/build/win32u-unix/message_ios.c
+@@ -2661,6 +2661,10 @@ static BOOL process_mouse_message( MSG *msg, UINT hw_id, ULONG_PTR extra_info, H
+         accept_hardware_message( hw_id );
+         return FALSE;
+     }
++    if (msg->message >= WM_LBUTTONDOWN && msg->message <= WM_MBUTTONDBLCLK && getenv("MADEIRA_INPUT_FRAME_LATCH"))
++        dprintf(2, "[mewgenics-mouse] msg=%x hwnd=%p hit=%d active=%p focus=%p capture=%p pointer=%d remove=%d wp=%lx\n",
++                msg->message, msg->hwnd, hittest, info.hwndActive, info.hwndFocus, info.hwndCapture,
++                is_mouse_in_pointer_enabled(msg->hwnd), remove, (unsigned long)msg->wParam);
+     update_current_mouse_window( msg->hwnd, hittest, msg->pt );
+ 
+     msg->pt = point_phys_to_win_dpi( msg->hwnd, msg->pt );
+diff --git a/build/win32u-unix/spirv_ios.h b/build/win32u-unix/spirv_ios.h
+new file mode 100644
+index 0000000..c3a5c80
+--- /dev/null
++++ b/build/win32u-unix/spirv_ios.h
+@@ -0,0 +1,34 @@
++#ifndef MADEIRA_SPIRV_IOS_H
++#define MADEIRA_SPIRV_IOS_H
++#include <stddef.h>
++#include <stdint.h>
++#include <string.h>
++
++/* SPIR-V OpName (5) and OpMemberName (6) are optional debug instructions.
++ * SPIRV-Cross in MoltenVK 1.4.2 can emit a texture named "sampler" before a
++ * Metal sampler declaration, hiding the Metal type and failing compilation.
++ * Remove only that name; IDs, bindings, entry points and executable code stay
++ * unchanged. Return 0 for malformed input, without modifying it. */
++static size_t madeira_spirv_sanitize_names(uint32_t *words, size_t count)
++{
++    if (count < 5 || words[0] != 0x07230203) return 0;
++    for (size_t i = 5; i < count;) {
++        size_t n = words[i] >> 16;
++        if (!n || n > count - i) return 0;
++        i += n;
++    }
++    size_t out = 5;
++    for (size_t i = 5; i < count;) {
++        size_t n = words[i] >> 16;
++        unsigned op = words[i] & 0xffff;
++        size_t name = op == 5 ? 2 : op == 6 ? 3 : n;
++        int reserved = n >= name + 2 && !memcmp(words + i + name, "sampler", 8);
++        if (!reserved) {
++            memmove(words + out, words + i, n * sizeof(*words));
++            out += n;
++        }
++        i += n;
++    }
++    return out;
++}
++#endif
+diff --git a/build/win32u-unix/sysparams_ios.c b/build/win32u-unix/sysparams_ios.c
+index a8ed7ca..d2f8207 100644
+--- a/build/win32u-unix/sysparams_ios.c
++++ b/build/win32u-unix/sysparams_ios.c
+@@ -3951,6 +3951,8 @@ static BOOL ios_mode_at_index( UINT index, int *w, int *h )
+ static BOOL ios_virtual_enum_display_settings( DWORD index, DEVMODEW *devmode, DWORD flags )
+ {
+     int sw, sh;
++    const char *hz_env = getenv("MADEIRA_SCREEN_HZ");
++    int hz = hz_env ? atoi(hz_env) : 60;
+ 
+     ios_screen_size( &sw, &sh );
+ 
+@@ -3958,7 +3960,7 @@ static BOOL ios_virtual_enum_display_settings( DWORD index, DEVMODEW *devmode, D
+                         DM_PELSWIDTH | DM_PELSHEIGHT | DM_DISPLAYFLAGS | DM_DISPLAYFREQUENCY;
+     devmode->dmDisplayOrientation = DMDO_DEFAULT;
+     devmode->dmBitsPerPel = 32;
+-    devmode->dmDisplayFrequency = 60;
++    devmode->dmDisplayFrequency = hz >= 30 && hz <= 240 ? hz : 60;
+     devmode->dmDisplayFlags = 0;
+     devmode->dmPosition.x = 0;
+     devmode->dmPosition.y = 0;
+diff --git a/build/win32u-unix/vulkan_ios.c b/build/win32u-unix/vulkan_ios.c
+new file mode 100644
+index 0000000..d238d63
+--- /dev/null
++++ b/build/win32u-unix/vulkan_ios.c
+@@ -0,0 +1,388 @@
++/* Statically linked MoltenVK loader and Metal surface adapter for Wine. */
++#include "config_ios.h"
++#include <dlfcn.h>
++#include <string.h>
++#include <pthread.h>
++#include <time.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <stdatomic.h>
++#include "spirv_ios.h"
++#include "windef.h"
++#include "winbase.h"
++#include "wine/vulkan.h"
++
++extern PFN_vkVoidFunction vkGetInstanceProcAddr(VkInstance, const char *);
++extern PFN_vkVoidFunction vkGetDeviceProcAddr(VkDevice, const char *);
++extern VkResult vkDeviceWaitIdle(VkDevice);
++extern void vkDestroyDevice(VkDevice, const VkAllocationCallbacks *);
++extern VkResult vkQueueSubmit(VkQueue, uint32_t, const VkSubmitInfo *, VkFence);
++extern VkResult vkQueueSubmit2(VkQueue, uint32_t, const VkSubmitInfo2 *, VkFence);
++extern VkResult vkQueuePresentKHR(VkQueue, const VkPresentInfoKHR *);
++extern VkResult vkAcquireNextImageKHR(VkDevice, VkSwapchainKHR, uint64_t, VkSemaphore, VkFence, uint32_t *);
++extern VkResult vkAcquireNextImage2KHR(VkDevice, const VkAcquireNextImageInfoKHR *, uint32_t *);
++extern VkResult vkCreateShaderModule(VkDevice, const VkShaderModuleCreateInfo *, const VkAllocationCallbacks *, VkShaderModule *);
++extern VkResult vkCreateSwapchainKHR(VkDevice, const VkSwapchainCreateInfoKHR *, const VkAllocationCallbacks *, VkSwapchainKHR *);
++extern VkResult vkGetSwapchainImagesKHR(VkDevice, VkSwapchainKHR, uint32_t *, VkImage *);
++extern VkResult vkCreateImage(VkDevice, const VkImageCreateInfo *, const VkAllocationCallbacks *, VkImage *);
++extern VkResult vkWaitForFences(VkDevice, uint32_t, const VkFence *, VkBool32, uint64_t);
++extern VkResult vkWaitSemaphores(VkDevice, const VkSemaphoreWaitInfo *, uint64_t);
++extern VkResult vkQueueWaitIdle(VkQueue);
++
++static uint64_t ios_vk_now(void);
++
++/* Opt-in metadata only. Comparing startup with a render-scale round trip
++ * needs the actual target dimensions/sample count, not just settings.txt.
++ * Timings are cumulative elapsed time inside each Vulkan entry point across
++ * all threads, including waits, not CPU execution or GPU time. Counter loads
++ * are approximate snapshots; present calls are not displayed-frame counts.
++ * Never inspect image pixels,
++ * add synchronization, or change any arguments/results for diagnostics. */
++static pthread_once_t diag_once = PTHREAD_ONCE_INIT;
++static int diag_enabled;
++static _Atomic unsigned long long diag_present_count;
++enum diag_operation { DIAG_ACQUIRE, DIAG_SUBMIT, DIAG_PRESENT, DIAG_FENCE,
++                      DIAG_SEMAPHORE, DIAG_QUEUE_IDLE, DIAG_DEVICE_IDLE, DIAG_COUNT };
++static struct { _Atomic unsigned long long calls, ns; } diag_times[DIAG_COUNT];
++static void ios_vk_diag_init(void)
++{
++    const char *value = getenv("MADEIRA_VULKAN_DIAGNOSTICS");
++    diag_enabled = value && !strcmp(value, "1");
++}
++static uint64_t ios_vk_diag_start(void)
++{
++    pthread_once(&diag_once, ios_vk_diag_init);
++    return diag_enabled ? ios_vk_now() : 0;
++}
++static void ios_vk_diag_end(enum diag_operation operation, uint64_t start)
++{
++    if (!start) return;
++    atomic_fetch_add_explicit(&diag_times[operation].ns, ios_vk_now() - start, memory_order_relaxed);
++    atomic_fetch_add_explicit(&diag_times[operation].calls, 1, memory_order_relaxed);
++}
++static void ios_vk_diag_report(void)
++{
++    static const char *names[] = { "acquire", "submit", "present", "fence", "semaphore", "queueIdle", "deviceIdle" };
++    unsigned long long presents = atomic_fetch_add_explicit(&diag_present_count, 1, memory_order_relaxed) + 1;
++    if (presents % 120) return;
++    char line[1024];
++    int used = snprintf(line, sizeof(line), "[mewgenics-vk-timing] presents=%llu timeNs=%llu cumulativeCalls/elapsedMs", presents,
++                        (unsigned long long)ios_vk_now());
++    for (unsigned i = 0; i < DIAG_COUNT; ++i) {
++        unsigned long long calls = atomic_load_explicit(&diag_times[i].calls, memory_order_relaxed);
++        unsigned long long ns = atomic_load_explicit(&diag_times[i].ns, memory_order_relaxed);
++        used += snprintf(line + used, sizeof(line) - used, " %s=%llu/%.3fms", names[i], calls, ns / 1e6);
++    }
++    fprintf(stderr, "%s\n", line);
++}
++static VkResult ios_vk_image(VkDevice d, const VkImageCreateInfo *info,
++                             const VkAllocationCallbacks *allocator, VkImage *image)
++{
++    uint64_t start = ios_vk_diag_start();
++    VkResult result = vkCreateImage(d, info, allocator, image);
++    if (start && (info->usage & (VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT)))
++        fprintf(stderr, "[mewgenics-vk-target] presents=%llu timeNs=%llu device=%p image=%#llx extent=%ux%ux%u format=%u samples=%u usage=%#x flags=%#x mips=%u layers=%u result=%d\n",
++                atomic_load_explicit(&diag_present_count, memory_order_relaxed), (unsigned long long)start,
++                d, result == VK_SUCCESS ? (unsigned long long)(uintptr_t)*image : 0,
++                info->extent.width, info->extent.height, info->extent.depth, info->format,
++                info->samples, info->usage, info->flags, info->mipLevels, info->arrayLayers, result);
++    return result;
++}
++static VkResult ios_vk_wait_fences(VkDevice d, uint32_t count, const VkFence *fences, VkBool32 all, uint64_t timeout)
++{
++    uint64_t start = ios_vk_diag_start();
++    VkResult result = vkWaitForFences(d, count, fences, all, timeout);
++    ios_vk_diag_end(DIAG_FENCE, start);
++    return result;
++}
++static VkResult ios_vk_wait_semaphores(VkDevice d, const VkSemaphoreWaitInfo *info, uint64_t timeout)
++{
++    uint64_t start = ios_vk_diag_start();
++    VkResult result = vkWaitSemaphores(d, info, timeout);
++    ios_vk_diag_end(DIAG_SEMAPHORE, start);
++    return result;
++}
++static VkResult ios_vk_queue_idle(VkQueue queue)
++{
++    uint64_t start = ios_vk_diag_start();
++    VkResult result = vkQueueWaitIdle(queue);
++    ios_vk_diag_end(DIAG_QUEUE_IDLE, start);
++    return result;
++}
++static VkResult ios_vk_device_idle(VkDevice device)
++{
++    uint64_t start = ios_vk_diag_start();
++    VkResult result = vkDeviceWaitIdle(device);
++    ios_vk_diag_end(DIAG_DEVICE_IDLE, start);
++    return result;
++}
++
++static VkResult ios_vk_swapchain(VkDevice d, const VkSwapchainCreateInfoKHR *info,
++                                 const VkAllocationCallbacks *allocator, VkSwapchainKHR *swapchain)
++{
++    VkSwapchainCreateInfoKHR paced = *info;
++    /* Pinned MoltenVK 1.4.2 advertises a 2..3 image range and sets the
++     * CAMetalLayer drawable pool to this count. Zink requests the minimum.
++     * With two images, one can be on screen while the other is pending
++     * display, blocking the next frame's render pass in nextDrawable.
++     * Keep every GPU fence/semaphore, but allow a third image for rendering.
++     * Leave other counts (including shared-present single-image mode) alone.
++     * The opt-out supports a controlled A/B without another native build. */
++    const char *images = getenv("MADEIRA_VULKAN_SWAPCHAIN_IMAGES");
++    int ordinary = paced.presentMode == VK_PRESENT_MODE_IMMEDIATE_KHR ||
++                   paced.presentMode == VK_PRESENT_MODE_MAILBOX_KHR ||
++                   paced.presentMode == VK_PRESENT_MODE_FIFO_KHR ||
++                   paced.presentMode == VK_PRESENT_MODE_FIFO_RELAXED_KHR;
++    if (ordinary && paced.minImageCount == 2 && (!images || strcmp(images, "2")))
++        paced.minImageCount = 3;
++    VkResult result = vkCreateSwapchainKHR(d, &paced, allocator, swapchain);
++    uint32_t actual = 0;
++    if (result == VK_SUCCESS)
++        vkGetSwapchainImagesKHR(d, *swapchain, &actual, NULL);
++    fprintf(stderr, "[mewgenics-swapchain] requested=%u chosen=%u actual=%u mode=%u extent=%ux%u result=%d\n",
++            info->minImageCount, paced.minImageCount, actual, paced.presentMode,
++            paced.imageExtent.width, paced.imageExtent.height, result);
++    return result;
++}
++
++static VkResult ios_vk_shader_module(VkDevice d, const VkShaderModuleCreateInfo *info,
++                                    const VkAllocationCallbacks *allocator, VkShaderModule *module)
++{
++    if (info->codeSize % sizeof(uint32_t)) return vkCreateShaderModule(d, info, allocator, module);
++    uint32_t *code = malloc(info->codeSize);
++    if (!code) return VK_ERROR_OUT_OF_HOST_MEMORY;
++    memcpy(code, info->pCode, info->codeSize);
++    size_t count = madeira_spirv_sanitize_names(code, info->codeSize / sizeof(uint32_t));
++    VkShaderModuleCreateInfo fixed = *info;
++    if (count && count * sizeof(uint32_t) != info->codeSize) {
++        fixed.pCode = code;
++        fixed.codeSize = count * sizeof(uint32_t);
++        fprintf(stderr, "[mewgenics-vulkan] removed reserved sampler debug name from SPIR-V\n");
++    }
++    VkResult result = vkCreateShaderModule(d, &fixed, allocator, module);
++    free(code);
++    return result;
++}
++
++/* iPadOS rejects GPU command buffers submitted after backgrounding. Drain
++ * work while resigning active, then park producers until the app resumes. */
++static pthread_mutex_t gpu_lock = PTHREAD_MUTEX_INITIALIZER;
++static pthread_cond_t gpu_active_cond = PTHREAD_COND_INITIALIZER;
++static int gpu_active = 1;
++static unsigned gpu_inflight;
++static VkDevice gpu_devices[16];
++void madeira_vulkan_set_active(int active)
++{
++    pthread_mutex_lock(&gpu_lock);
++    gpu_active = active;
++    if (active) pthread_cond_broadcast(&gpu_active_cond);
++    else {
++        while (gpu_inflight) pthread_cond_wait(&gpu_active_cond, &gpu_lock);
++        for (unsigned i = 0; i < 16; ++i)
++            if (gpu_devices[i]) vkDeviceWaitIdle(gpu_devices[i]);
++    }
++    fprintf(stderr, "[mewgenics-vulkan] active=%d inflight=%u\n", active, gpu_inflight);
++    pthread_mutex_unlock(&gpu_lock);
++}
++static void ios_vk_begin_work(void)
++{
++    pthread_mutex_lock(&gpu_lock);
++    while (!gpu_active) pthread_cond_wait(&gpu_active_cond, &gpu_lock);
++    ++gpu_inflight;
++    pthread_mutex_unlock(&gpu_lock);
++}
++static void ios_vk_end_work(void)
++{
++    pthread_mutex_lock(&gpu_lock);
++    if (!--gpu_inflight) pthread_cond_broadcast(&gpu_active_cond);
++    pthread_mutex_unlock(&gpu_lock);
++}
++static VkResult ios_vk_submit(VkQueue q, uint32_t n, const VkSubmitInfo *s, VkFence f)
++{
++    ios_vk_begin_work(); uint64_t start = ios_vk_diag_start();
++    VkResult r = vkQueueSubmit(q, n, s, f);
++    ios_vk_diag_end(DIAG_SUBMIT, start);
++    ios_vk_end_work(); return r;
++}
++static VkResult ios_vk_submit2(VkQueue q, uint32_t n, const VkSubmitInfo2 *s, VkFence f)
++{
++    ios_vk_begin_work(); uint64_t start = ios_vk_diag_start();
++    VkResult r = vkQueueSubmit2(q, n, s, f);
++    ios_vk_diag_end(DIAG_SUBMIT, start);
++    ios_vk_end_work(); return r;
++}
++static VkResult ios_vk_present(VkQueue q, const VkPresentInfoKHR *p)
++{
++    ios_vk_begin_work(); uint64_t start = ios_vk_diag_start();
++    VkResult r = vkQueuePresentKHR(q, p);
++    ios_vk_diag_end(DIAG_PRESENT, start);
++    ios_vk_end_work();
++    if (start) ios_vk_diag_report();
++    if (r != VK_SUCCESS) fprintf(stderr, "[mewgenics-vulkan] present result=%d\n", r);
++    return r;
++}
++static uint64_t ios_vk_now(void)
++{
++    struct timespec now;
++    clock_gettime(CLOCK_MONOTONIC, &now);
++    return (uint64_t)now.tv_sec * 1000000000ull + now.tv_nsec;
++}
++/* Acquiring an image may wait for another thread to submit/present. Never
++ * hold the submission mutex across that wait. Bounded waits also let the
++ * lifecycle drain finish when the app loses focus with no image available. */
++static VkResult ios_vk_acquire(VkDevice d, VkSwapchainKHR s, uint64_t t, VkSemaphore sem, VkFence f, uint32_t *i)
++{
++    uint64_t start = ios_vk_now(), remaining = t;
++    for (;;) {
++        ios_vk_begin_work();
++        uint64_t diag_start = ios_vk_diag_start();
++        VkResult r = vkAcquireNextImageKHR(d, s, remaining < 100000000ull ? remaining : 100000000ull, sem, f, i);
++        ios_vk_diag_end(DIAG_ACQUIRE, diag_start);
++        ios_vk_end_work();
++        if (r != VK_TIMEOUT || !t) return r;
++        if (t != UINT64_MAX) {
++            uint64_t elapsed = ios_vk_now() - start;
++            if (elapsed >= t) return VK_TIMEOUT;
++            remaining = t - elapsed;
++        }
++    }
++}
++static VkResult ios_vk_acquire2(VkDevice d, const VkAcquireNextImageInfoKHR *p, uint32_t *i)
++{
++    VkAcquireNextImageInfoKHR bounded = *p;
++    uint64_t start = ios_vk_now(), remaining = p->timeout;
++    for (;;) {
++        bounded.timeout = remaining < 100000000ull ? remaining : 100000000ull;
++        ios_vk_begin_work();
++        uint64_t diag_start = ios_vk_diag_start();
++        VkResult r = vkAcquireNextImage2KHR(d, &bounded, i);
++        ios_vk_diag_end(DIAG_ACQUIRE, diag_start);
++        ios_vk_end_work();
++        if (r != VK_TIMEOUT || !p->timeout) return r;
++        if (p->timeout != UINT64_MAX) {
++            uint64_t elapsed = ios_vk_now() - start;
++            if (elapsed >= p->timeout) return VK_TIMEOUT;
++            remaining = p->timeout - elapsed;
++        }
++    }
++}
++static void ios_vk_destroy_device(VkDevice d, const VkAllocationCallbacks *a)
++{
++    pthread_mutex_lock(&gpu_lock);
++    for (unsigned i = 0; i < 16; ++i) if (gpu_devices[i] == d) gpu_devices[i] = NULL;
++    vkDestroyDevice(d, a);
++    pthread_mutex_unlock(&gpu_lock);
++}
++static PFN_vkVoidFunction ios_vk_device_proc(VkDevice d, const char *name)
++{
++    pthread_mutex_lock(&gpu_lock);
++    unsigned i;
++    for (i = 0; i < 16; ++i) if (gpu_devices[i] == d) break;
++    if (i == 16) for (i = 0; i < 16; ++i) if (!gpu_devices[i]) { gpu_devices[i] = d; break; }
++    pthread_mutex_unlock(&gpu_lock);
++    PFN_vkVoidFunction p = vkGetDeviceProcAddr(d, name);
++    if (!p) return NULL;
++    if (!strcmp(name, "vkCreateSwapchainKHR")) return (PFN_vkVoidFunction)ios_vk_swapchain;
++    if (!strcmp(name, "vkCreateShaderModule")) return (PFN_vkVoidFunction)ios_vk_shader_module;
++    if (!strcmp(name, "vkCreateImage")) return (PFN_vkVoidFunction)ios_vk_image;
++    if (!strcmp(name, "vkWaitForFences")) return (PFN_vkVoidFunction)ios_vk_wait_fences;
++    if (!strcmp(name, "vkWaitSemaphores") || !strcmp(name, "vkWaitSemaphoresKHR")) return (PFN_vkVoidFunction)ios_vk_wait_semaphores;
++    if (!strcmp(name, "vkQueueWaitIdle")) return (PFN_vkVoidFunction)ios_vk_queue_idle;
++    if (!strcmp(name, "vkDeviceWaitIdle")) return (PFN_vkVoidFunction)ios_vk_device_idle;
++    if (!strcmp(name, "vkDestroyDevice")) return (PFN_vkVoidFunction)ios_vk_destroy_device;
++    if (!strcmp(name, "vkQueueSubmit")) return (PFN_vkVoidFunction)ios_vk_submit;
++    if (!strcmp(name, "vkQueueSubmit2") || !strcmp(name, "vkQueueSubmit2KHR")) return (PFN_vkVoidFunction)ios_vk_submit2;
++    if (!strcmp(name, "vkQueuePresentKHR")) return (PFN_vkVoidFunction)ios_vk_present;
++    if (!strcmp(name, "vkAcquireNextImageKHR")) return (PFN_vkVoidFunction)ios_vk_acquire;
++    if (!strcmp(name, "vkAcquireNextImage2KHR")) return (PFN_vkVoidFunction)ios_vk_acquire2;
++    return p;
++}
++static PFN_vkVoidFunction ios_vk_instance_proc(VkInstance instance, const char *name)
++{
++    if (!strcmp(name, "vkGetDeviceProcAddr")) return (PFN_vkVoidFunction)ios_vk_device_proc;
++    return vkGetInstanceProcAddr(instance, name);
++}
++
++static void *ios_vk_open(const char *name, int flags)
++{
++    if (!strcmp(name, "madeira-static-moltenvk")) return RTLD_DEFAULT;
++    return dlopen(name, flags);
++}
++static void *ios_vk_symbol(void *handle, const char *name)
++{
++    if (handle == RTLD_DEFAULT) {
++        if (!strcmp(name, "vkGetInstanceProcAddr")) return (void *)ios_vk_instance_proc;
++        if (!strcmp(name, "vkGetDeviceProcAddr")) return (void *)ios_vk_device_proc;
++    }
++    return dlsym(handle, name);
++}
++static int ios_vk_close(void *handle)
++{
++    return handle == RTLD_DEFAULT ? 0 : dlclose(handle);
++}
++#define SONAME_LIBVULKAN "madeira-static-moltenvk"
++#define dlopen ios_vk_open
++#define dlsym ios_vk_symbol
++#define dlclose ios_vk_close
++#include "../../wine/dlls/win32u/vulkan.c"
++#undef dlopen
++#undef dlsym
++#undef dlclose
++
++extern void *winios_vulkan_layer_for_hwnd(void *hwnd);
++extern void winios_gpu_present(void *hwnd);
++
++static void ios_vk_client_destroy(struct client_surface *client) { }
++static void ios_vk_client_detach(struct client_surface *client) { }
++static void ios_vk_client_update(struct client_surface *client) { }
++static void ios_vk_client_present(struct client_surface *client, HDC hdc)
++{
++    winios_gpu_present(client->hwnd);
++}
++static const struct client_surface_funcs ios_vk_client_funcs = {
++    ios_vk_client_destroy, ios_vk_client_detach, ios_vk_client_update, ios_vk_client_present
++};
++
++static VkResult ios_vk_surface_create(HWND hwnd, const struct vulkan_instance *instance,
++                                     VkSurfaceKHR *surface, struct client_surface **client)
++{
++    void *layer = winios_vulkan_layer_for_hwnd(hwnd);
++    if (!layer || !instance->p_vkCreateMetalSurfaceEXT) return VK_ERROR_INCOMPATIBLE_DRIVER;
++    *client = client_surface_create(sizeof(**client), &ios_vk_client_funcs, hwnd);
++    if (!*client) return VK_ERROR_OUT_OF_HOST_MEMORY;
++    VkMetalSurfaceCreateInfoEXT info = {
++        .sType = VK_STRUCTURE_TYPE_METAL_SURFACE_CREATE_INFO_EXT,
++        .pLayer = layer,
++    };
++    VkResult result = instance->p_vkCreateMetalSurfaceEXT(instance->host.instance, &info, NULL, surface);
++    if (result != VK_SUCCESS) { client_surface_release(*client); *client = NULL; }
++    fprintf(stderr, "[mewgenics-vulkan] Metal surface hwnd=%p result=%d\n", hwnd, result);
++    return result;
++}
++static VkBool32 ios_vk_presentation_support(struct vulkan_physical_device *device, uint32_t queue)
++{
++    return VK_TRUE;
++}
++static void ios_vk_instance_extensions(struct vulkan_instance_extensions *ext)
++{
++    if (ext->has_VK_KHR_win32_surface) ext->has_VK_EXT_metal_surface = 1;
++    if (ext->has_VK_EXT_metal_surface) ext->has_VK_KHR_win32_surface = 1;
++}
++static void ios_vk_device_extensions(struct vulkan_device_extensions *ext)
++{
++    /* The Windows Zink build lacks its compile-time MoltenVK guard for
++     * host copies of depth/stencil images. Use its staging-buffer path. */
++    ext->has_VK_EXT_host_image_copy = 0;
++}
++static const struct vulkan_driver_funcs ios_vk_driver = {
++    .p_vulkan_surface_create = ios_vk_surface_create,
++    .p_get_physical_device_presentation_support = ios_vk_presentation_support,
++    .p_map_instance_extensions = ios_vk_instance_extensions,
++    .p_map_device_extensions = ios_vk_device_extensions,
++};
++UINT winios_VulkanInit(UINT version, void *handle, const struct vulkan_driver_funcs **funcs)
++{
++    if (version != WINE_VULKAN_DRIVER_VERSION) return STATUS_INVALID_PARAMETER;
++    *funcs = &ios_vk_driver;
++    return STATUS_SUCCESS;
++}
+diff --git a/build/wineserver/build.sh b/build/wineserver/build.sh
+index 2c55a25..a542645 100755
+--- a/build/wineserver/build.sh
++++ b/build/wineserver/build.sh
+@@ -12,16 +12,6 @@ SHIMS_DIR="$REPO_ROOT/build/ntdll-unix/shims"
+ OBJ_DIR="$BUILD_DIR/obj"
+ mkdir -p "$OBJ_DIR"
+ 
+-# Copy the base library if we don't have one yet
+-if [ ! -f "$OBJ_DIR/libwineserver.a" ]; then
+-    if [ -f "$APP_LIB" ]; then
+-        cp "$APP_LIB" "$OBJ_DIR/libwineserver.a"
+-    else
+-        echo "ERROR: No base libwineserver.a found"
+-        exit 1
+-    fi
+-fi
+-
+ CC_FLAGS=(
+     -arch arm64 -isysroot "$SDK" -miphoneos-version-min=17.0 -O2
+     -I"$WINE_SRC/include" -I"$WINE_SRC/include/wine"
+@@ -108,6 +98,24 @@ PATCHED_FILES=(
+     "sock:$WINE_SRC/server/sock.c:sock.o"
+ )
+ 
++# A clean checkout has no base archive. Compile all unmodified server sources
++# from the pinned Wine tree; the platform replacements below supply the rest.
++if [ ! -f "$OBJ_DIR/libwineserver.a" ]; then
++    echo "=== Building base wineserver from source ==="
++    BASE_OBJECTS=()
++    for src in "$WINE_SRC/server/"*.c; do
++        old_obj="$(basename "${src%.c}").o"
++        replaced=0
++        for entry in "${PATCHED_FILES[@]}"; do
++            if [ "${entry##*:}" = "$old_obj" ]; then replaced=1; break; fi
++        done
++        [ "$replaced" = 1 ] && continue
++        compile_one "$src" "${old_obj%.o}"
++        BASE_OBJECTS+=("$OBJ_DIR/$old_obj")
++    done
++    ar rcs "$OBJ_DIR/libwineserver.a" "${BASE_OBJECTS[@]}"
++fi
++
+ echo "=== Building kill wrapper (without kill macro) ==="
+ echo -n "  wineserver_ios_kill... "
+ # Compile WITHOUT -include wineserver_ios_kill.h to avoid recursive macro

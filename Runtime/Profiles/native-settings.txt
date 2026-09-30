@@ -1,0 +1,11 @@
+# Game settings for the Zink/MoltenVK renderer. Merge into settings.txt;
+# retain saves and unrelated user preferences. Guest display dimensions
+# come from UIScreen.nativeBounds, not a hard-coded iPad model.
+antialias 0
+render_scale 1
+noise_and_grain none
+vignette_flicker none
+vsync false
+unlock_framerate true
+update_rate 60
+framerate_cap 120

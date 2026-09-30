@@ -1,0 +1,148 @@
+diff --git a/dlls/ntdll/unix/file.c b/dlls/ntdll/unix/file.c
+index b2f445e0..376e4e8a 100644
+--- a/dlls/ntdll/unix/file.c
++++ b/dlls/ntdll/unix/file.c
+@@ -2989,8 +2989,14 @@ NTSTATUS WINAPI NtQueryDirectoryFile( HANDLE handle, HANDLE event, PIO_APC_ROUTI
+  * The file found is appended to unix_name at pos.
+  * There must be at least MAX_DIR_ENTRY_LEN+2 chars available at pos.
+  */
++struct file_lookup_dir
++{
++    DIR *dir;
++    int case_sensitive;
++};
++
+ static NTSTATUS find_file_in_dir( int root_fd, char *unix_name, int pos, const WCHAR *name, int length,
+-                                  BOOLEAN check_case )
++                                  BOOLEAN check_case, struct file_lookup_dir *lookup )
+ {
+     WCHAR buffer[MAX_DIR_ENTRY_LEN];
+     BOOLEAN is_name_8_dot_3;
+@@ -3020,7 +3026,12 @@ static NTSTATUS find_file_in_dir( int root_fd, char *unix_name, int pos, const W
+     is_name_8_dot_3 = is_name_8_dot_3 && length >= 8 && name[4] == '~';
+ #endif
+ 
+-    if (!is_name_8_dot_3 && !get_dir_case_sensitivity( root_fd, unix_name )) goto not_found;
++    if (!is_name_8_dot_3)
++    {
++        if (lookup->case_sensitive == -1)
++            lookup->case_sensitive = get_dir_case_sensitivity( root_fd, unix_name );
++        if (!lookup->case_sensitive) goto not_found;
++    }
+ 
+     /* now look for it through the directory */
+ 
+@@ -3072,11 +3083,16 @@ static NTSTATUS find_file_in_dir( int root_fd, char *unix_name, int pos, const W
+     }
+ #endif /* VFAT_IOCTL_READDIR_BOTH */
+ 
+-    if ((fd = openat( root_fd, unix_name, O_RDONLY )) == -1) return errno_to_status( errno );
+-    if (!(dir = fdopendir( fd )))
++    if ((dir = lookup->dir)) rewinddir( dir );
++    else
+     {
+-        close( fd );
+-        return errno_to_status( errno );
++        if ((fd = openat( root_fd, unix_name, O_RDONLY )) == -1) return errno_to_status( errno );
++        if (!(dir = fdopendir( fd )))
++        {
++            close( fd );
++            return errno_to_status( errno );
++        }
++        lookup->dir = dir;
+     }
+ 
+     unix_name[pos - 1] = '/';
+@@ -3086,7 +3102,6 @@ static NTSTATUS find_file_in_dir( int root_fd, char *unix_name, int pos, const W
+         if (ret == length && !wcsnicmp( buffer, name, ret ))
+         {
+             strcpy( unix_name + pos, de->d_name );
+-            closedir( dir );
+             return STATUS_SUCCESS;
+         }
+ 
+@@ -3099,13 +3114,10 @@ static NTSTATUS find_file_in_dir( int root_fd, char *unix_name, int pos, const W
+             if (ret == length && !wcsnicmp( short_nameW, name, length ))
+             {
+                 strcpy( unix_name + pos, de->d_name );
+-                closedir( dir );
+                 return STATUS_SUCCESS;
+             }
+         }
+     }
+-    closedir( dir );
+-
+ not_found:
+     unix_name[pos - 1] = 0;
+     return STATUS_OBJECT_NAME_NOT_FOUND;
+@@ -3613,6 +3625,25 @@ static NTSTATUS lookup_unix_name( int root_fd, OBJECT_ATTRIBUTES *attr, UNICODE_
+             if (disposition == FILE_CREATE) return STATUS_OBJECT_NAME_COLLISION;
+             return STATUS_SUCCESS;
+         }
++
++        /* A missing leaf need not make us resolve every existing parent again.
++         * Keep the normal leaf lookup below, including case-insensitive and
++         * reparse-point handling; neither names nor lookup results are cached.
++         * Unix names and trailing separators retain the original path. */
++        for (end = name + name_len; end > name && end[-1] != '\\'; end--) {}
++        if (!is_unix && end > name && end < name + name_len)
++        {
++            p = strrchr( unix_name + pos, '/' );
++            *p = 0;
++            if (!fstatat( root_fd, unix_name, &st, 0 ) && S_ISDIR( st.st_mode ))
++            {
++                nt_pos += end - name;
++                name_len -= end - name;
++                name = end;
++                pos = p - unix_name;
++            }
++            *p = '/';
++        }
+     }
+ 
+     if (!name_len)  /* empty name -> drive root doesn't exist */
+@@ -3626,6 +3657,10 @@ static NTSTATUS lookup_unix_name( int root_fd, OBJECT_ATTRIBUTES *attr, UNICODE_
+     {
+         const WCHAR *end, *next;
+         WCHAR *reparse_name;
++        /* Reuse only this component's directory for its reparse alias. Exact
++         * probes stay fresh and the second scan starts again at the beginning.
++         * No directory or lookup result survives this component. */
++        struct file_lookup_dir lookup = { NULL, -1 };
+ 
+         end = name;
+         while (end < name + name_len && *end != '\\') end++;
+@@ -3643,7 +3678,7 @@ static NTSTATUS lookup_unix_name( int root_fd, OBJECT_ATTRIBUTES *attr, UNICODE_
+             unix_name = *buffer = new_name;
+         }
+ 
+-        status = find_file_in_dir( root_fd, unix_name, pos, name, end - name, is_unix );
++        status = find_file_in_dir( root_fd, unix_name, pos, name, end - name, is_unix, &lookup );
+ 
+         /* try to resolve it as a reparse point */
+         if (status == STATUS_OBJECT_NAME_NOT_FOUND && (reparse_name = malloc( (end - name + 1) * sizeof(WCHAR) )))
+@@ -3655,13 +3690,14 @@ static NTSTATUS lookup_unix_name( int root_fd, OBJECT_ATTRIBUTES *attr, UNICODE_
+ 
+             if (!name_len && open_reparse)
+             {
+-                status = find_file_in_dir( root_fd, unix_name, pos, reparse_name, end - name + 1, is_unix );
++                status = find_file_in_dir( root_fd, unix_name, pos, reparse_name, end - name + 1, is_unix, &lookup );
+             }
+             else
+             {
+-                if (!find_file_in_dir( root_fd, unix_name, pos, reparse_name, end - name + 1, is_unix )
++                if (!find_file_in_dir( root_fd, unix_name, pos, reparse_name, end - name + 1, is_unix, &lookup )
+                     && (reparse_fd = openat( root_fd, unix_name, O_RDONLY )) >= 0)
+                 {
++                    if (lookup.dir) closedir( lookup.dir );
+                     status = resolve_reparse_point( reparse_fd, root_fd, attr, nt_name, nt_pos, next - name, buffer,
+                                                     unix_len, pos, disposition, open_reparse, is_unix, reparse_count );
+                     close( reparse_fd );
+@@ -3671,6 +3707,7 @@ static NTSTATUS lookup_unix_name( int root_fd, OBJECT_ATTRIBUTES *attr, UNICODE_
+             }
+             free( reparse_name );
+         }
++        if (lookup.dir) closedir( lookup.dir );
+ 
+         /* if this is the last element, not finding it is not necessarily fatal */
+         if (!name_len)
