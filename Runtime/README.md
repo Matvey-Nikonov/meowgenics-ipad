@@ -84,6 +84,43 @@ drive, confirm it is mounted before building. CMake build trees contain absolute
 reconfigured after relocation; do not simply reuse their cached paths.
 The workspace symlink must point to the relocated source directory.
 
+## Longer-session crashes
+
+On 2026-10-01, a later session crashed after about 58 minutes, with a responsive
+cursor and stopped game audio. The game wrote a crash marker, but the original
+runtime log was replaced by two short JIT handoff launches. That freeze's exact
+cause is still unconfirmed; the successful Rat Bomb retest did not establish
+long-session stability.
+
+The native monitor no longer calls the inherited orphan-lock heuristic. It
+mistook absent FEX-specific TEB markers for evidence that an ordinary game SRW
+lock had a dead owner. Normal game locks never publish those markers. It also
+counted each waiter as a separate observation, so three waiters could trigger a
+forced unlock during one sample. An extracted-source host reproducer confirmed
+that it released a lock while its real owner was still alive. An earlier
+startup log recorded this forced release of a Mewgenics lock shortly before a
+C++ exception. This is a concrete independent defect, but its role in the later
+freeze remains an inference.
+
+Recovery for a recorded FEX lock held by a confirmed dead Mach thread remains
+unchanged. The rebuilt native object references those recovery functions and
+does not reference the heuristic. Device validation over a longer session is
+pending.
+
+Logging retains four prior process logs: `Documents/madeira-log.prev.txt`,
+`madeira-log.prev2.txt`, `madeira-log.prev3.txt`, and `madeira-log.prev4.txt`.
+This preserves the failed game session through the JIT roundtrip. If a rename
+fails, startup appends to the current log instead of truncating it. Nine host
+assertions cover the handoff, archive order/count, and a failed move:
+
+```sh
+swiftc -parse-as-library -module-cache-path "$MEWGENICS_CACHE/clang-modules" \
+  .local/Madeira/app/Madeira/LogArchive.swift Tests/LogArchiveTests.swift \
+  -o "$MEWGENICS_CACHE/tmp/LogArchiveTests"
+"$MEWGENICS_CACHE/tmp/LogArchiveTests" \
+  "$MEWGENICS_CACHE/diagnostics/log-archive-$(date +%Y%m%d-%H%M%S)"
+```
+
 ## Compatibility changes
 
 - Madeira is pinned to `ee3d5c0223559abfc4b90cb99aab5dfadbc0bcc5`.

@@ -1,5 +1,5 @@
 diff --git a/app/Madeira.xcodeproj/project.pbxproj b/app/Madeira.xcodeproj/project.pbxproj
-index c90efd7..69f08a9 100644
+index c90efd7..7cd75c9 100644
 --- a/app/Madeira.xcodeproj/project.pbxproj
 +++ b/app/Madeira.xcodeproj/project.pbxproj
 @@ -7,6 +7,7 @@
@@ -10,7 +10,15 @@ index c90efd7..69f08a9 100644
  		A1000520 /* MadeiraDock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000520 /* MadeiraDock.swift */; };
  		A1000521 /* MadeiraDockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000521 /* MadeiraDockView.swift */; };
  		A1000650 /* DockStartScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000650 /* DockStartScreen.swift */; };
-@@ -116,6 +117,7 @@
+@@ -49,6 +50,7 @@
+ 		A1000001 /* MadeiraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001 /* MadeiraApp.swift */; };
+ 		A1000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000002 /* ContentView.swift */; };
+ 		A1000003 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000003 /* LogStore.swift */; };
++		A1000F30 /* LogArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000F30 /* LogArchive.swift */; };
+ 		A1000077 /* MadeiraConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000077 /* MadeiraConfig.swift */; };
+ 		A1000004 /* JITAllocator.c in Sources */ = {isa = PBXBuildFile; fileRef = A2000004 /* JITAllocator.c */; };
+ 		A1000005 /* EntitlementChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A200000A /* EntitlementChecker.swift */; };
+@@ -116,6 +118,7 @@
  /* End PBXBuildFile section */
  
  /* Begin PBXFileReference section */
@@ -18,7 +26,15 @@ index c90efd7..69f08a9 100644
  		A2000520 /* MadeiraDock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MadeiraDock.swift"; sourceTree = "<group>"; };
  		A2000521 /* MadeiraDockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MadeiraDockView.swift"; sourceTree = "<group>"; };
  		A2000650 /* DockStartScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DockStartScreen.swift"; sourceTree = "<group>"; };
-@@ -336,6 +338,7 @@
+@@ -161,6 +164,7 @@
+ 		A2000001 /* MadeiraApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadeiraApp.swift; sourceTree = "<group>"; };
+ 		A2000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+ 		A2000003 /* LogStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
++		A2000F30 /* LogArchive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogArchive.swift; sourceTree = "<group>"; };
+ 		A2000077 /* MadeiraConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MadeiraConfig.swift; sourceTree = "<group>"; };
+ 		A2000004 /* JITAllocator.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = JITAllocator.c; sourceTree = "<group>"; };
+ 		A2000005 /* JITAllocator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JITAllocator.h; sourceTree = "<group>"; };
+@@ -336,6 +340,7 @@
  				A2000518 /* SteamDevice.swift */,
  				A2000519 /* SteamLog.swift */,
  				A2000001 /* MadeiraApp.swift */,
@@ -26,7 +42,15 @@ index c90efd7..69f08a9 100644
  				A2000245 /* TouchGamepad.swift */,
  				A2000246 /* TouchControlPresets.swift */,
  				A2000244 /* Winios/WiniosGamepad.c */,
-@@ -491,6 +494,7 @@
+@@ -344,6 +349,7 @@
+ 				A2000243 /* GamepadInput.swift */,
+ 				A2000002 /* ContentView.swift */,
+ 				A2000003 /* LogStore.swift */,
++				A2000F30 /* LogArchive.swift */,
+ 				A2000077 /* MadeiraConfig.swift */,
+ 				A2000200 /* LogPattern.swift */,
+ 				A2000201 /* LogTail.swift */,
+@@ -491,6 +497,7 @@
  			buildActionMask = 2147483647;
  			files = (
  				A1000022 /* nls in Resources */,
@@ -34,7 +58,15 @@ index c90efd7..69f08a9 100644
  				A1000032 /* aarch64-windows in Resources */,
  				A10000F1 /* legal in Resources */,
  				A1000080 /* arm64ec-windows in Resources */,
-@@ -644,6 +648,7 @@
+@@ -576,6 +583,7 @@
+ 				A1000243 /* GamepadInput.swift in Sources */,
+ 				A1000002 /* ContentView.swift in Sources */,
+ 				A1000003 /* LogStore.swift in Sources */,
++				A1000F30 /* LogArchive.swift in Sources */,
+ 				A1000077 /* MadeiraConfig.swift in Sources */,
+ 				A1000200 /* LogPattern.swift in Sources */,
+ 				A1000201 /* LogTail.swift in Sources */,
+@@ -644,6 +652,7 @@
  				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
  				ENABLE_NS_ASSERTIONS = NO;
  				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -42,7 +74,7 @@ index c90efd7..69f08a9 100644
  				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
  				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
  				GCC_WARN_UNDECLARED_SELECTOR = YES;
-@@ -655,6 +660,7 @@
+@@ -655,6 +664,7 @@
  				MTL_FAST_MATH = YES;
  				SDKROOT = iphoneos;
  				SWIFT_COMPILATION_MODE = wholemodule;
@@ -50,7 +82,7 @@ index c90efd7..69f08a9 100644
  				VALIDATE_PRODUCT = YES;
  			};
  			name = Release;
-@@ -664,10 +670,11 @@
+@@ -664,10 +674,11 @@
  			buildSettings = {
  				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
  				CODE_SIGN_ENTITLEMENTS = Madeira/Madeira.entitlements;
@@ -63,7 +95,7 @@ index c90efd7..69f08a9 100644
  				GENERATE_INFOPLIST_FILE = NO;
  				HEADER_SEARCH_PATHS = (
  					"$(inherited)",
-@@ -699,15 +706,16 @@
+@@ -699,15 +710,16 @@
  					"$(SRCROOT)/Madeira",
  				);
  				MARKETING_VERSION = 0.1.0;
@@ -83,7 +115,7 @@ index c90efd7..69f08a9 100644
  			};
  			name = Debug;
  		};
-@@ -716,9 +724,11 @@
+@@ -716,9 +728,11 @@
  			buildSettings = {
  				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
  				CODE_SIGN_ENTITLEMENTS = Madeira/Madeira.entitlements;
@@ -96,7 +128,7 @@ index c90efd7..69f08a9 100644
  				GENERATE_INFOPLIST_FILE = NO;
  				HEADER_SEARCH_PATHS = (
  					"$(inherited)",
-@@ -750,14 +760,15 @@
+@@ -750,14 +764,15 @@
  					"$(SRCROOT)/Madeira",
  				);
  				MARKETING_VERSION = 0.1.0;
@@ -1185,8 +1217,42 @@ index bb15dcf..9d6aef8 100644
      }
  }
  
+diff --git a/app/Madeira/LogArchive.swift b/app/Madeira/LogArchive.swift
+new file mode 100644
+index 0000000..bc528cc
+--- /dev/null
++++ b/app/Madeira/LogArchive.swift
+@@ -0,0 +1,28 @@
++import Foundation
++
++/// Retain enough process logs to survive the app -> JIT helper -> app handoff.
++/// Rotation uses renames and does not read a potentially large session log.
++enum LogArchive {
++    static let previousCount = 4
++
++    static func previousURL(in directory: URL, generation: Int) -> URL {
++        precondition((1...previousCount).contains(generation))
++        let suffix = generation == 1 ? "prev" : "prev\(generation)"
++        return directory.appendingPathComponent("madeira-log.\(suffix).txt")
++    }
++
++    static func rotate(in directory: URL, fileManager: FileManager = .default) throws {
++        let current = directory.appendingPathComponent("madeira-log.txt")
++        guard fileManager.fileExists(atPath: current.path) else { return }
++        for generation in stride(from: previousCount, through: 1, by: -1) {
++            let source = generation == 1 ? current :
++                previousURL(in: directory, generation: generation - 1)
++            guard fileManager.fileExists(atPath: source.path) else { continue }
++            let destination = previousURL(in: directory, generation: generation)
++            if fileManager.fileExists(atPath: destination.path) {
++                try fileManager.removeItem(at: destination)
++            }
++            try fileManager.moveItem(at: source, to: destination)
++        }
++    }
++}
 diff --git a/app/Madeira/LogStore.swift b/app/Madeira/LogStore.swift
-index a8b4ce4..1fad0fa 100644
+index a8b4ce4..b67bb29 100644
 --- a/app/Madeira/LogStore.swift
 +++ b/app/Madeira/LogStore.swift
 @@ -29,8 +29,17 @@ final class LogStore: ObservableObject {
@@ -1208,7 +1274,41 @@ index a8b4ce4..1fad0fa 100644
          fputs("[ui-log-idle] display parsing suspended=\(suppress ? 1 : 0); file capture unchanged\n", stderr)
      }
  
-@@ -147,6 +156,9 @@ final class LogStore: ObservableObject {
+@@ -70,23 +79,17 @@ final class LogStore: ObservableObject {
+         let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+         logFileURL = docs.appendingPathComponent("madeira-log.txt")
+ 
+-        // ml601: ROTATE, don't destroy.
+-        //
+-        // This used to truncate unconditionally, so relaunching the app before
+-        // pulling wiped the previous run. That cost us the first run in which
+-        // Steam's Library view actually rendered content (2026-08-09) — a result
+-        // we had never seen before and could not get back. Runs here are
+-        // expensive and often not reproducible on demand, so the previous log is
+-        // worth one file's worth of disk.
+-        //
+-        // Pull the previous run with the usual devicectl command, substituting
+-        // Documents/madeira-log.prev.txt for Documents/madeira-log.txt.
+-        let prevLogURL = docs.appendingPathComponent("madeira-log.prev.txt")
+-        if FileManager.default.fileExists(atPath: logFileURL.path) {
+-            try? FileManager.default.removeItem(at: prevLogURL)
+-            try? FileManager.default.moveItem(at: logFileURL, to: prevLogURL)
++        // One JIT activation can create two short-lived app processes. Keep
++        // four generations so those launches cannot replace the failed game
++        // session's only log. If rotation fails, append rather than truncate.
++        do {
++            try LogArchive.rotate(in: docs)
++        } catch {
++            fputs("[log-archive] rotation failed; preserving current log: \(error)\n", stderr)
++        }
++        if !FileManager.default.fileExists(atPath: logFileURL.path) {
++            FileManager.default.createFile(atPath: logFileURL.path, contents: nil)
+         }
+-        try? "".write(to: logFileURL, atomically: true, encoding: .utf8)
+ 
+         // Start batch flush timer on main thread. Interval depends on uiPaused.
+         DispatchQueue.main.async {
+@@ -147,6 +150,9 @@ final class LogStore: ObservableObject {
  
          let now = Date()
          stateLock.lock()
@@ -1218,7 +1318,7 @@ index a8b4ce4..1fad0fa 100644
          if let idx = sigToIndex[sig] {
              pendingUpdates.append((idx, 1, raw, now))
          } else {
-@@ -194,6 +206,11 @@ final class LogStore: ObservableObject {
+@@ -194,6 +200,11 @@ final class LogStore: ObservableObject {
          DispatchQueue.main.async { [weak self] in
              guard let self = self else { return }
              self.flushTimer?.invalidate()
@@ -1230,7 +1330,7 @@ index a8b4ce4..1fad0fa 100644
              let interval = self.uiPaused ? self.slowFlushInterval : self.fastFlushInterval
              self.flushTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
                  self?.flushPending()
-@@ -206,6 +223,7 @@ final class LogStore: ObservableObject {
+@@ -206,6 +217,7 @@ final class LogStore: ObservableObject {
      private func flushPending() {
  
          stateLock.lock()
@@ -2397,6 +2497,70 @@ index e02a173..d245e02 100755
      "$OBJ_DIR/audio_null_ios.o" "$OBJ_DIR/madsync.o" "$OBJ_DIR/nsi_unixlib_ios.o" \
      "$OBJ_DIR/nsi_network_ios.o" "$OBJ_DIR/nsi_ndis.o" "$OBJ_DIR/nsi_ip.o" \
      "$OBJ_DIR/gnutls_symtab_ios.o" "$OBJ_DIR/ws2_32_unixlib.o" \
+diff --git a/build/ntdll-unix/signal_arm64_ios.c b/build/ntdll-unix/signal_arm64_ios.c
+index c12eba5..eeeca9d 100644
+--- a/build/ntdll-unix/signal_arm64_ios.c
++++ b/build/ntdll-unix/signal_arm64_ios.c
+@@ -964,53 +964,12 @@ void ios_pump_sample(void)
+ 
+     ios_alert_ring_dump();   /* ml439: static ring during a parked-stall = wakes dying PE-side */
+     ios_alert_waiter_dump(); /* ml440: name the lock the parked crowd is starving on */
+-    /* ml447: orphan-lock detector — collect live threads' TEB Instr[6]
+-     * CodeBufferWriteMutex stamps; a held-exclusive SRW with >=3 waiters that
+-     * NO live thread stamps (3 cycles running) has a vanished dead owner. */
+-    {
+-        extern void ios_orphan_check( const unsigned long long *live_stamps, int nstamps );
+-        unsigned long long stamps[64];
+-        int ns = 0, si;
+-        for (si = 0; si < count && ns < 64; si++)
+-        {
+-            struct thread_basic_info sbi;
+-            mach_msg_type_number_t scnt = THREAD_BASIC_INFO_COUNT;
+-            uint64_t stamp = 0;
+-            mach_vm_size_t sgot = 0;
+-            uintptr_t steb = ios_thread_registry[si].teb;
+-            if (!ios_thread_registry[si].mach_thread || !steb) continue;
+-            if (thread_info( ios_thread_registry[si].mach_thread, THREAD_BASIC_INFO,
+-                             (thread_info_t)&sbi, &scnt ) != KERN_SUCCESS) continue;
+-            if (mach_vm_read_overwrite( mach_task_self(), (mach_vm_address_t)(steb + 0x16e8), 8,
+-                                        (mach_vm_address_t)&stamp, &sgot ) != KERN_SUCCESS || sgot != 8) continue;
+-            if (stamp)
+-            {
+-                /* ml448: NAME the live S-holder — ml447 run showed the orphan
+-                 * detector correctly silent (holder alive+stamped) while the
+-                 * whole world queued behind S; this line is the only view of
+-                 * who owns it and pairs with its thread-stacks/census rows. */
+-                uint32_t stid = 0;
+-                mach_vm_read_overwrite( mach_task_self(), (mach_vm_address_t)(steb + 0x48), 4,
+-                                        (mach_vm_address_t)&stid, &sgot );
+-                dprintf(2, "[stamp-set] LIVE S-holder tid=%04x teb=0x%llx mutex=0x%llx rev=ml448\n",
+-                        stid, (unsigned long long)steb, (unsigned long long)stamp);
+-                stamps[ns++] = stamp;
+-            }
+-            /* ml468: the ml467 false orphan was a FEX lock whose LIVE holder
+-             * stamps Instrumentation[8] (fexlock, TEB+0x16f8), not [6] — feed
+-             * those stamps into the same live set so ios_orphan_check never
+-             * strikes a lock a running thread admits to holding. */
+-            if (ns < 64)
+-            {
+-                uint64_t fstamp = 0;
+-                if (mach_vm_read_overwrite( mach_task_self(), (mach_vm_address_t)(steb + 0x16f8), 8,
+-                                            (mach_vm_address_t)&fstamp, &sgot ) == KERN_SUCCESS
+-                    && sgot == 8 && fstamp)
+-                    stamps[ns++] = fstamp;
+-            }
+-        }
+-        ios_orphan_check( stamps, ns );
+-    }
++    /* Do not infer a dead owner from absent FEX lock stamps. Ordinary game
++     * SRW locks never publish those stamps, and counting each parked waiter
++     * as a separate "cycle" could release a live game lock in one sample.
++     * The dead-port census above still recovers recorded FEX holds only after
++     * the owning Mach thread is gone and its TEB is not in use by a live thread.
++     */
+     ios_lock_census();
+     if (samples >= 120) return;
+     /* discover beacon TEBs (ml399: server thread and pump can differ) */
 diff --git a/build/ntdll-unix/virtual_ios.c b/build/ntdll-unix/virtual_ios.c
 index 57f5bf7..491a61a 100644
 --- a/build/ntdll-unix/virtual_ios.c
